@@ -3,7 +3,7 @@
  * @constructor
  */
  
-var degToRad = Math.PI / 180.0;
+var DEGREE_TO_RAD = Math.PI / 180;
 
  function MyCylinder(scene, slices, stacks) {
  	CGFobject.call(this,scene);
@@ -32,7 +32,7 @@ var degToRad = Math.PI / 180.0;
 	this.indices = [];
 	this.texCoords = [];
 
-	var anguloFatia = 360/this.slices * degToRad; 
+	var anguloFatia = 360/this.slices * DEGREE_TO_RAD; 
 
 
 	var x1,y1,z1,x2,y2,z2;
@@ -162,7 +162,7 @@ var degToRad = Math.PI / 180.0;
 // 	this.vertices = [];
 // 	this.normals = [];
 // 	this.indices = [];
-// 	var anguloFatia = 360/this.slices * degToRad;
+// 	var anguloFatia = 360/this.slices * DEGREE_TO_RAD;
 
 // // 	this.vertices.push(0.0);
 // // 	this.vertices.push(0.0);

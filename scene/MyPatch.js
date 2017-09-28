@@ -1,11 +1,11 @@
 /**
- * MyCylinder
+ * Patch
  * @constructor
  */
  
-var degToRad = Math.PI / 180.0;
+var DEGREE_TO_RAD = Math.PI / 180;
 
- function MyCylinder(scene, slices, stacks) {
+ function Patch(scene, slices, stacks) {
  	CGFobject.call(this,scene);
 	
 	this.slices = slices;
@@ -14,10 +14,10 @@ var degToRad = Math.PI / 180.0;
  	this.initBuffers();
  };
 
- MyCylinder.prototype = Object.create(CGFobject.prototype);
- MyCylinder.prototype.constructor = MyCylinder;
+ Patch.prototype = Object.create(CGFobject.prototype);
+ Patch.prototype.constructor = Patch;
 
- MyCylinder.prototype.initBuffers = function() {
+ Patch.prototype.initBuffers = function() {
  	/*
  	* TODO:
  	* Replace the following lines in order to build a prism with a **single mesh**.
