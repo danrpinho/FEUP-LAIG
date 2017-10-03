@@ -28,7 +28,7 @@
 
  MyCylinder.prototype = Object.create(CGFobject.prototype);
 
- MyCylinder.prototype.constructor = MyPrism;
+ MyCylinder.prototype.constructor = MyCylinder;
 
 
 
