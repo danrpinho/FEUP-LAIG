@@ -9,12 +9,16 @@
 // 	this.initBuffers();
 // };
 
-function MyQuad(scene, x1, y1, x2, y2){
+function MyQuad(scene, x1, y1, x2, y2, ampFactor){
 	CGFobject.call(this,scene);
+	
+	var deltaX = x2-x1;
+	var deltaY = y1-y2;
+	
 	this.minS = 0;
 	this.minT = 0;
-	this.maxS = 1;
-	this.maxT = 1;
+	this.maxS = deltaX/ampFactor;
+	this.maxT = deltaY/ampFactor;
 
 	this.initBuffers2(x1,y1,x2,y2);
 };
