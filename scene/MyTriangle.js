@@ -7,12 +7,28 @@
 function MyTriangle(scene, x1, y1, z1, x2, y2, z2, x3, y3, z3, ampFactor) {
 	CGFobject.call(this, scene);
 
+	//calcular produto escalar para obter o angulo no ponto 1
+	var a = x2 - x1;
+	var b = y2 - y1;
+	var c = z2 - z1;
+	var d = x3 - x1;
+	var e = y3 - y1;
+	var f = z3 - z1;
+	var prodEscalar = a*d+b*e+c*f;
+
+	//calcular comprimentos dos lados que saem do ponto 1
 	var length = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1) + (z2-z1)*(z2-z1));
+	var length13 = Math.sqrt((x3-x1)*(x3-x1) + (y3-y1)*(y3-y1) + (z3-z1)*(z3-z1));
+	var cosAng = prodEscalar/(length*length13);
+
+	//calcular altura do triangulo a partir das medidas obtidas anteriormente 
+	//(height = length13*sin(ang))
+	var height = length13 * Math.sqrt(1-(cosAng*cosAng));
 
 	this.minS = 0;
 	this.minT = 0;
 	this.maxS = length/ampFactor;
-	// this.maxT = 1;
+	this.maxT = height/ampFactor;
 
 	this.initBuffers2(x1, y1, z1, x2, y2, z2, x3, y3, z3);
 };
