@@ -66,34 +66,19 @@
 
  			this.vertices.push(vz);
 
- 			var vnextx=radius*Math.cos(((i+1)%this.slices)*teta);
-
- 			var vnexty=radius*Math.sin(((i+1)%this.slices)*teta);
-
- 			var vnextz=h;
-
- 			var vaboveradius=((j+1)/(this.stacks))*(this.tradius-this.bradius)+this.bradius;
-
- 			var vabovex=vaboveradius*Math.cos(i*teta);
-
- 			var vabovey=vaboveradius*Math.sin(i*teta);
-
- 			var vabovez=this.height*(j+1)/this.stacks;
+ 			
 			
-			var v1x=vx-vnextx;
-			var v1y=vy-vnexty;
-			var v1z=vz-vnextz;
-			
-			var v2x=vx-vabovex;
-			var v2y=vy-vabovey;
-			var v2z=vz-vabovez;
-			
-			
- 			this.normals.push(v1y*v2z-v2y*v1z);
+ 			this.normals.push(Math.cos(i*teta));
 
-			this.normals.push(v1z*v2x-v1x-v2z);
+ 			console.log(Math.cos(i*teta));
 
-			this.normals.push(v1x*v2y-v1y*v2x);
+			this.normals.push(Math.sin(i*teta));
+
+			console.log(Math.sin(i*teta));
+
+			this.normals.push((this.bradius-this.tradius)/this.height);
+
+			console.log((this.bradius-this.tradius)/this.height);
 
  		}
 

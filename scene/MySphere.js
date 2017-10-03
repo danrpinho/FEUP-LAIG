@@ -18,7 +18,7 @@
 
 	this.radius=radius;
 
-	this.sphere=new MySemiSphere(this.radius, this.slices, this.stacks);
+	this.sphere=new MySemiSphere(this.scene,this.radius, this.slices, this.stacks);
 
  };
 
@@ -32,7 +32,8 @@
 
  MySphere.prototype.display = function() {
 	this.sphere.display();
-	this.sphere.rotate(1,0,0,Math.PI);
+	this.scene.rotate(Math.PI, 1,0,0);
+	this.sphere.display();
  	    
 
  };
