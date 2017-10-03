@@ -79,21 +79,14 @@
  			var vabovey=vaboveradius*Math.sin(i*teta);
 
  			var vabovez=this.height*(j+1)/this.stacks;
-			
-			var v1x=vx-vnextx;
-			var v1y=vy-vnexty;
-			var v1z=vz-vnextz;
-			
-			var v2x=vx-vabovex;
-			var v2y=vy-vabovey;
-			var v2z=vz-vabovez;
-			
-			
- 			this.normals.push(v1y*v2z-v2y*v1z);
 
-			this.normals.push(v1z*v2x-v1x-v2z);
 
-			this.normals.push(v1x*v2y-v1y*v2x);
+
+ 			this.normals.push(Math.cos(i*teta));
+
+			this.normals.push(Math.sin(i*teta));
+
+			this.normals.push(0);
 
  		}
 
