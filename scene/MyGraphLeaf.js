@@ -3,7 +3,7 @@
  * @constructor
 **/
 
-function MyGraphLeaf(graph, type, args, ampFactor) {
+function MyGraphLeaf(graph, type, args) {
     this.graph = graph;
     var argArray = split(args);
 
