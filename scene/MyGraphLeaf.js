@@ -4,5 +4,6 @@
 **/
 
 function MyGraphLeaf(graph, xmlelem) {
+    
 }
 
