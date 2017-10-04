@@ -4,16 +4,16 @@
  * @constructor
  */
 
-function MyQuad(scene, x1, y1, x2, y2, ampFactor) {
+function MyQuad(scene, x1, y1, x2, y2) {
 	CGFobject.call(this, scene);
 
-	var deltaX = x2 - x1;
-	var deltaY = y1 - y2;
+	// var deltaX = x2 - x1;
+	// var deltaY = y1 - y2;
 
 	this.minS = 0;
 	this.minT = 0;
-	this.maxS = deltaX / ampFactor;
-	this.maxT = deltaY / ampFactor;
+	this.maxS = 1; //deltaX / ampFactor;
+	this.maxT = 1; //deltaY / ampFactor;
 
 	this.initBuffers2(x1, y1, x2, y2);
 };
