@@ -1423,6 +1423,23 @@ MySceneGraph.generateRandomString = function (length) {
  */
 MySceneGraph.prototype.displayScene = function () {
     // entry point for graph rendering
+    
+    //material and texture stack creation
+    this.textStack = [];
+    this.materStack = [];
+
+    console.log(this.nodes[this.idRoot]);
+
+    //this.textStack.push(this.nodes[this.idRoot])
+
+
     // remove log below to avoid performance issues
     this.log("Graph should be rendered here...");
+}
+
+MySceneGraph.prototype.processNode = function(node){
+    
+    
+
+
 }

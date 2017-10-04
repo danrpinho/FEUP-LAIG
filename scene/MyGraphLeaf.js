@@ -5,7 +5,7 @@
 
 function MyGraphLeaf(graph, type, args) {
     this.graph = graph;
-    var argArray = split(args);
+    var argArray = args.split('');
 
     switch (type) {
         case 'rectangle':   //4 arguments, coords of topleft and bottomright points in xy plane
@@ -19,12 +19,12 @@ function MyGraphLeaf(graph, type, args) {
             var x1 = parseFloat(argArray[0]);
             var y1 = parseFloat(argArray[1]);
             var z1 = parseFloat(argArray[2]);
-            var x1 = parseFloat(argArray[3]);
-            var y1 = parseFloat(argArray[4]);
-            var z1 = parseFloat(argArray[5]);
-            var x1 = parseFloat(argArray[6]);
-            var y1 = parseFloat(argArray[7]);
-            var z1 = parseFloat(argArray[8]);
+            var x2 = parseFloat(argArray[3]);
+            var y2 = parseFloat(argArray[4]);
+            var z2 = parseFloat(argArray[5]);
+            var x3 = parseFloat(argArray[6]);
+            var y3 = parseFloat(argArray[7]);
+            var z3 = parseFloat(argArray[8]);
             this.obj = new MyTriangle(this.graph.scene, x1, y1, z1, x2, y2, z2, x3, y3, z3);
             break;
         case 'cylinder':    //5 arguments, height, bottom and top raiduses, stacks and slices
