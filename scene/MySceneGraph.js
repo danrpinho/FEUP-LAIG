@@ -1423,7 +1423,7 @@ MySceneGraph.generateRandomString = function (length) {
  */
 MySceneGraph.prototype.displayScene = function () {
     // entry point for graph rendering
-    
+
     //material and texture stack creation
     this.textStack = [];
     this.materStack = [];
@@ -1456,8 +1456,10 @@ MySceneGraph.prototype.processNode = function(node){
     //ver texturas
     if (node.textureID == null){
         node.textureID = this.textStack[this.textStack.length - 1];
-    }
-    this.textStack.push(node.textureID);
+    } else if (node.textureID == 'clear')
+        node.textureID == null;
+    
+        this.textStack.push(node.textureID);
 
     console.log(node);
     console.log(node.leaves);
@@ -1467,8 +1469,16 @@ MySceneGraph.prototype.processNode = function(node){
         this.processNode(this.nodes[node.children[i]]);
     }
 
-    //mostrar folhas que sejam descendentes diretos
+        //mostrar folhas que sejam descendentes diretos
     for (var i = 0; i < node.leaves.length; i++){
+        //aplicar textura, material e transformacao
+        this.materials[this.materStack[this.materStack.length -1]].apply();
+        
+        var currText = this.textStack[this.textStack.length - 1];
+        if(currText != "null")
+            this.textures[currText].bind();
+        
+        //display
         node.leaves[i].obj.display();
     }
 
