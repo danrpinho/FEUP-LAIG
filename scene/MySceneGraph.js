@@ -1422,68 +1422,87 @@ MySceneGraph.generateRandomString = function (length) {
  * Displays the scene, processing each node, starting in the root node.
  */
 MySceneGraph.prototype.displayScene = function () {
-    // entry point for graph rendering
-
-    //material and texture stack creation
+    // material and texture stack creation, along with introducing root elements
     this.textStack = [];
     this.materStack = [];
 
-    // console.log(this.idRoot);
-    // console.log(this.nodes);
-    // console.log(this.nodes[this.idRoot]);
+    console.log(this.idRoot);
+    console.log(this.nodes[this.idRoot]);
+    console.log(this.materials);
 
-    this.textStack.push(this.nodes[this.idRoot].textureID);
-    this.materStack.push(this.nodes[this.idRoot].materialID);
+    this.scene.pushMatrix();
+    this.scene.multMatrix(this.nodes[this.idRoot].transformMatrix);
 
+    if (this.nodes[this.idRoot].materialID == null)
+        var rootMaterial = this.defaultMaterialID;
+    else
+       var rootMaterial = this.materials[this.nodes[this.idRoot].materialID];
+    
+    
+    if (this.nodes[this.idRoot].textureID == null)
+        var rootMaterial = null;
+    else
+    var rootTexture = this.textures[this.nodes[this.idRoot].textureID];
+
+    this.materStack.push(rootMaterial);
+    this.textStack.push(rootTexture);
+   
+    //recursive call to children
     for(var i = 0; i < this.nodes[this.idRoot].children.length; i++){
         var childID = this.nodes[this.idRoot].children[i];
-        // console.log(childID);
-        // console.log(this.nodes[childID]);
         this.processNode(this.nodes[childID]);
     }
 
+    this.scene.popMatrix();
     // remove log below to avoid performance issues
-    this.log("Graph should be rendered here...");
+    // this.log("Graph should be rendered here...");
 }
 
 MySceneGraph.prototype.processNode = function(node){
-    //ver materiais
-    if (node.materialID == null){
-        node.materialID = this.materStack[this.materStack.length - 1];
-    }
-    this.textStack.push(node.materialID);
-
-    //ver texturas
-    if (node.textureID == null){
-        node.textureID = this.textStack[this.textStack.length - 1];
-    } else if (node.textureID == 'clear')
-        node.textureID == null;
+    this.scene.pushMatrix();
+    this.scene.multMatrix(node.transformMatrix);
     
-        this.textStack.push(node.textureID);
+    //material handling
+    var currentMaterial; 
+    if (node.materialID == 'null')         //checks for parent
+        currentMaterial =  this.materStack[this.materStack.length - 1];
+    else
+        currentMaterial = this.materials[node.materialID];
+    this.materStack.push(currentMaterial);
 
-    console.log(node);
-    console.log(node.leaves);
+    //texture handling
+    var currentTexture = this.textStack[this.textStack.length - 1]; //parent texture
+    if (node.textureID != 'null'){
+        if (node.textureID = 'clear')
+            currentTexture = null;
+        else
+            currentTexture = this.textures[node.textureID];
+    }
+    this.textStack.push(currentTexture);
 
-    //chamada recursiva
+    //debug thing remove later
+    console.log(node.materialID);
+    console.log(node.textureID);
+
+    //recursive call for child intermediate nodes
     for (var i = 0; i < node.children.length; i++){
         this.processNode(this.nodes[node.children[i]]);
     }
 
-        //mostrar folhas que sejam descendentes diretos
+    //leaf handling
     for (var i = 0; i < node.leaves.length; i++){
-        //aplicar textura, material e transformacao
-        this.materials[this.materStack[this.materStack.length -1]].apply();
-        
-        var currText = this.textStack[this.textStack.length - 1];
-        if(currText != "null")
-            this.textures[currText].bind();
-        
-        //display
+        //material and texture application
+        currentMaterial.apply();
+        if (currentTexture != null)
+            currentTexture.bind();
+
+        //displaying dat thang
         node.leaves[i].obj.display();
+
     }
 
     //depois de percorrer os filhos todos, tratamento da pilha
     this.textStack.pop();
     this.materStack.pop();
-
+    this.scene.popMatrix();
 }
