@@ -1438,7 +1438,28 @@ MySceneGraph.prototype.displayScene = function () {
 }
 
 MySceneGraph.prototype.processNode = function(node){
+    //ver materiais
+    if (node.materialID == null){
+        node.materialID = this.materStack[this.materStack.length - 1];
+    }
+    this.textStack.push(node.materialID);
+
+    //ver texturas
+    if (node.textureID == null){
+        node.textureID = this.textStack[this.textStack.length - 1];
+    }
+    this.textStack.push(node.textureID);
+
+    //chamada recursiva
+    for (var i = 0; i < node.children.length; i++){
+        processNode(node.children[i]);
+    }
     
+    //depois de percorrer os filhos todos, tratamento da pilha
+    this.textStack.pop();
+    this.materStack.pop();
+
+    //display?
     
 
 
