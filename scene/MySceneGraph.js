@@ -1428,10 +1428,19 @@ MySceneGraph.prototype.displayScene = function () {
     this.textStack = [];
     this.materStack = [];
 
+    console.log(this.idRoot);
+    console.log(this.nodes);
     console.log(this.nodes[this.idRoot]);
 
-    //this.textStack.push(this.nodes[this.idRoot])
+    this.textStack.push(this.nodes[this.idRoot].textureID);
+    this.materStack.push(this.nodes[this.idRoot].materialID);
 
+    for(var i = 0; i < this.nodes[this.idRoot].children.length; i++){
+        var childID = this.nodes[this.idRoot].children[i];
+        // console.log(childID);
+        // console.log(this.nodes[childID]);
+        this.processNode(this.nodes[childID]);
+    }
 
     // remove log below to avoid performance issues
     this.log("Graph should be rendered here...");
@@ -1450,17 +1459,20 @@ MySceneGraph.prototype.processNode = function(node){
     }
     this.textStack.push(node.textureID);
 
+    console.log(node);
+
     //chamada recursiva
     for (var i = 0; i < node.children.length; i++){
-        processNode(node.children[i]);
+        this.processNode(this.nodes[node.children[i]]);
     }
-    
+
+    // //mostrar folhas que sejam descendentes diretos
+    // for (var i = 0; i < node.leaves.length; i++){
+    //     node.leaves[i].obj.display();
+    // }
+
     //depois de percorrer os filhos todos, tratamento da pilha
     this.textStack.pop();
     this.materStack.pop();
-
-    //display?
-    
-
 
 }

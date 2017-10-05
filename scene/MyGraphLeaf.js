@@ -44,3 +44,9 @@ function MyGraphLeaf(graph, type, args) {
     };
 
 }
+
+function setTexture(texture){
+    //criar cgfappearance
+    //pegar no material e na textura
+    //dar apply ao objeto
+}
