@@ -1428,9 +1428,9 @@ MySceneGraph.prototype.displayScene = function () {
     this.textStack = [];
     this.materStack = [];
 
-    console.log(this.idRoot);
-    console.log(this.nodes);
-    console.log(this.nodes[this.idRoot]);
+    // console.log(this.idRoot);
+    // console.log(this.nodes);
+    // console.log(this.nodes[this.idRoot]);
 
     this.textStack.push(this.nodes[this.idRoot].textureID);
     this.materStack.push(this.nodes[this.idRoot].materialID);
@@ -1460,16 +1460,17 @@ MySceneGraph.prototype.processNode = function(node){
     this.textStack.push(node.textureID);
 
     console.log(node);
+    console.log(node.leaves);
 
     //chamada recursiva
     for (var i = 0; i < node.children.length; i++){
         this.processNode(this.nodes[node.children[i]]);
     }
 
-    // //mostrar folhas que sejam descendentes diretos
-    // for (var i = 0; i < node.leaves.length; i++){
-    //     node.leaves[i].obj.display();
-    // }
+    //mostrar folhas que sejam descendentes diretos
+    for (var i = 0; i < node.leaves.length; i++){
+        node.leaves[i].obj.display();
+    }
 
     //depois de percorrer os filhos todos, tratamento da pilha
     this.textStack.pop();
