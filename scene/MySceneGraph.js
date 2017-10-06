@@ -1426,9 +1426,9 @@ MySceneGraph.prototype.displayScene = function () {
     this.textStack = [];
     this.materStack = [];
 
-    console.log(this.idRoot);
-    console.log(this.nodes[this.idRoot]);
-    console.log(this.materials);
+    // console.log(this.idRoot);
+    // console.log(this.nodes[this.idRoot]);
+    // console.log(this.materials);
 
     this.scene.pushMatrix();
     this.scene.multMatrix(this.nodes[this.idRoot].transformMatrix);
@@ -1481,8 +1481,8 @@ MySceneGraph.prototype.processNode = function(node){
     this.textStack.push(currentTexture);
 
     //debug thing remove later
-    console.log(node.materialID);
-    console.log(node.textureID);
+    // console.log(node.materialID);
+    // console.log(node.textureID);
 
     //recursive call for child intermediate nodes
     for (var i = 0; i < node.children.length; i++){
@@ -1496,7 +1496,8 @@ MySceneGraph.prototype.processNode = function(node){
         if (currentTexture != null)
             currentTexture.bind();
 
-        //displaying dat thang
+        console.log(node.leaves[i].obj);
+        //displaying primitives
         node.leaves[i].obj.display();
 
     }

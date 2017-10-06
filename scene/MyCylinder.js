@@ -1,42 +1,21 @@
 /**
-
  * MyCylinder
-
  * @constructor
-
  */
 
  function MyCylinder(scene, slices, stacks, bottomradius, topradius, height) {
-
  	CGFobject.call(this,scene);
-
-	
-
 	this.slices = slices;
-
 	this.stacks = stacks;
-
 	this.br=bottomradius;
-
 	this.tr=topradius;
-
 	this.height=height;
-
 	this.cs=new MyCylinderSurface(this.scene, this.slices, this.stacks, this.br, this.tr,this.height);
-
 	this.circle=new MyCircle(this.scene,this.slices);
-
-
-
  };
 
-
-
  MyCylinder.prototype = Object.create(CGFobject.prototype);
-
  MyCylinder.prototype.constructor = MyCylinder;
-
-
 
  MyCylinder.prototype.display = function() {
 	this.cs.display();
