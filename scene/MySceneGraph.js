@@ -1440,7 +1440,7 @@ MySceneGraph.prototype.displayScene = function () {
     
     
     if (this.nodes[this.idRoot].textureID == null)
-        var rootMaterial = null;
+        var rootTexture = null;
     else
     var rootTexture = this.textures[this.nodes[this.idRoot].textureID];
 
@@ -1496,7 +1496,7 @@ MySceneGraph.prototype.processNode = function(node){
         if (currentTexture != null)
             currentTexture.bind();
 
-        console.log(node.leaves[i].obj);
+       // console.log(node.leaves[i].obj);
         //displaying primitives
         node.leaves[i].obj.display();
 

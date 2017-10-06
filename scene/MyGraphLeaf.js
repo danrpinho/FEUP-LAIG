@@ -5,7 +5,7 @@
 
 function MyGraphLeaf(graph, type, args) {
     this.graph = graph;
-    var argArray = args.split('');
+    var argArray = args.split(' ');
 
     switch (type) {
         case 'rectangle':   //4 arguments, coords of topleft and bottomright points in xy plane
