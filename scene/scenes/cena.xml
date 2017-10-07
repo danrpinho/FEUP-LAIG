@@ -25,37 +25,36 @@
 
     <LIGHTS>
         <LIGHT id="light0">                                    
-        <enable value ="1" />                   	       
-        <position  x="0" y="10" z="0" w="1" />       	   
-        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />        	 
-        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
-        <specular r="1.0" g="1.0" b="1.0" a="1.0" />      
-    </LIGHT>
+            <enable value ="1" />                   	       
+            <position  x="0" y="10" z="0" w="1" />       	   
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />        	 
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />      
+        </LIGHT>
 	
-	<LIGHT id="light1">                                    
-        <enable value ="1" />                   	      
-        <position x="30" y="10" z="0" w="1" />       	   
-        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />       
-        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
-        <specular r="1.0" g="1.0" b="1.0" a="1.0" />       
-    </LIGHT>
+	    <LIGHT id="light1">                                    
+            <enable value ="1" />                   	      
+            <position x="30" y="10" z="0" w="1" />       	   
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />       
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />       
+        </LIGHT>
 	
-	<LIGHT id="light2">                                   
-        <enable value ="1" />                   	       
-        <position x="0" y="10" z="20" w="1" />       		   
-        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />      
-        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
-        <specular r="1.0" g="1.0" b="1.0" a="1.0" />       
-    </LIGHT>
+	    <LIGHT id="light2">                                   
+            <enable value ="1" />                   	       
+            <position x="0" y="10" z="20" w="1" />       		   
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />      
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />       
+        </LIGHT>
 
-    <LIGHT id="light3">                                   
-        <enable value ="1" />                   	       
-        <position x="30" y="10" z="20" w="1" />       			
-        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />           	
-        <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />       
-        <specular r="0.6" g="0.6" b="0.6" a="1.0" />      
-    </LIGHT>
-        <!-- NOTE: this block "LIGHT" must be repeated as necessary with different "id" -->
+        <LIGHT id="light3">                                   
+            <enable value ="1" />                   	       
+            <position x="30" y="10" z="20" w="1" />       			
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />           	
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />       
+            <specular r="0.6" g="0.6" b="0.6" a="1.0" />      
+        </LIGHT>
     </LIGHTS>
 
     <TEXTURES>
@@ -75,7 +74,10 @@
             <file path="images/darkfloor.png" />                
             <amplif_factor s="1" t="1" />                           
         </TEXTURE>
-        <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
+        <TEXTURE id="cement">
+            <file path="images/cement.jpg" />                
+            <amplif_factor s="1" t="1" />                           
+        </TEXTURE>
     </TEXTURES>
 
     <MATERIALS>
@@ -86,15 +88,10 @@
             <ambient r="0.4" g="0.4" b="0.4" a="1" />         
             <emission r="0.0" g="0.0" b="0.0" a="1" />        
         </MATERIAL>
-        <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material requires a distinct "id" -->
     </MATERIALS>
 
     <NODES>
         <ROOT id="root"/>
-        <!-- identifier of root node of the scene graph; this node -->
-        <!-- must be defined in one of the following NODE declarations -->
-        <!-- <SCALE sx="1" sy="1.25" sz="1" /> -->
-        <!-- PALCO E DEGRAUS -->
 
         <NODE id="root">
             <MATERIAL id="defaultMaterial" />
@@ -104,8 +101,11 @@
                 <NODEREF id="stage" />
                 <NODEREF id="steps" />
                 <NODEREF id="floor" />
-                <!-- <NODEREF id="backwall"> -->
-                <!-- <NODEREF id="sidewall"> -->
+                <NODEREF id="backwall" />
+                <NODEREF id="sidewall1" />
+                <NODEREF id="sidewall2" />
+                                <NODEREF id="curtains" />
+
             </DESCENDANTS>
         </NODE>
 
@@ -181,16 +181,99 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- CORTINAS -->
+        <NODE id="curtains">
+            <!-- third step -->
+            <MATERIAL id="null" />
+            <TEXTURE id="curtain" />
+            <TRANSLATION x="0" y="1" z="4.5" />
+            
+            <DESCENDANTS>
+                <NODEREF id="curtainLeft" />
+                <NODEREF id="curtainRight" />
+            </DESCENDANTS>
+        </NODE>
+
+        <NODE id="curtainRight">
+            <!-- third step -->
+            <MATERIAL id="null" />
+            <TEXTURE id="null" />
+            <TRANSLATION x="8.5" y="0" z="0" />
+            
+            <DESCENDANTS>
+                <NODEREF id="curtain" />
+            </DESCENDANTS>
+        </NODE>
+
+        <NODE id="curtainLeft">
+            <!-- third step -->
+            <MATERIAL id="null" />
+            <TEXTURE id="null" />          
+            <DESCENDANTS>
+                <NODEREF id="curtain" />
+            </DESCENDANTS>
+        </NODE>
+
+
+        <NODE id="curtain">
+            <MATERIAL id="null" />
+            <TEXTURE id="null" />
+            <SCALE sx="1.5" sy="6" sz="0.1" />
+            <DESCENDANTS>
+                <!-- back faces are always covered up so it's not rendered -->
+                <NODEREF id="cubeFace1" />
+                <NODEREF id="cubeFace2" />
+                <NODEREF id="cubeFace3" />
+                <NODEREF id="cubeFace4" />
+                <NODEREF id="cubeFace5" />            
+            </DESCENDANTS>
+        </NODE>
+
         <!-- CHAO E PAREDES -->
         <NODE id="floor">      
             <MATERIAL id="null" />    
-            <TEXTURE id="darkwood" />       			
+            <TEXTURE id="darkfloor" />       			
 
             <TRANSLATION x="0" y="0" z="16" />
             <ROTATION axis="x" angle="-90" />
 
             <DESCENDANTS>
 					<LEAF  type="rectangle" args="0 16 10 0" />        
+			</DESCENDANTS>
+
+        </NODE>
+
+        <NODE id="backwall">      
+            <MATERIAL id="null" />    
+            <TEXTURE id="cement" /> 
+            <DESCENDANTS>
+					<LEAF  type="rectangle" args="0 7 10 0" />        
+			</DESCENDANTS>
+
+        </NODE>
+
+        <NODE id="sidewall1">      
+            <MATERIAL id="null" />    
+            <TEXTURE id="darkwood" />       			
+
+            <TRANSLATION x="0" y="0" z="16" />
+            <ROTATION axis="y" angle="90" />
+
+            <DESCENDANTS>
+					<LEAF  type="rectangle" args="0 7 11.5 0" />        
+			</DESCENDANTS>
+
+        </NODE>
+
+        <NODE id="sidewall2">      
+            <MATERIAL id="null" />    
+            <TEXTURE id="cement" />       			
+
+            <TRANSLATION x="0" y="0" z="4.5" />
+            <ROTATION axis="y" angle="90" />
+
+            <DESCENDANTS>
+					<LEAF  type="rectangle" args="0 7 4.5 0" />        
 			</DESCENDANTS>
 
         </NODE>
