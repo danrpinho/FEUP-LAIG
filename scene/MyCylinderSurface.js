@@ -39,11 +39,11 @@ MyCylinderSurface.prototype.initBuffers = function () {
 			this.vertices.push(vz);
 
 			this.normals.push(Math.cos(i * teta));
-			console.log(Math.cos(i * teta));
+			//console.log(Math.cos(i * teta));
 			this.normals.push(Math.sin(i * teta));
-			console.log(Math.sin(i * teta));
+			//console.log(Math.sin(i * teta));
 			this.normals.push((this.bradius - this.tradius) / this.height);
-			console.log((this.bradius - this.tradius) / this.height);
+			//console.log((this.bradius - this.tradius) / this.height);
 		}
 	}
 

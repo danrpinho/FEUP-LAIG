@@ -25,3 +25,6 @@ MySphere.prototype.display = function () {
 	this.sphere.display();
 	this.scene.popMatrix();
 };
+
+MyCylinder.prototype.amplifFactors = function(ampFactorS, ampFactorT){
+}

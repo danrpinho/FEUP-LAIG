@@ -30,3 +30,6 @@
 	this.circle.display();
 	this.scene.popMatrix();
  };
+
+ MyCylinder.prototype.amplifFactors = function(ampFactorS, ampFactorT){
+ }

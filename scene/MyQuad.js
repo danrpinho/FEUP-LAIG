@@ -56,3 +56,17 @@ MyQuad.prototype.initBuffers2 = function (x1, y1, x2, y2) {
 
 	this.initGLBuffers();
 };
+
+MyQuad.prototype.amplifFactors = function(ampFactorS, ampFactorT){
+	var deltaX = x2 - x1;
+	var deltaY = y1 - y2;
+
+	this.texCoords = [
+		0, deltaY / ampFactor,
+		deltaX / ampFactor, deltaY / ampFactor,
+		0, 0,
+		deltaX / ampFactor, 0
+	];
+
+	this.updateTexCoordsGLBuffers();
+}

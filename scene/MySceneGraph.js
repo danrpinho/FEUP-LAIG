@@ -1439,6 +1439,11 @@ MySceneGraph.prototype.displayScene = function () {
 MySceneGraph.prototype.processNode = function(node){
     this.scene.pushMatrix();
     this.scene.multMatrix(node.transformMatrix);
+
+    console.log(node);
+
+    // console.log(this.textStack);
+    // console.log(node.textureID);
     
     //material handling
     var currentMaterial; 
@@ -1450,8 +1455,8 @@ MySceneGraph.prototype.processNode = function(node){
 
     //texture handling
     var currentTexture = this.textStack[this.textStack.length - 1]; //parent texture
-    if (node.textureID != 'null'){
-        if (node.textureID = 'clear')
+    if (node.textureID != "null"){
+        if (node.textureID == "clear")
             currentTexture = null;
         else
             currentTexture = this.textures[node.textureID];
@@ -1468,7 +1473,7 @@ MySceneGraph.prototype.processNode = function(node){
         //material and texture application
         currentMaterial.apply();
         if (currentTexture != null)
-            currentTexture.bind();
+            currentTexture[0].bind();
 
         //displaying primitives
         node.leaves[i].obj.display();
