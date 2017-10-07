@@ -27,13 +27,15 @@ function MyGraphLeaf(graph, type, args) {
             var z3 = parseFloat(argArray[8]);
             this.obj = new MyTriangle(this.graph.scene, x1, y1, z1, x2, y2, z2, x3, y3, z3);
             break;
-        case 'cylinder':    //5 arguments, height, bottom and top raiduses, stacks and slices
+        case 'cylinder':    //7 arguments, height, bottom and top raiduses, stacks and slices, top cap and bottom cap
             var height = parseFloat(argArray[0]);
             var bottomRadius = parseFloat(argArray[1]);
             var topRadius = parseFloat(argArray[2]);
             var stacks = parseInt(argArray[3]);
             var slices = parseInt(argArray[4]);
-            this.obj = new MyCylinder(this.graph.scene, slices,stacks,bottomRadius,topRadius,height);
+            var topCap = parseInt(argArray[5]);
+            var botCap = parseInt(argArray[6]);
+            this.obj = new MyCylinder(this.graph.scene, slices,stacks,bottomRadius,topRadius,height,topCap,botCap);
             break;
         case 'sphere':      //3 arguments, radius, stacks and slices
             var radius = parseFloat(argArray[0]);   //raio
