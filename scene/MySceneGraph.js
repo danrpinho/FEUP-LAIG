@@ -1440,7 +1440,7 @@ MySceneGraph.prototype.processNode = function(node){
     this.scene.pushMatrix();
     this.scene.multMatrix(node.transformMatrix);
 
-    console.log(node);
+    //console.log(node);
 
     // console.log(this.textStack);
     // console.log(node.textureID);

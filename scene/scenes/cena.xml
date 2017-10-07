@@ -59,8 +59,20 @@
     </LIGHTS>
 
     <TEXTURES>
-        <TEXTURE id="rocks">
-            <file path="images/rocks.jpg" />                
+        <TEXTURE id="darkwood">
+            <file path="images/darkwood.jpg" />                
+            <amplif_factor s="1" t="1" />                           
+        </TEXTURE>
+        <TEXTURE id="lightwood">
+            <file path="images/stage.jpg" />                
+            <amplif_factor s="1" t="1" />                           
+        </TEXTURE>
+        <TEXTURE id="curtain">
+            <file path="images/curtain.jpg" />                
+            <amplif_factor s="1" t="1" />                           
+        </TEXTURE>
+        <TEXTURE id="darkfloor">
+            <file path="images/darkfloor.png" />                
             <amplif_factor s="1" t="1" />                           
         </TEXTURE>
         <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
@@ -87,32 +99,31 @@
         <NODE id="root">
             <MATERIAL id="defaultMaterial" />
             <TEXTURE id="clear" />
+
             <DESCENDANTS>
                 <NODEREF id="stage" />
                 <NODEREF id="steps" />
                 <NODEREF id="floor" />
+                <!-- <NODEREF id="backwall"> -->
+                <!-- <NODEREF id="sidewall"> -->
             </DESCENDANTS>
         </NODE>
 
+        <!-- STAGE AND STAIRS -->
         <NODE id="stage">
-            <!-- big rectangle -->
             <MATERIAL id="null" />
-            <TEXTURE id="null" />
+            <TEXTURE id="lightwood" />
             <SCALE sx="10" sy="1" sz="6" />
             <DESCENDANTS>
                 <NODEREF id="cubeFace1" />
                 <NODEREF id="cubeFace2" />
-                <!-- <NODEREF id="cubeFace3" /> -->
-                <!-- <NODEREF id="cubeFace4" /> -->
                 <NODEREF id="cubeFace5" />
-                <!-- <NODEREF id="cubeFace6" /> -->
             </DESCENDANTS>
         </NODE>
 
         <NODE id="steps">
-            <!-- stage access stairs -->
             <MATERIAL id="null" />
-            <TEXTURE id="null" />
+            <TEXTURE id="lightwood" />
             <TRANSLATION x="0" y="0" z="6" />
             <DESCENDANTS>
                 <NODEREF id="step1" />
@@ -125,8 +136,10 @@
             <!-- first step -->
             <MATERIAL id="null" />
             <TEXTURE id="null" />
-            <SCALE sx="1" sy="0.25" sz="0.25" />
+
             <TRANSLATION x="0" y="0" z="0.5" />
+            <SCALE sx="1" sy="0.25" sz="0.25" />
+            
             <DESCENDANTS>
                 <NODEREF id="step" />
             </DESCENDANTS>
@@ -136,8 +149,10 @@
             <!-- second step -->
             <MATERIAL id="null" />
             <TEXTURE id="null" />
-            <SCALE sx="1" sy="0.5" sz="0.25" />
+
             <TRANSLATION x="0" y="0" z="0.25" />
+            <SCALE sx="1" sy="0.5" sz="0.25" />
+
             <DESCENDANTS>
                 <NODEREF id="step" />
             </DESCENDANTS>
@@ -147,7 +162,9 @@
             <!-- third step -->
             <MATERIAL id="null" />
             <TEXTURE id="null" />
+
             <SCALE sx="1" sy="0.75" sz="0.25" />
+
             <DESCENDANTS>
                 <NODEREF id="step" />
             </DESCENDANTS>
@@ -164,10 +181,10 @@
             </DESCENDANTS>
         </NODE>
 
-        <!-- CHAO -->
+        <!-- CHAO E PAREDES -->
         <NODE id="floor">      
             <MATERIAL id="null" />    
-            <TEXTURE id="rocks" />       			
+            <TEXTURE id="darkwood" />       			
 
             <TRANSLATION x="0" y="0" z="16" />
             <ROTATION axis="x" angle="-90" />
@@ -176,7 +193,8 @@
 					<LEAF  type="rectangle" args="0 16 10 0" />        
 			</DESCENDANTS>
 
-            </NODE>
+        </NODE>
+
 
         <!-- FACES DO CUBO UNITARIO -->
         <!-- 1 - zpos, 2 - x pos, 3 - zneg, 4 - xneg, 5 - ypos, 6 - yneg-->
