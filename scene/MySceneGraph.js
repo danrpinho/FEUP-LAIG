@@ -1426,38 +1426,16 @@ MySceneGraph.prototype.displayScene = function () {
     this.textStack = [];
     this.materStack = [];
 
-    // console.log(this.idRoot);
-    // console.log(this.nodes[this.idRoot]);
-    // console.log(this.materials);
+    //default values for root (its "parent")
+    this.materStack.push(this.defaultMaterialID);
+    this.textStack.push(null);
 
-    this.scene.pushMatrix();
-    this.scene.multMatrix(this.nodes[this.idRoot].transformMatrix);
-
-    if (this.nodes[this.idRoot].materialID == null)
-        var rootMaterial = this.defaultMaterialID;
-    else
-       var rootMaterial = this.materials[this.nodes[this.idRoot].materialID];
-    
-    
-    if (this.nodes[this.idRoot].textureID == null)
-        var rootTexture = null;
-    else
-    var rootTexture = this.textures[this.nodes[this.idRoot].textureID];
-
-    this.materStack.push(rootMaterial);
-    this.textStack.push(rootTexture);
-   
-    //recursive call to children
-    for(var i = 0; i < this.nodes[this.idRoot].children.length; i++){
-        var childID = this.nodes[this.idRoot].children[i];
-        this.processNode(this.nodes[childID]);
-    }
-
-    this.scene.popMatrix();
-    // remove log below to avoid performance issues
-    // this.log("Graph should be rendered here...");
+    this.processNode(this.nodes[this.idRoot]);
 }
 
+/**
+ * Processes the nodes recursively.
+ */
 MySceneGraph.prototype.processNode = function(node){
     this.scene.pushMatrix();
     this.scene.multMatrix(node.transformMatrix);
@@ -1479,11 +1457,7 @@ MySceneGraph.prototype.processNode = function(node){
             currentTexture = this.textures[node.textureID];
     }
     this.textStack.push(currentTexture);
-
-    //debug thing remove later
-    // console.log(node.materialID);
-    // console.log(node.textureID);
-
+    
     //recursive call for child intermediate nodes
     for (var i = 0; i < node.children.length; i++){
         this.processNode(this.nodes[node.children[i]]);
@@ -1496,7 +1470,6 @@ MySceneGraph.prototype.processNode = function(node){
         if (currentTexture != null)
             currentTexture.bind();
 
-       // console.log(node.leaves[i].obj);
         //displaying primitives
         node.leaves[i].obj.display();
 
