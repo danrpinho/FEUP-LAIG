@@ -70,13 +70,13 @@ MyTriangle.prototype.initBuffers2 = function (x1, y1, z1, x2, y2, z2, x3, y3, z3
 	var l=Math.sqrt(Math.pow(a,2)+Math.pow(b,2)+Math.pow(c,2));
 	var n=Math.sqrt(Math.pow(d,2)+Math.pow(e,2)+Math.pow(f,2));
 	var m=Math.sqrt(Math.pow(x2-x3,2)+Math.pow(y2-y3,2)+Math.pow(z2-z3,2));
-	this.texCoords=[
+	this.origCoords=[
 		0,0,
 		l,0,
 		(Math.pow(l,2)-Math.pow(m,2)+Math.pow(n,2))/(2*l),Math.sqrt(-Math.pow(m,4)-Math.pow(n,4)-Math.pow(l,4)+2*Math.pow(n,2)*Math.pow(l,2)+2*Math.pow(l,2)*Math.pow(m,2)+2*Math.pow(m,2)*Math.pow(n,2))/(2*l)
 
 	];
-	console.log(this.texCoords);
+	this.texCoords=this.origCoords;
 	this.primitiveType = this.scene.gl.TRIANGLES;
 
 	this.normals = [
@@ -89,19 +89,14 @@ MyTriangle.prototype.initBuffers2 = function (x1, y1, z1, x2, y2, z2, x3, y3, z3
 };
 
 MyTriangle.prototype.amplifFactors = function(ampFactorS, ampFactorT){
-	// var deltaX = x2 - x1;
-	// var deltaY = y1 - y2;
-	console.log("hello");
-	console.log("hello");
-	console.log("hello");
-	console.log("hello");
-	console.log("hello");
-	console.log("hello");
+	
 	this.texCoords = [
 	 	0, 0,
-	 	this.texCoords[2]/ ampFactorS, 0,
-	 	this.texCoords[4]/ ampFactorS, this.texCoords[5]/ ampFactorT,
+	 	this.origCoords[2]/ ampFactorS, 0,
+	 	this.origCoords[4]/ ampFactorS, this.origCoords[5]/ ampFactorT,
 	 ];
+	
 
 	 this.updateTexCoordsGLBuffers();
+	 
 }
