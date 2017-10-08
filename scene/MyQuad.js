@@ -62,10 +62,10 @@ MyQuad.prototype.amplifFactors = function(ampFactorS, ampFactorT){
 	var deltaY = y1 - y2;
 
 	this.texCoords = [
-		0, deltaY / ampFactor,
-		deltaX / ampFactor, deltaY / ampFactor,
+		0, deltaY / ampFactorT,
+		deltaX / ampFactorS, deltaY / ampFactorT,
 		0, 0,
-		deltaX / ampFactor, 0
+		deltaX / ampFactorS, 0
 	];
 
 	this.updateTexCoordsGLBuffers();
