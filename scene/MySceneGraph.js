@@ -1422,6 +1422,7 @@ MySceneGraph.generateRandomString = function (length) {
  * Displays the scene, processing each node, starting in the root node.
  */
 MySceneGraph.prototype.displayScene = function () {
+    //console.log("display");
     // material and texture stack creation, along with introducing root elements
     this.textStack = [];
     this.materStack = [];
@@ -1472,8 +1473,11 @@ MySceneGraph.prototype.processNode = function(node){
     for (var i = 0; i < node.leaves.length; i++){
         //material and texture application
         currentMaterial.apply();
-        if (currentTexture != null)
+        if (currentTexture != null){
             currentTexture[0].bind();
+            var x=Math.random();
+            node.leaves[i].obj.amplifFactors(currentTexture[1],currentTexture[2]);
+        }
 
         //displaying primitives
         node.leaves[i].obj.display();
