@@ -135,21 +135,30 @@
         </MATERIAL>
 
         <!--MATERIAL 1-->
-        <MATERIAL id="Material1">
+        <MATERIAL id="Red_diffuse">
         <shininess value="1" />
-        <specular r="0.8" g="0.0" b="0.0" a="1" />        
-        <diffuse r="1.0" g="0" b="0" a="1" />       
-        <ambient r="0.0" g="0.0" b="0.0" a="1" />         
+        <specular r="0.3" g="0.0" b="0.0" a="1" />        
+        <diffuse r="1.0" g="0.1" b="0.1" a="1" />       
+        <ambient r="0.3" g="0.2" b="0.2" a="1" />         
         <emission r="0.0" g="0.0" b="0.0" a="1" />
         </MATERIAL>
 
         
         <!--MATERIAL 2-->
-        <MATERIAL id="Material2">
+        <MATERIAL id="Grey_specular">
         <shininess value="1" />
-        <specular r="0.5" g="0.0" b="0.0" a="1" />        
-        <diffuse r="0.2" g="0" b="0" a="1" />       
+        <specular r="0.7" g="0.7" b="0.7" a="1" />        
+        <diffuse r="0.2" g="0.2" b="0.2" a="1" />       
         <ambient r="0.0" g="0.0" b="0.0" a="1" />         
+        <emission r="0.0" g="0.0" b="0.0" a="1" />
+        </MATERIAL>
+
+        <!--MATERIAL 3-->
+        <MATERIAL id="WoodenM">
+        <shininess value="1" />
+        <specular r="0.1" g="0.1" b="0.1" a="1" />        
+        <diffuse r="0.6" g="0.55" b="0.5" a="1" />       
+        <ambient r="0.2" g="0.2" b="0.2" a="1" />         
         <emission r="0.0" g="0.0" b="0.0" a="1" />
         </MATERIAL>
     </MATERIALS>
@@ -179,7 +188,7 @@
 
         <!-- STAGE AND STAIRS -->
         <NODE id="stage">
-            <MATERIAL id="null" />
+            <MATERIAL id="WoodenM" />
             <TEXTURE id="lightwood" />
             <SCALE sx="10" sy="1" sz="6" />
             <DESCENDANTS>
@@ -191,7 +200,7 @@
         </NODE>
 
         <NODE id="steps">
-            <MATERIAL id="null" />
+            <MATERIAL id="WoodenM" />
             <TEXTURE id="lightwood" />
             <TRANSLATION x="0" y="0" z="6" />
             <DESCENDANTS>
@@ -349,7 +358,7 @@
         </NODE>
 
         <NODE id="encosto">
-            <MATERIAL id="Material2" />
+            <MATERIAL id="Grey_specular" />
             <TEXTURE id="metal" />
             <DESCENDANTS>
                 <NODEREF id="encostoTopo" />
@@ -359,7 +368,7 @@
         </NODE>
 
         <NODE id="assento">
-            <MATERIAL id="Material1" />
+            <MATERIAL id="Red_diffuse" />
             <TEXTURE id="null" />
             <TRANSLATION x="0.1" y="0.4" z="0.2" />
             <SCALE sx="0.6" sy="0.2" sz="0.5" />
@@ -389,7 +398,7 @@
         </NODE>
 
         <NODE id="encostoTopo">
-            <MATERIAL id="null" />
+            <MATERIAL id="WoodenM" />
             <TEXTURE id="darkwood" />
             <TRANSLATION x="0" y="0.65" z="0" />
             <SCALE sx="0.1" sy="0.05" sz="0.75" />
@@ -428,7 +437,7 @@
 
         <!-- TAPETE -->
         <NODE id="rug">
-            <MATERIAL id="Material1" />
+            <MATERIAL id="Red_diffuse" />
             <TEXTURE id="rug" />
             <TRANSLATION x="4.25" y="0" z="7.5" />
             <SCALE sx="1.5" sy="0.025" sz="7" />
@@ -475,7 +484,7 @@
         </NODE>
 
         <NODE id="curtain">
-            <MATERIAL id="Material1" />
+            <MATERIAL id="Red_diffuse" />
             <TEXTURE id="null" />
             <SCALE sx="1.5" sy="6" sz="0.1" />
             <DESCENDANTS>
