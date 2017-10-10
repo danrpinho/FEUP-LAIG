@@ -126,6 +126,10 @@
             <file path="images/lamp.jpg" />                
             <amplif_factor s="1" t="1" />                           
         </TEXTURE>
+        <TEXTURE id="pintura">
+             <file path="images/pintura.jpg"/>
+             <amplif_factor s="1" t="1" />
+        </TEXTURE>
     </TEXTURES>
 
     <MATERIALS>
@@ -196,9 +200,38 @@
                 <NODEREF id="filaDirTras"/>
                 <NODEREF id="ball"/>
                 <NODEREF id="candeeiros"/>
+                <NODEREF id="tela"/>
             </DESCENDANTS>
         </NODE>
-
+        
+        <NODE id="tela">
+                <MATERIAL id="defaultMaterial" />
+                <TEXTURE id="pintura" />
+                <TRANSLATION x="5" y="4" z="0.5" />
+                <DESCENDANTS>
+                        <!--<LEAF type="rectangle" args="0 1 1 0" />-->
+                        <LEAF type="patch" args="20 20" >
+                                <CPLINE>
+                                        <CPOINT  xx="-2.0" yy="-2.0" zz="-0.5" ww="1" />
+                                        <CPOINT  xx="-2.0" yy="-1.0" zz="0.5" ww="1" />
+                                        <CPOINT  xx="-2.0" yy="1.0" zz="1.5" ww="1" />
+                                        <CPOINT  xx="-2.0" yy="2.0" zz="-0.2" ww="1" />
+                                </CPLINE>
+                                <CPLINE>
+                                        <CPOINT  xx="0" yy="-2.0" zz="-0.5" ww="1" />
+                                        <CPOINT  xx="0" yy="-1.0" zz="0.2" ww="1" />
+                                        <CPOINT  xx="0" yy="1.0" zz="0.0" ww="1" />
+                                        <CPOINT  xx="0" yy="2.0" zz="-0.5" ww="1" />
+                                </CPLINE>
+                                <CPLINE>
+                                        <CPOINT  xx="2.0" yy="-2.0" zz="-0.5" ww="1" />
+                                        <CPOINT  xx="2.0" yy="-1.0" zz="1.0" ww="1" />
+                                        <CPOINT  xx="2.0" yy="1.0" zz="0.5" ww="1" />
+                                        <CPOINT  xx="2.0" yy="2.0" zz="-0.5" ww="1" />
+                                </CPLINE>
+                          </LEAF>
+                </DESCENDANTS>
+        </NODE>
         <!-- STAGE AND STAIRS -->
         <NODE id="stage">
             <MATERIAL id="WoodenM" />
