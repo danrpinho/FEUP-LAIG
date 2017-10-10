@@ -5,21 +5,21 @@
  
 var DEGREE_TO_RAD = Math.PI / 180;
 
- function MyPatch(scene, upoints, vpoints) {
+ function MyPatch(scene, udiv, vdiv, controlvertexes) {
  	CGFobject.call(this,scene);
 	
-	this.upoints=upoints;
-	this.vpoints=vpoints;
+	this.udiv=udiv;
+	this.vdiv=vdiv;
 
 	var knots1 = this.getKnotsVector(degree1); // to be built inside webCGF in later versions ()
 	var knots2 = this.getKnotsVector(degree2); // to be built inside webCGF in later versions
 		
-	var nurbsSurface = new CGFnurbsSurface(degree1, degree2, knots1, knots2, controlvertexes); // TODO  (CGF 0.19.3): remove knots1 and knots2 from CGFnurbsSurface method call. Calculate inside method.
+	var nurbsSurface = new CGFnurbsSurface(controlvertexes.length-1, controlvertexes[0].length-1, knots1, knots2, controlvertexes); // TODO  (CGF 0.19.3): remove knots1 and knots2 from CGFnurbsSurface method call. Calculate inside method.
 	getSurfacePoint = function(u, v) {
-		return nurbsSurface.getPoint(u, v);
+		return nurbsSurface.getPoint(this.udiv, this.vdiv);
 	};
 
-	this.obj = new CGFnurbsObject(scene, getSurfacePoint, 20, 20 );
+	this.obj = new CGFnurbsObject(scene, getSurfacePoint, this.udiv, this.vdiv );
 
  };
 

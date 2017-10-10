@@ -50,12 +50,32 @@ function MyGraphLeaf(graph,  node) {
             this.obj = new MySphere(this.graph.scene,radius,slices,stacks);
             break;
         case 'patch':
-
+            var udiv=parseInt(argArray[0]);
+            var vdiv=parseInt(argArray[1]);
+            var children=node.children;
+            var controlvertexes=[];
+            for(var i=0;i<children.length;i++){
+                this.parseCPLine(children[i], controlvertexes);
+            }
             break;
     };
 
 }
 
-MyGraphLeaf.prototype.parsePatch = function (patchNode){
+MyGraphLeaf.prototype.parseCPLine = function (cplNode, controlvertexes){
+    var children=cplNode.children;
+    var cpline;
+    for(var i=0;i<children.length;i++){
+        cpline.push([]);
+        var x =this.graph.reader.getFloat(node, 'xx');
+        cpline[cpline.length-1].push(x);
+        var y =this.graph.reader.getFloat(node, 'yy');
+        cpline[cpline.length-1].push(y);
+        var z =this.graph.reader.getFloat(node, 'zz');
+        cpline[cpline.length-1].push(z);
+        var w =this.graph.reader.getFloat(node, 'ww');
+        cpline[cpline.length-1].push(w);
+    }
+    controlvertexes.push(cpline);
     
 }
