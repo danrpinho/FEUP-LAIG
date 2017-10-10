@@ -58,7 +58,7 @@
 
         <LIGHT id="wall_leftFront">                                   
             <enable value ="0" />                   	       
-             <position  x="0.05" y="5" z="8" w="1" />        			
+             <position  x="0.15" y="5" z="8" w="1" />        			
             <ambient r="0.2" g="0.2" b="0.2" a="1.0" />           	
             <diffuse r="0.3" g="0.3" b="0.3" a="1.0" />       
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />      
@@ -66,7 +66,7 @@
 
         <LIGHT id="wall_leftBack">                                   
             <enable value ="0" />                   	       
-             <position  x="0.05" y="5" z="13" w="1" />        			
+             <position  x="0.15" y="5" z="13" w="1" />        			
             <ambient r="0.2" g="0.2" b="0.2" a="1.0" />           	
             <diffuse r="0.3" g="0.3" b="0.3" a="1.0" />       
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />      
@@ -74,7 +74,7 @@
 
         <LIGHT id="wall_rightFront">                                   
             <enable value ="0" />                   	       
-             <position  x="9.95" y="5" z="8" w="1" />        			
+             <position  x="9.85" y="5" z="8" w="1" />        			
             <ambient r="0.2" g="0.2" b="0.2" a="1.0" />           	
             <diffuse r="0.3" g="0.3" b="0.3" a="1.0" />       
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />      
@@ -82,7 +82,7 @@
 
         <LIGHT id="wall_rightBack">                                   
             <enable value ="0" />                   	       
-             <position  x="9.95" y="5" z="13" w="1" />        			
+             <position  x="9.85" y="5" z="13" w="1" />        			
             <ambient r="0.2" g="0.2" b="0.2" a="1.0" />           	
             <diffuse r="0.3" g="0.3" b="0.3" a="1.0" />       
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />      
@@ -121,6 +121,10 @@
         <TEXTURE id="chair">
             <file path="images/redfabric.jpg" />                
             <amplif_factor s="1" t="1" />
+        </TEXTURE>
+        <TEXTURE id="lamp">
+            <file path="images/lamp.jpg" />                
+            <amplif_factor s="1" t="1" />                           
         </TEXTURE>
     </TEXTURES>
 
@@ -183,6 +187,9 @@
                 <NODEREF id="filaEsqTras"/>
                 <NODEREF id="filaDirFrente"/>
                 <NODEREF id="filaDirTras"/>
+                                <NODEREF id="ball"/>
+                                <NODEREF id="candeeiros"/>
+
             </DESCENDANTS>
         </NODE>
 
@@ -259,6 +266,19 @@
                 <NODEREF id="cubeFace5" />
             </DESCENDANTS>
         </NODE>
+
+        <!-- ITEMS DO PALCO -->
+        <NODE id="ball">
+            <MATERIAL id="null" />
+            <TEXTURE id="null" />
+            <TRANSLATION x="7" y="1.33" z="3.5" />
+            <ROTATION axis="x" angle="-90" />
+            <DESCENDANTS>
+                <LEAF type="sphere" args="0.33 20 20" />              
+            </DESCENDANTS>
+        </NODE>
+
+        <!-- desenhar patches para a tela do cenario -->
 
         <!-- BANCOS -->
         <NODE id="filaEsqFrente">
@@ -412,7 +432,7 @@
             </DESCENDANTS>
         </NODE>
 
-         <NODE id="encostoMeio">
+        <NODE id="encostoMeio">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
             <TRANSLATION x="0.05" y="0.05" z="0.2" />
@@ -496,6 +516,82 @@
                 <NODEREF id="cubeFace5" />            
             </DESCENDANTS>
         </NODE>
+
+        <!-- CANDEERIROS -->
+        <NODE id="candeeiros">
+            <!-- third step -->
+            <MATERIAL id="null" />
+            <TEXTURE id="lamp" />
+            <DESCENDANTS>
+                <NODEREF id="candeeiroEsqFrente" />
+                <NODEREF id="candeeiroEsqTras" />
+                <NODEREF id="candeeiroDirFrente" />
+                <NODEREF id="candeeiroDirTras" />
+            </DESCENDANTS>
+        </NODE>
+        
+        <NODE id="candeeiroEsqFrente">
+            <!-- third step -->
+            <MATERIAL id="null" />
+            <TEXTURE id="null" />
+            <TRANSLATION x="0" y="0" z="8" />
+            <DESCENDANTS>
+                <NODEREF id="candeeiro" />
+            </DESCENDANTS>
+        </NODE>
+
+        <NODE id="candeeiroEsqTras">
+            <!-- third step -->
+            <MATERIAL id="null" />
+            <TEXTURE id="null" />
+            <TRANSLATION x="0" y="0" z="13" />
+            <DESCENDANTS>
+                <NODEREF id="candeeiro" />
+            </DESCENDANTS>
+        </NODE>
+
+        <NODE id="candeeiroDirFrente">
+            <!-- third step -->
+            <MATERIAL id="null" />
+            <TEXTURE id="null" />
+            <TRANSLATION x="10" y="0" z="8" />
+            <ROTATION axis="y" angle="180" />
+            <DESCENDANTS>
+                <NODEREF id="candeeiro" />
+            </DESCENDANTS>
+        </NODE>
+
+        <NODE id="candeeiroDirTras">
+            <!-- third step -->
+            <MATERIAL id="null" />
+            <TEXTURE id="null" />
+            <TRANSLATION x="10" y="0" z="13" />
+            <ROTATION axis="y" angle="180" />
+            <DESCENDANTS>
+                <NODEREF id="candeeiro" />
+            </DESCENDANTS>
+        </NODE>
+        
+        <NODE id="candeeiro">      
+            <MATERIAL id="null" />    
+            <TEXTURE id="null" />       			
+
+            <TRANSLATION x="0" y="4.65" z="0" />
+            <SCALE sx="0.5" sy="0.5" sz="0.5" />
+            
+            <DESCENDANTS>
+					<!-- <LEAF  type="triangle" args="0 0 0 0 1 1 1 1 0" /> -->
+                    <LEAF  type="triangle" args="0 1 1 0 0 0 1 1 0" />
+                    <!--<LEAF  type="triangle" args="0 1 -1 0 0 0 1 1 0" /> -->
+                    <LEAF  type="triangle" args="1 1 0 0 0 0 0 1 -1" />     
+        
+			</DESCENDANTS>
+
+        </NODE>
+
+
+
+
 
         <!-- CHAO E PAREDES -->
         <NODE id="floor">      
