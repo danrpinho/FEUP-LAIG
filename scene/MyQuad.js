@@ -40,10 +40,10 @@ MyQuad.prototype.initBuffers2 = function (x1, y1, x2, y2) {
 	];
 
 	this.origCoords = [
-		this.minS, this.maxT,
-		this.maxS, this.maxT,
-		this.minS, this.minT,
-		this.maxS, this.minT
+		this.minS, -this.maxT,
+		this.maxS, -this.maxT,
+		this.minS, -this.minT,
+		this.maxS, -this.minT
 	];
 
 	this.texCoords=this.origCoords;

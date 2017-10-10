@@ -73,7 +73,7 @@ MyTriangle.prototype.initBuffers2 = function (x1, y1, z1, x2, y2, z2, x3, y3, z3
 	this.origCoords=[
 		0,0,
 		l,0,
-		(Math.pow(l,2)-Math.pow(m,2)+Math.pow(n,2))/(2*l),Math.sqrt(-Math.pow(m,4)-Math.pow(n,4)-Math.pow(l,4)+2*Math.pow(n,2)*Math.pow(l,2)+2*Math.pow(l,2)*Math.pow(m,2)+2*Math.pow(m,2)*Math.pow(n,2))/(2*l)
+		(Math.pow(l,2)-Math.pow(m,2)+Math.pow(n,2))/(2*l),-Math.sqrt(-Math.pow(m,4)-Math.pow(n,4)-Math.pow(l,4)+2*Math.pow(n,2)*Math.pow(l,2)+2*Math.pow(l,2)*Math.pow(m,2)+2*Math.pow(m,2)*Math.pow(n,2))/(2*l)
 
 	];
 	this.texCoords=this.origCoords;

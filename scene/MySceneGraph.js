@@ -1475,8 +1475,9 @@ MySceneGraph.prototype.processNode = function(node){
         currentMaterial.apply();
         if (currentTexture != null){
             currentTexture[0].bind();
-            var x=Math.random();
-            node.leaves[i].obj.amplifFactors(currentTexture[1],currentTexture[2]);
+            if(currentTexture[1]!=1 || currentTexture[2]!=1){
+                node.leaves[i].obj.amplifFactors(currentTexture[1],currentTexture[2]);
+            }
         }
 
         //displaying primitives

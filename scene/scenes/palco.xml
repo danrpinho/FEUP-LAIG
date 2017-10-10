@@ -96,7 +96,7 @@
         </TEXTURE>
         <TEXTURE id="lightwood">
             <file path="images/stage.jpg" />                
-            <amplif_factor s="1" t="1" />                           
+            <amplif_factor s="0.5" t="0.5" />                           
         </TEXTURE>
         <TEXTURE id="curtain">
             <file path="images/curtain.jpg" />                
