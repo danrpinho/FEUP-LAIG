@@ -3,8 +3,14 @@
  * @constructor
 **/
 
-function MyGraphLeaf(graph, type, args) {
+function MyGraphLeaf(graph,  node) {
     this.graph = graph;
+    var type = this.graph.reader.getItem(node, 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
+     if (type != null)
+         this.graph.log("   Leaf: " + type);
+      else
+                            this.graph.warn("Error in leaf");
+    var args = this.graph.reader.getString(node, 'args');
     var argArray = args.split(' ');
 
     switch (type) {
@@ -43,6 +49,13 @@ function MyGraphLeaf(graph, type, args) {
             var slices = parseInt(argArray[2]);     //fatias
             this.obj = new MySphere(this.graph.scene,radius,slices,stacks);
             break;
+        case 'patch':
+
+            break;
     };
 
+}
+
+MyGraphLeaf.prototype.parsePatch = function (patchNode){
+    
 }
