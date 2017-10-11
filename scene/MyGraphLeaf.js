@@ -3,13 +3,13 @@
  * @constructor
 **/
 
-function MyGraphLeaf(graph,  node) {
+function MyGraphLeaf(graph, node) {
     this.graph = graph;
     var type = this.graph.reader.getItem(node, 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
-     if (type != null)
-         this.graph.log("   Leaf: " + type);
-      else
-          this.graph.warn("Error in leaf");
+    if (type != null)
+        this.graph.log("   Leaf: " + type);
+    else
+        this.graph.warn("Error in leaf");
     var args = this.graph.reader.getString(node, 'args');
     var argArray = args.split(' ');
 
@@ -41,56 +41,55 @@ function MyGraphLeaf(graph,  node) {
             var slices = parseInt(argArray[4]);
             var topCap = parseInt(argArray[5]);
             var botCap = parseInt(argArray[6]);
-            this.obj = new MyCylinder(this.graph.scene, slices,stacks,bottomRadius,topRadius,height,topCap,botCap);
+            this.obj = new MyCylinder(this.graph.scene, slices, stacks, bottomRadius, topRadius, height, topCap, botCap);
             break;
         case 'sphere':      //3 arguments, radius, stacks and slices
             var radius = parseFloat(argArray[0]);   //raio
             var stacks = parseInt(argArray[1]);     //rodelas
             var slices = parseInt(argArray[2]);     //fatias
-            this.obj = new MySphere(this.graph.scene,radius,slices,stacks);
+            this.obj = new MySphere(this.graph.scene, radius, slices, stacks);
             break;
         case 'patch':
-            var udiv=parseInt(argArray[0]);
-            var vdiv=parseInt(argArray[1]);
-            var children=node.children;
-            var controlvertexes=[];
+            var udiv = parseInt(argArray[0]);
+            var vdiv = parseInt(argArray[1]);
+            var children = node.children;
+            var controlvertexes = [];
             console.log(children.length);
-            for(var i=0;i<children.length;i++){
+            for (var i = 0; i < children.length; i++) {
                 this.parseCPLine(children[i], controlvertexes);
             }
             console.log(udiv, vdiv, controlvertexes)
-            this.obj=(new MyPatch(this.graph.scene, udiv, vdiv, controlvertexes)).obj;
+            this.obj = (new MyPatch(this.graph.scene, udiv, vdiv, controlvertexes)).obj;
             break;
-         default:
-            this.graph.warn("Unknown leaf type <" + type+">");
+        default:
+            this.graph.warn("Unknown leaf type <" + type + ">");
     };
 
 }
 
-MyGraphLeaf.prototype.parseCPLine = function (cplNode, controlvertexes){
+MyGraphLeaf.prototype.parseCPLine = function (cplNode, controlvertexes) {
     if (cplNode.nodeName != "CPLINE") {
-            this.onXMLMinorError("unknown tag <" + cplNode.nodeName + ">");
-            return 1;
+        this.onXMLMinorError("unknown tag <" + cplNode.nodeName + ">");
+        return 1;
     }
-    var children=cplNode.children;
-    var cpline=[];
-    for(var i=0;i<children.length;i++){
+    var children = cplNode.children;
+    var cpline = [];
+    for (var i = 0; i < children.length; i++) {
         if (children[i].nodeName != "CPOINT") {
             this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
             continue;
         }
         cpline.push([]);
-        var x =this.graph.reader.getFloat(children[i], 'xx');
-        cpline[cpline.length-1].push(x);
-        var y =this.graph.reader.getFloat(children[i], 'yy');
-        cpline[cpline.length-1].push(y);
-        var z =this.graph.reader.getFloat(children[i], 'zz');
-        cpline[cpline.length-1].push(z);
-        var w =this.graph.reader.getFloat(children[i], 'ww');
-        cpline[cpline.length-1].push(w);
+        var x = this.graph.reader.getFloat(children[i], 'xx');
+        cpline[cpline.length - 1].push(x);
+        var y = this.graph.reader.getFloat(children[i], 'yy');
+        cpline[cpline.length - 1].push(y);
+        var z = this.graph.reader.getFloat(children[i], 'zz');
+        cpline[cpline.length - 1].push(z);
+        var w = this.graph.reader.getFloat(children[i], 'ww');
+        cpline[cpline.length - 1].push(w);
     }
     controlvertexes.push(cpline);
 
-
-    return 0;    
+    return 0;
 }
