@@ -304,27 +304,35 @@
         <NODE id="tela">
             <MATERIAL id="defaultMaterial" />
             <TEXTURE id="pintura" />
-            <TRANSLATION x="5" y="4" z="0.5" />
+            <TRANSLATION x="5" y="1" z="2" />
+            <ROTATION axis="y" angle="180" />
+            <ROTATION axis="x" angle="-90" />
             <DESCENDANTS>
                <!--<LEAF type="rectangle" args="0 1 1 0" />-->
                 <LEAF type="patch" args="20 20">
                     <CPLINE>
-                        <CPOINT xx="-2.0" yy="-2.0" zz="-0.5" ww="1" />
-                        <CPOINT xx="-2.0" yy="-1.0" zz="0.5" ww="1" />
-                        <CPOINT xx="-2.0" yy="1.0" zz="1.5" ww="1" />
-                         <CPOINT xx="-2.0" yy="2.0" zz="-0.2" ww="1" />
+                        <CPOINT xx="-1.5" yy="-1.5" zz="0" ww="1" />
+                        <CPOINT xx="-1.5" yy="-0.5" zz="0" ww="1" />
+                        <CPOINT xx="-1.5" yy="0.5" zz="0" ww="1" />
+                         <CPOINT xx="-1.5" yy="1.5" zz="0" ww="1" />
                     </CPLINE>
                     <CPLINE>
-                        <CPOINT xx="0" yy="-2.0" zz="-0.5" ww="1" />
-                        <CPOINT xx="0" yy="-1.0" zz="0.2" ww="1" />
-                        <CPOINT xx="0" yy="1.0" zz="0.0" ww="1" />
-                        <CPOINT xx="0" yy="2.0" zz="-0.5" ww="1" />
+                        <CPOINT xx="-0.5" yy="-1.5" zz="0.7" ww="1" />
+                        <CPOINT xx="-0.5" yy="-0.5" zz="0.7" ww="1" />
+                        <CPOINT xx="-0.5" yy="0.5" zz="0.7" ww="1" />
+                         <CPOINT xx="-0.5" yy="1.5" zz="0.7" ww="1" />
                     </CPLINE>
                     <CPLINE>
-                        <CPOINT xx="2.0" yy="-2.0" zz="-0.5" ww="1" />
-                        <CPOINT xx="2.0" yy="-1.0" zz="1.0" ww="1" />
-                        <CPOINT xx="2.0" yy="1.0" zz="0.5" ww="1" />
-                        <CPOINT xx="2.0" yy="2.0" zz="-0.5" ww="1" />
+                        <CPOINT xx="0.5" yy="-1.5" zz="-0.5" ww="1" />
+                        <CPOINT xx="0.5" yy="-0.5" zz="-0.5" ww="1" />
+                        <CPOINT xx="0.5" yy="0.5" zz="-0.5" ww="1" />
+                         <CPOINT xx="0.5" yy="1.5" zz="-0.5" ww="1" />
+                    </CPLINE>
+                    <CPLINE>
+                        <CPOINT xx="1.5" yy="-1.5" zz="0.3" ww="1" />
+                        <CPOINT xx="1.5" yy="-0.5" zz="0.33" ww="1" />
+                        <CPOINT xx="1.5" yy="0.5" zz="0.36" ww="1" />
+                         <CPOINT xx="1.5" yy="1.5" zz="0.4" ww="1" />
                     </CPLINE>
                 </LEAF>
             </DESCENDANTS>
