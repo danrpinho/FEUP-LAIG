@@ -201,6 +201,7 @@
                 <NODEREF id="ball"/>
                 <NODEREF id="candeeiros"/>
                 <NODEREF id="tela"/>
+                <NODEREF id="puff"/>
             </DESCENDANTS>
         </NODE>
         
@@ -287,6 +288,16 @@
             <ROTATION axis="x" angle="-90" />
             <DESCENDANTS>
                 <LEAF type="sphere" args="0.33 20 20" />              
+            </DESCENDANTS>
+        </NODE>
+
+        <NODE id="puff">
+            <MATERIAL id="Red_diffuse" />
+            <TEXTURE id="chair" />
+            <TRANSLATION x="2.32" y="1" z="3.23" />
+            <ROTATION axis="x" angle="-90" />
+            <DESCENDANTS>
+                <LEAF type="cylinder" args="0.6 0.35 0.3 20 20 1 1" />              
             </DESCENDANTS>
         </NODE>
 
