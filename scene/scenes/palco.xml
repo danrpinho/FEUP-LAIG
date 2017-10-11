@@ -304,9 +304,10 @@
         <NODE id="tela">
             <MATERIAL id="defaultMaterial" />
             <TEXTURE id="pintura" />
-            <TRANSLATION x="5" y="1" z="2" />
+            <TRANSLATION x="5" y="2.5" z="1" />
+            <SCALE sx="2" sy="1.5" sz="0.8" />
             <ROTATION axis="y" angle="180" />
-            <ROTATION axis="x" angle="-90" />
+            <ROTATION axis="x" angle="180" />
             <DESCENDANTS>
                <!--<LEAF type="rectangle" args="0 1 1 0" />-->
                 <LEAF type="patch" args="20 20">
