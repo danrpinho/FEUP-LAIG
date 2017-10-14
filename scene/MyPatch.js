@@ -41,3 +41,9 @@ MyPatch.prototype.getKnotsVector = function(degree) { // TODO (CGF 0.19.3): add 
 	return v;
 }
 
+MyPatch.prototype.display = function(){
+	this.obj.display();
+}
+
+MyPatch.prototype.amplifFactors = function(ampFactorS, ampFactorT){
+}

@@ -54,12 +54,10 @@ function MyGraphLeaf(graph, node) {
             var vdiv = parseInt(argArray[1]);
             var children = node.children;
             var controlvertexes = [];
-            console.log(children.length);
             for (var i = 0; i < children.length; i++) {
                 this.parseCPLine(children[i], controlvertexes);
             }
-            console.log(udiv, vdiv, controlvertexes)
-            this.obj = (new MyPatch(this.graph.scene, udiv, vdiv, controlvertexes)).obj;
+            this.obj = new MyPatch(this.graph.scene, udiv, vdiv, controlvertexes);
             break;
         default:
             this.graph.warn("Unknown leaf type <" + type + ">");

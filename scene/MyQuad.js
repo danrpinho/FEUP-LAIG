@@ -60,6 +60,8 @@ MyQuad.prototype.initBuffers2 = function (x1, y1, x2, y2) {
 };
 
 MyQuad.prototype.amplifFactors = function(ampFactorS, ampFactorT){
+	
+	var oldCoords=this.texCoords;
 
 	this.texCoords = [
 		this.origCoords[0] / ampFactorS, this.origCoords[1] / ampFactorT,
@@ -67,5 +69,27 @@ MyQuad.prototype.amplifFactors = function(ampFactorS, ampFactorT){
 		this.origCoords[4] / ampFactorS, this.origCoords[5] / ampFactorT,
 		this.origCoords[6] / ampFactorS, this.origCoords[7] / ampFactorT,
 	];
-	this.updateTexCoordsGLBuffers();
+	///console.log("quad cenas cenas");
+	//console.log(ampFactorS, ampFactorT, this.origCoords, this.texCoords);
+	if(this.arraysEqual(oldCoords, this.texCoords)===false){
+		//console.log("different quad",oldCoords, this.texCoords);
+		this.updateTexCoordsGLBuffers();
+	}
+	else{
+		//console.log("equal quad",oldCoords,this.texCoords);
+	}
+}
+
+MyQuad.prototype.arraysEqual = function(x, y){
+	if(x.length!=y.length){
+		return false;
+	}
+	else{
+		for(var i=0;i<x.length;i++){
+			if(x[i]!==y[i]){
+				return false;
+			}
+		}
+	}
+	return true;
 }

@@ -90,13 +90,36 @@ MyTriangle.prototype.initBuffers2 = function (x1, y1, z1, x2, y2, z2, x3, y3, z3
 
 MyTriangle.prototype.amplifFactors = function(ampFactorS, ampFactorT){
 	
+	var oldCoords=this.texCoords;
+	
 	this.texCoords = [
 	 	0, 0,
 	 	this.origCoords[2]/ ampFactorS, 0,
 	 	this.origCoords[4]/ ampFactorS, this.origCoords[5]/ ampFactorT,
 	 ];
-	
-
-	 this.updateTexCoordsGLBuffers();
 	 
+	
+	if(this.arraysEqual(oldCoords, this.texCoords)===false){
+		//console.log("different triangle",oldCoords, this.texCoords);
+		this.updateTexCoordsGLBuffers();
+	}
+	else{
+		//console.log("equal triangle",oldCoords,this.texCoords);
+	}
+	 
+}
+
+MyTriangle.prototype.arraysEqual = function(x, y){
+	if(x.length!=y.length){
+		return false;
+	}
+	else{
+		for(var i=0;i<x.length;i++){
+			if(x[i]!==y[i]){
+				//console.log("arraysEqual different triangle",i, x[i],y[i]);
+				return false;
+			}
+		}
+	}
+	return true;
 }

@@ -1,0 +1,420 @@
+<SCENE>
+
+	<!-- Initial values -->
+	<INITIALS>
+		<frustum near="1" far="1000"/>
+		<translation x="-1" y="1" z="0" />
+		<rotation axis="x" angle="0" />                
+    	<rotation axis="y" angle="0" />                
+    	<rotation axis="z" angle="0" />
+    	<scale sx="0.25" sy="0.25" sz="0.25" />
+    	<reference length="1" />
+	</INITIALS>
+
+	<ILLUMINATION>
+    	<ambient r="0.5" g="0.5" b="0.5" a="1" />       
+    	<background r="0.4" g="0.8" b="1" a="1" />          
+	</ILLUMINATION>
+
+	<LIGHTS>
+	
+		<LIGHT id="light0">                                    
+        <enable value ="1" />                   	       
+        <position  x="2" y="15" z="35" w="1" />       	   
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />        	 
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />      
+    </LIGHT>
+	
+	<LIGHT id="light1">                                    
+        <enable value ="1" />                   	      
+        <position x="52" y="15" z="35" w="1" />       	   
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />       
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />       
+    </LIGHT>
+	
+	</LIGHTS>
+
+
+
+	<!-- Textures -->
+<TEXTURES>
+	<!-- Tijolo -->
+    <TEXTURE id="tijolo">
+        <file path="images/tijolo.jpg" />               
+        <amplif_factor s="2" t="2" />                           
+    </TEXTURE>
+
+     <!-- TexAreia -->
+    <TEXTURE id="texsand">
+        <file path="images/sand.jpg" />                
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
+    <!-- Telha -->
+    <TEXTURE id="telha">
+        <file path="images/telha.png" />                
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
+    <!-- Janela -->
+    <TEXTURE id="texJanela">
+        <file path="images/janela.jpg" />               
+        <amplif_factor s="15" t="10" />                           
+    </TEXTURE>
+
+    <!-- Pedra -->
+    <TEXTURE id="pedra">
+        <file path="images/pedra.jpg" />                
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
+    <!-- Marmore -->
+    <TEXTURE id="marmore">
+        <file path="images/marmore.jpg" />                
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
+    <!-- Estrada -->
+    <TEXTURE id="estrada">
+        <file path="images/estrada.jpg" />                
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
+    <!-- Pneu -->
+    <TEXTURE id="pneu">
+        <file path="images/pneu.jpg" />               
+        <amplif_factor s="2" t="2" />                           
+    </TEXTURE>
+
+    <!-- Jante -->
+    <TEXTURE id="jante">
+        <file path="images/jante.jpg" />               
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
+    <!-- Carro -->
+    <TEXTURE id="carro">
+        <file path="images/carro.jpg" />               
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
+    <!-- Porta -->
+    <TEXTURE id="porta">
+        <file path="images/porta.png" />               
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
+    <!-- Logo -->
+    <TEXTURE id="bar_logo">
+        <file path="images/logo.jpg" />               
+        <amplif_factor s="2" t="2" />                           
+    </TEXTURE>
+
+    <TEXTURE id="window">
+        <file path="images/window.png" />               
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
+    
+</TEXTURES>
+
+
+<MATERIALS>
+	<!-- materialWood -->
+    <MATERIAL id="materialWood">                                  
+        <shininess value="30" />
+        <specular r="0" g="0" b="0.2" a="1" />        
+        <diffuse r="0.67" g="0.44" b="0.22" a="1" />        
+        <ambient r="0.2" g="0.2" b="0.2" a="1" />         
+        <emission r="0.0" g="0.0" b="0.0" a="1" />        
+    </MATERIAL>
+	
+	<!-- materialIron -->
+	<MATERIAL id="materialIron">                                  
+        <shininess value="200" />
+        <specular r="0.2" g="0.2" b="0.2" a="1" />        
+        <diffuse r="0.3" g="0.34" b="0.44" a="1" />       
+        <ambient r="0.8" g="0.8" b="0.8" a="1" />         
+        <emission r="0.0" g="0.0" b="0.0" a="1" />        
+    </MATERIAL>
+	
+	<!-- materialWall -->
+	<MATERIAL id="materialWall">                                  
+        <shininess value="40" />
+        <specular r="0.3" g="0.3" b="0.3" a="1" />        
+        <diffuse r="1.0" g="0.48" b="0.96" a="1" />      
+        <ambient r="0.4" g="0.4" b="0.4" a="1" />         
+        <emission r="0.0" g="0.0" b="0.0" a="1" />       
+    </MATERIAL>
+
+    <!-- materialFloor -->
+    <MATERIAL id="materialFloor">                                  
+        <shininess value="15" />
+        <specular r="0.5" g="0.5" b="0.5" a="1" />        
+        <diffuse r="0" g="0" b="0.5" a="1" />       
+        <ambient r="0.5" g="0.5" b="0.5" a="1" />         
+        <emission r="0.0" g="0.0" b="0.0" a="1" />        
+    </MATERIAL>
+
+    <!-- materialFloor -->
+    <MATERIAL id="materialBlackRubber">                                  
+        <shininess value="100" />
+        <specular r="0.4" g="0.4" b="0.4" a="1" />        
+        <diffuse r="0.01" g="0.01" b="0.01" a="1" />       
+        <ambient r="0.02" g="0.02" b="0.02" a="1" />         
+        <emission r="0.0" g="0.0" b="0.0" a="1" />        
+    </MATERIAL>
+
+    <!-- materialFloor -->
+    <MATERIAL id="materialBronze">                                  
+        <shininess value="26" />
+        <specular r="0.39" g="0.27" b="0.17" a="1" />        
+        <diffuse r="0.71" g="0.43" b="0.18" a="1" />       
+        <ambient r="0.21" g="0.13" b="0.05" a="1" />         
+        <emission r="0.0" g="0.0" b="0.0" a="1" />        
+    </MATERIAL>
+
+      <!-- A default material -->
+    <MATERIAL id="defaultMaterial">                                  
+        <shininess value="1" />
+        <specular r="0.0" g="0.0" b="0.0" a="1" />        
+        <diffuse r="0.4" g="0.4" b="0.4" a="1" />       
+        <ambient r="0.4" g="0.4" b="0.4" a="1" />         
+        <emission r="0.0" g="0.0" b="0.0" a="1" />        
+    </MATERIAL>
+
+</MATERIALS>
+
+<!-- The leaves -->
+<LEAVES>
+</LEAVES>
+
+	<!-- The nodes -->
+	<NODES>
+
+		<ROOT id="root" />
+
+		<!-- The root node -->
+    	<NODE id="root">
+
+    		<MATERIAL id="defaultMaterial" />         
+        	<TEXTURE id="null" />  
+
+       		<DESCENDANTS>
+            	
+            	<NODEREF id="predio" />
+        	</DESCENDANTS>
+
+    	</NODE>
+
+    	
+    	<!-- Prisma1 -->
+    	<NODE id="prisma1">
+
+    		<MATERIAL id="null" />         
+        	<TEXTURE id="null" />  
+
+       		<DESCENDANTS>
+            	<NODEREF id="prismalamps" />
+        	</DESCENDANTS>
+
+    	</NODE>
+
+    	<!-- Prisma2 -->
+    	<NODE id="prisma2">
+
+    		<MATERIAL id="null" />         
+        	<TEXTURE id="null" /> 
+
+        <SCALE sx="1" sy="1" sz="0.5" />
+        <TRANSLATION x="0" y="44" z="60" />
+        <ROTATION axis="x" angle="90" />
+
+       		<DESCENDANTS>
+       			<NODEREF id="prismalamps" />
+        	</DESCENDANTS>
+
+    	</NODE>
+
+    	<!-- prismalamps -->
+    	<NODE id="prismalamps">
+
+    		<MATERIAL id="null" />         
+        	<TEXTURE id="null" />  
+
+       		<DESCENDANTS>
+            	<NODEREF id="prismalamp1" />
+            	<NODEREF id="prismalamp2" />
+            	<NODEREF id="prismalamp3" />
+            	<NODEREF id="prismalamp4" />
+            	<NODEREF id="prismalamp5" />
+                <NODEREF id="prismalamp6" />
+        	</DESCENDANTS>
+
+    	</NODE>
+
+    	<!-- prismalamp1 -->
+    	<NODE id="prismalamp1">
+
+    		<MATERIAL id="null" />         
+        	<TEXTURE id="null" />  
+
+        <SCALE sx="1" sy="1" sz="1" />
+        <TRANSLATION x="0" y="0" z="30" />
+        
+
+       		<DESCENDANTS>
+            	<NODEREF id="prismalamp" />
+        	</DESCENDANTS>
+
+    	</NODE>
+
+    	<!-- prismalamp2 -->
+    	<NODE id="prismalamp2">
+
+    		<MATERIAL id="null" />         
+        	<TEXTURE id="null" />  
+
+ 		<SCALE sx="1" sy="1" sz="1" />
+        <TRANSLATION x="1" y="0" z="29" />
+        <ROTATION axis="y" angle="180" />
+
+       		<DESCENDANTS>
+            	<NODEREF id="prismalamp" />
+        	</DESCENDANTS>
+
+    	</NODE>
+
+    	<!-- prismalamp3 -->
+    	<NODE id="prismalamp3">
+
+    		<MATERIAL id="null" />         
+        	<TEXTURE id="null" />  
+
+		<SCALE sx="1" sy="1" sz="1" />
+        <TRANSLATION x="1" y="0" z="30" />
+        <ROTATION axis="y" angle="90" />
+
+       		<DESCENDANTS>
+            	<NODEREF id="prismalamp" />
+        	</DESCENDANTS>
+
+    	</NODE>
+
+    	<!-- prismalamp4 -->
+    	<NODE id="prismalamp4">
+
+    		<MATERIAL id="null" />         
+        	<TEXTURE id="null" />  
+
+	<SCALE sx="1" sy="1" sz="1" />
+    <TRANSLATION x="0" y="0" z="29" />
+    <ROTATION axis="y" angle="-90" />
+    
+       		<DESCENDANTS>
+            	<NODEREF id="prismalamp" />
+        	</DESCENDANTS>
+
+    	</NODE>
+
+    	<!-- prismalamp5 -->
+    	<NODE id="prismalamp5">
+
+    		<MATERIAL id="null" />         
+        	<TEXTURE id="null" />  
+
+        <TRANSLATION x="0" y="15" z="30" />    
+        <ROTATION axis="x" angle="270" />
+        <SCALE sx="1" sy="0.07" sz="1" />
+       	
+        	<DESCENDANTS>
+            	<NODEREF id="prismalamp" />
+        	</DESCENDANTS>
+
+    	</NODE>
+
+        <!-- prismalamp6 -->
+        <NODE id="prismalamp6">
+
+            <MATERIAL id="null" />         
+            <TEXTURE id="null" />  
+
+        <TRANSLATION x="0" y="0" z="29" />    
+        <ROTATION axis="x" angle="-270" />
+        <SCALE sx="1" sy="0.07" sz="1" />
+        
+            <DESCENDANTS>
+                <NODEREF id="prismalamp" />
+            </DESCENDANTS>
+
+        </NODE>
+
+    
+
+    	<!-- prismalamp -->
+    	<NODE id="prismalamp">
+
+    		<MATERIAL id="materialIron" />         
+        	<TEXTURE id="null" />  
+
+       		<DESCENDANTS>
+            	<LEAF type="rectangle" args="0 15 1 0"/>
+        	</DESCENDANTS>
+
+    	</NODE>
+
+
+    
+    	<!-- esferalamp -->
+    	<!--<NODE id="esferalamp">
+
+    		<MATERIAL id="null" />         
+        	<TEXTURE id="tijolo" />  
+
+        <SCALE sx="1" sy="1" sz="1" />
+        <TRANSLATION x="16" y="50" z="20" />
+        
+
+       		<DESCENDANTS>
+            	<LEAF type="rectangle" args="0,20,20 0" />
+        	</DESCENDANTS>
+    	</NODE>-->
+
+
+
+
+    	
+
+    	<!-- predio -->
+    	<NODE id="predio">
+
+    		<MATERIAL id="null" />         
+        	<TEXTURE id="null" />  
+
+       		<DESCENDANTS>
+            	<NODEREF id="corpo" />
+        	</DESCENDANTS>
+
+    	</NODE>
+
+    	<!-- corpo -->
+    	<NODE id="corpo">
+
+    		<MATERIAL id="null" />         
+        	<TEXTURE id="pedra" />  
+
+        <TRANSLATION x="0" y="0" z="-800" />    
+        <SCALE sx="50" sy="2" sz="30" />
+
+       		<DESCENDANTS>
+            	<NODEREF id="prismalamps" />
+        	</DESCENDANTS>
+        </NODE>
+
+
+
+
+	</NODES>
+</SCENE>
