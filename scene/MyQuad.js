@@ -13,7 +13,7 @@ function MyQuad(scene, x1, y1, x2, y2) {
 	this.minS = 0;
 	this.minT = 0;
 	this.maxS = x2-x1; 
-	this.maxT = y2-y1; 
+	this.maxT = y1-y2; 
 
 	this.initBuffers2(x1, y1, x2, y2);
 };
@@ -40,11 +40,25 @@ MyQuad.prototype.initBuffers2 = function (x1, y1, x2, y2) {
 	];
 
 	this.origCoords = [
+		this.minS, this.maxT,
+		this.maxS, this.maxT,
+		this.minS, this.minT,
+		this.maxS, this.minT
+	];	
+	/*this.origCoords = [
 		this.minS, -this.maxT,
 		this.maxS, -this.maxT,
 		this.minS, -this.minT,
 		this.maxS, -this.minT
-	];
+
+	];*/
+	
+	/*this.origCoords = [
+		0, 1,
+		1, 1,
+		0, 0,
+		1, 0
+	]*/
 
 	this.texCoords=this.origCoords;
 	this.primitiveType = this.scene.gl.TRIANGLES;

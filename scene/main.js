@@ -34,7 +34,6 @@ main=function()
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
 	
-	//var filename=getUrlVars()['file'] || "LAIG_TP1_LSX_T1_G13_v01.xml";
 	var filename=getUrlVars()['file'] || "palco.xml";
 
 	// create and load graph, and associate it to scene. 
