@@ -1337,7 +1337,7 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
                 }
                 else
                     if (descendants[j].nodeName == "LEAF") {
-                        //send leaf arguments to mygraphleaf
+                        //sending leaf arguments to MyGraphLeaf, where they'll be parsed
                         this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, descendants[j]));
                         sizeChildren++;
                     }
@@ -1421,58 +1421,51 @@ MySceneGraph.prototype.displayScene = function () {
     this.materStack.push(this.defaultMaterialID);
     this.textStack.push(null);
 
+    //call to recursive function
     this.processNode(this.nodes[this.idRoot]);
 }
 
 /**
  * Processes the nodes recursively.
  */
-MySceneGraph.prototype.processNode = function(node){
+MySceneGraph.prototype.processNode = function (node) {
     this.scene.pushMatrix();
     this.scene.multMatrix(node.transformMatrix);
 
-    //console.log(node);
-
-    // console.log(this.textStack);
-    // console.log(node.textureID);
-    
     //material handling
-    var currentMaterial; 
+    var currentMaterial;
     if (node.materialID == 'null')         //checks for parent
-        currentMaterial =  this.materStack[this.materStack.length - 1];
+        currentMaterial = this.materStack[this.materStack.length - 1];
     else
         currentMaterial = this.materials[node.materialID];
     this.materStack.push(currentMaterial);
 
     //texture handling
     var currentTexture = this.textStack[this.textStack.length - 1]; //parent texture
-    if (node.textureID != "null"){
+    if (node.textureID != "null") {
         if (node.textureID == "clear")
             currentTexture = null;
         else
             currentTexture = this.textures[node.textureID];
     }
     this.textStack.push(currentTexture);
-    
+
     //recursive call for child intermediate nodes
-    for (var i = 0; i < node.children.length; i++){
+    for (var i = 0; i < node.children.length; i++) {
         this.processNode(this.nodes[node.children[i]]);
     }
 
     //leaf handling
-    for (var i = 0; i < node.leaves.length; i++){
+    for (var i = 0; i < node.leaves.length; i++) {
         //material and texture application
         currentMaterial.apply();
-        if (currentTexture != null){
+        if (currentTexture != null) {
             currentTexture[0].bind();
-            //if(currentTexture[1]!=1 || currentTexture[2]!=1){
-                node.leaves[i].obj.amplifFactors(currentTexture[1],currentTexture[2]);
-            //}
+            node.leaves[i].obj.amplifFactors(currentTexture[1], currentTexture[2]);
         }
 
         //displaying primitives
         node.leaves[i].obj.display();
-
     }
 
     //depois de percorrer os filhos todos, tratamento da pilha

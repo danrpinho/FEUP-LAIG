@@ -5,14 +5,19 @@
 
 function MyGraphLeaf(graph, node) {
     this.graph = graph;
+
+    //gets item from the xml block
     var type = this.graph.reader.getItem(node, 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
+    
+    //checks if the leaf has a valid type
     if (type != null)
         this.graph.log("   Leaf: " + type);
     else
         this.graph.warn("Error in leaf");
+
+    //acquires arguments and depending on the leaf type, calls the correct constructor
     var args = this.graph.reader.getString(node, 'args');
     var argArray = args.split(' ');
-
     switch (type) {
         case 'rectangle':   //4 arguments, coords of topleft and bottomright points in xy plane
             var x1 = parseFloat(argArray[0]);
@@ -49,12 +54,13 @@ function MyGraphLeaf(graph, node) {
             var slices = parseInt(argArray[2]);     //fatias
             this.obj = new MySphere(this.graph.scene, radius, slices, stacks);
             break;
-        case 'patch':
+        case 'patch':       //3 arguments, divisions in u, divisions in v, control vertexes
             var udiv = parseInt(argArray[0]);
             var vdiv = parseInt(argArray[1]);
             var children = node.children;
-            var controlvertexes = [];
+            var controlvertexes = [];                       //control vertex array creation
             for (var i = 0; i < children.length; i++) {
+                //auxiliar function to parse the additional xml tags
                 this.parseCPLine(children[i], controlvertexes);
             }
             this.obj = new MyPatch(this.graph.scene, udiv, vdiv, controlvertexes);
@@ -66,12 +72,16 @@ function MyGraphLeaf(graph, node) {
 }
 
 MyGraphLeaf.prototype.parseCPLine = function (cplNode, controlvertexes) {
+    //checks if the tag is the right one
     if (cplNode.nodeName != "CPLINE") {
         this.onXMLMinorError("unknown tag <" + cplNode.nodeName + ">");
         return 1;
     }
+
     var children = cplNode.children;
     var cpline = [];
+
+    //goes along the CPOINTS for the line
     for (var i = 0; i < children.length; i++) {
         if (children[i].nodeName != "CPOINT") {
             this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
