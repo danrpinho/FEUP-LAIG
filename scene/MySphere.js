@@ -11,7 +11,8 @@ function MySphere(scene, radius, slices, stacks) {
 	this.slices = slices;
 	this.stacks = stacks;
 	this.radius = radius;
-	this.sphere = new MySemiSphere(this.scene, this.radius, this.slices, this.stacks);
+	this.sphere0 = new MySemiSphere(this.scene, this.radius, this.slices, this.stacks, 0);
+	this.sphere1 = new MySemiSphere(this.scene, this.radius, this.slices, this.stacks, 1);
 
 };
 
@@ -20,11 +21,12 @@ MySphere.prototype.constructor = MySphere;
 
 MySphere.prototype.display = function () {
 	this.scene.pushMatrix();
-	this.sphere.display();
+	this.sphere0.display();
 	this.scene.rotate(Math.PI, 1, 0, 0);
-	this.sphere.display();
+	this.sphere1.display();
 	this.scene.popMatrix();
-};
+}
+
 
 MySphere.prototype.amplifFactors = function(ampFactorS, ampFactorT){
 }

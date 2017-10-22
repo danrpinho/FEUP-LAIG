@@ -27,7 +27,7 @@ MyCylinderSurface.prototype.initBuffers = function () {
 
 	var teta = 2 * Math.PI / this.slices;
 	for (var j = 0; j <= this.stacks; j++) {
-		for (var i = 0; i < this.slices; i++) {
+		for (var i = 0; i <= this.slices; i++) {
 			var radius = (j / (this.stacks)) * (this.tradius - this.bradius) + this.bradius;
 			var h = this.height * j / this.stacks;
 			var vx = radius * Math.cos(i * teta);
@@ -39,25 +39,22 @@ MyCylinderSurface.prototype.initBuffers = function () {
 			this.vertices.push(vz);
 
 			this.normals.push(Math.cos(i * teta));
-			//console.log(Math.cos(i * teta));
 			this.normals.push(Math.sin(i * teta));
-			//console.log(Math.sin(i * teta));
 			this.normals.push((this.bradius - this.tradius) / this.height);
-			//console.log((this.bradius - this.tradius) / this.height);
 		}
 	}
 
 	this.indices = [];
 
 	for (var j = 0; j < this.stacks; j++) {
-		for (var i = 0; i < this.slices; i++) {
+		for (var i = 0; i <= this.slices; i++) {
 
-			this.indices.push((j + 1) * this.slices + (i + 1) % this.slices);
-			this.indices.push(j * this.slices + i);//+0.5
-			this.indices.push(j * this.slices + (i + 1) % this.slices);
-			this.indices.push((j + 1) * this.slices + i);//+0.5
-			this.indices.push(j * this.slices + i);//+0.5
-			this.indices.push((j + 1) * this.slices + (i + 1) % this.slices);
+			this.indices.push((j + 1) * (this.slices+1) + (i + 1) % (this.slices+1));
+			this.indices.push(j * (this.slices+1) + i);
+			this.indices.push(j * (this.slices+1) + (i + 1) % (this.slices+1));
+			this.indices.push((j + 1) * (this.slices+1) + i);
+			this.indices.push(j * (this.slices+1) + i);
+			this.indices.push((j + 1) * (this.slices+1) + (i + 1) % (this.slices+1));
 		}
 	}
 
@@ -68,7 +65,7 @@ MyCylinderSurface.prototype.initBuffers = function () {
 	var s_inc = 1 / this.slices;
 	var t_inc = 1 / this.stacks;
 	for (var i = 0; i <= this.stacks; i++) {
-		for (var j = 0; j < this.slices; j++) {
+		for (var j = 0; j <= this.slices; j++) {
 			this.texCoords.push(s, t);
 			s += s_inc;
 		}

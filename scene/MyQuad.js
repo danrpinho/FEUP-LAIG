@@ -7,9 +7,6 @@
 function MyQuad(scene, x1, y1, x2, y2) {
 	CGFobject.call(this, scene);
 
-	// var deltaX = x2 - x1;
-	// var deltaY = y1 - y2;
-
 	this.minS = 0;
 	this.minT = 0;
 	this.maxS = x2-x1; 
@@ -45,20 +42,6 @@ MyQuad.prototype.initBuffers2 = function (x1, y1, x2, y2) {
 		this.minS, this.minT,
 		this.maxS, this.minT
 	];	
-	/*this.origCoords = [
-		this.minS, -this.maxT,
-		this.maxS, -this.maxT,
-		this.minS, -this.minT,
-		this.maxS, -this.minT
-
-	];*/
-	
-	/*this.origCoords = [
-		0, 1,
-		1, 1,
-		0, 0,
-		1, 0
-	]*/
 
 	this.texCoords=this.origCoords;
 	this.primitiveType = this.scene.gl.TRIANGLES;
@@ -83,15 +66,10 @@ MyQuad.prototype.amplifFactors = function(ampFactorS, ampFactorT){
 		this.origCoords[4] / ampFactorS, this.origCoords[5] / ampFactorT,
 		this.origCoords[6] / ampFactorS, this.origCoords[7] / ampFactorT,
 	];
-	///console.log("quad cenas cenas");
-	//console.log(ampFactorS, ampFactorT, this.origCoords, this.texCoords);
 	if(this.arraysEqual(oldCoords, this.texCoords)===false){
-		//console.log("different quad",oldCoords, this.texCoords);
 		this.updateTexCoordsGLBuffers();
 	}
-	else{
-		//console.log("equal quad",oldCoords,this.texCoords);
-	}
+
 }
 
 MyQuad.prototype.arraysEqual = function(x, y){
