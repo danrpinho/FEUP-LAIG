@@ -1,11 +1,9 @@
 /**
-
  * MyCircle
-
- * @constructor
-
+ *@brief - constructor of object MyCircle
+ *@param scene - scene this object belongs to
+ *@param slice - number of slices that the circle is divided in
  */
-
 function MyCircle(scene, slices) {
 	CGFobject.call(this, scene);
 	this.slices = slices;
@@ -17,6 +15,10 @@ function MyCircle(scene, slices) {
 MyCircle.prototype = Object.create(CGFobject.prototype);
 MyCircle.prototype.constructor = MyCircle;
 
+/**
+* initBuffers
+*@brief - initializes the buffers
+*/
 MyCircle.prototype.initBuffers = function () {
 
 	var teta = 2 * Math.PI / this.slices;

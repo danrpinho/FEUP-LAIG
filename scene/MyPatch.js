@@ -1,11 +1,16 @@
-/**
- * Patch
- * @constructor
- */
+
  
 var DEGREE_TO_RAD = Math.PI / 180;
 
- function MyPatch(scene, udiv, vdiv, controlvertexes) {
+/**
+ * MyCylinder
+ *@brief - constructor of object MyCylinder
+ *@param scene - scene this object belongs to
+ *@param udiv - divisions along the surface u
+ *@param vdiv - divisions along the surface v
+ *@param controlvertexes - matrix that contains the controlvertexes of the patch 
+ */
+function MyPatch(scene, udiv, vdiv, controlvertexes) {
  	CGFobject.call(this,scene);
 	
 	this.udiv=udiv;
@@ -27,7 +32,11 @@ var DEGREE_TO_RAD = Math.PI / 180;
  MyPatch.prototype.constructor = MyPatch;
 
 
-
+/**
+ * getKnotsVector
+ *@brief - gets knots vector of the patch, according to what was told in class
+ *@param degree - degree of the patch
+ */
 MyPatch.prototype.getKnotsVector = function(degree) {
 	
 	var v = new Array();
@@ -40,9 +49,19 @@ MyPatch.prototype.getKnotsVector = function(degree) {
 	return v;
 }
 
+/**
+*display
+*@brief - displays this object
+*/
 MyPatch.prototype.display = function(){
 	this.obj.display();
 }
 
+/**
+ * amplifFactors
+ *@brief - handles the amplification factors of the texture in the cylinder
+ *@param ampFactorS - amplification factor on the S axis
+ *@param ampFactorT - amplification factor on the T axis
+ */
 MyPatch.prototype.amplifFactors = function(ampFactorS, ampFactorT){
 }

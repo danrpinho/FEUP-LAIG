@@ -1,11 +1,15 @@
 /**
-
  * MyCylinderSurface
-
- * @constructor
-
+ *@brief - constructor of object MyCylinderSurface
+ *@param scene - scene this object belongs to
+ *@param slices - slices the cylinder is divided in 
+ *@param stacks - stacks the cylinder is divided in
+ *@param bottomradius - radius of the bottom base of the cylinder 
+ *@param topradius - radius of the top base of the cylinder
+ *@param height - height of the cylinder
+ *@param topCap - boolean that tells if there is a circle on top of this cylinder
+ *@param botCap - boolean that tells if there is a circle on the bottom of this cylinder 
  */
-
 function MyCylinderSurface(scene, slices, stacks, bottomradius, topradius, height) {
 	CGFobject.call(this, scene);
 	this.slices = slices;
@@ -21,6 +25,10 @@ function MyCylinderSurface(scene, slices, stacks, bottomradius, topradius, heigh
 MyCylinderSurface.prototype = Object.create(CGFobject.prototype);
 MyCylinderSurface.prototype.constructor = MyCylinderSurface;
 
+/**
+* initBuffers
+*@brief - initializes the buffers
+*/
 MyCylinderSurface.prototype.initBuffers = function () {
 	this.vertices = [];
 	this.normals = [];

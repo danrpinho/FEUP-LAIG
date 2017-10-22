@@ -71,6 +71,12 @@ function MyGraphLeaf(graph, node) {
 
 }
 
+/**
+* parseCPLine
+* @brief - parses a CPLINE of a patch in the xml file
+* @param cplNode - node that represents the cpline
+* @param controlvertexes - matrix where the control points of the patch are going to be stored
+*/
 MyGraphLeaf.prototype.parseCPLine = function (cplNode, controlvertexes) {
     //checks if the tag is the right one
     if (cplNode.nodeName != "CPLINE") {

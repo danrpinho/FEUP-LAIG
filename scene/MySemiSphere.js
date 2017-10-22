@@ -1,12 +1,11 @@
 /**
-
- * MySemiSphere
-
- * @constructor
- * @param
-
+ * MySphere
+ *@brief - constructor of object MySemiSphere
+ *@param scene - scene this object belongs to
+ *@param radius - radius of the semisphere
+ *@param slices - slices the sphere is divided in 
+ *@param stacks - stacks the sphere is divided in
  */
-
 function MySemiSphere(scene, radius, slices, stacks, tex) {
 
 	CGFobject.call(this, scene);
@@ -24,6 +23,10 @@ function MySemiSphere(scene, radius, slices, stacks, tex) {
 MySemiSphere.prototype = Object.create(CGFobject.prototype);
 MySemiSphere.prototype.constructor = MySemiSphere;
 
+/**
+* initBuffers
+*@brief - initializes the buffers
+*/
 MySemiSphere.prototype.initBuffers = function () {
 	var teta = 2 * Math.PI / this.slices;
 

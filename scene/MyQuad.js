@@ -1,9 +1,10 @@
 /**
- * MyObject
- * @param gl {WebGLRenderingContext}
- * @constructor
+ * MyQuad
+ *@brief - constructor of object MyTriangle
+ *@param scene - scene this object belongs to
+ *@param x1, y1 - coordinates of the top left vertice
+ *@param x2, y2 - coordinates of the bottom down vertice 
  */
-
 function MyQuad(scene, x1, y1, x2, y2) {
 	CGFobject.call(this, scene);
 
@@ -11,24 +12,27 @@ function MyQuad(scene, x1, y1, x2, y2) {
 	this.minT = 0;
 	this.maxS = x2-x1; 
 	this.maxT = y1-y2; 
-
-	this.initBuffers2(x1, y1, x2, y2);
+	this.x1=x1;
+	this.y1=y1;
+	this.x2=x2;
+	this.y2=y2;
+	this.initBuffers();
 };
 
 MyQuad.prototype = Object.create(CGFobject.prototype);
 MyQuad.prototype.constructor = MyQuad;
 
+
+/**
+* initBuffers
+*@brief - initializes the buffers
+*/
 MyQuad.prototype.initBuffers = function () {
-	this.initGLBuffers();
-};
-
-
-MyQuad.prototype.initBuffers2 = function (x1, y1, x2, y2) {
 	this.vertices = [
-		x1, y2, 0,
-		x2, y2, 0,
-		x1, y1, 0,
-		x2, y1, 0,
+		this.x1, this.y2, 0,
+		this.x2, this.y2, 0,
+		this.x1, this.y1, 0,
+		this.x2, this.y1, 0,
 	];
 
 	this.indices = [
@@ -56,6 +60,12 @@ MyQuad.prototype.initBuffers2 = function (x1, y1, x2, y2) {
 	this.initGLBuffers();
 };
 
+/**
+ * amplifFactors
+ *@brief - handles the amplification factors of the texture in the quad
+ *@param ampFactorS - amplification factor on the S axis
+ *@param ampFactorT - amplification factor on the T axis
+ */
 MyQuad.prototype.amplifFactors = function(ampFactorS, ampFactorT){
 	
 	var oldCoords=this.texCoords;
@@ -72,6 +82,12 @@ MyQuad.prototype.amplifFactors = function(ampFactorS, ampFactorT){
 
 }
 
+/**
+ * arraysEqual
+ *@brief - checks if two arrays are equal
+ *@param x - first array
+ *@param y - second array
+ */
 MyQuad.prototype.arraysEqual = function(x, y){
 	if(x.length!=y.length){
 		return false;
