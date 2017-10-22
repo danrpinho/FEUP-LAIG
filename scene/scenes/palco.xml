@@ -1,9 +1,4 @@
-<!-- In the following, these symbols have the significance: -->
-<!-- ii: integer value -->
-<!-- ff: float value -->
-<!-- ss: string value -->
-<!-- cc: character "x" or "y" or "z" -->
-<!-- tt: "0" or "1" with Boolean significance -->
+
 <SCENE>
 
     <INITIALS>
@@ -24,6 +19,7 @@
     </ILLUMINATION>
 
     <LIGHTS>
+        <!-- Far left stage light, it's blue -->
         <LIGHT id="stage_farLeft">                                    
             <enable value ="1" />                   	       
             <position  x="2" y="7" z="5.5" w="1" />       	   
@@ -32,6 +28,7 @@
             <specular r="0.5" g="0.5" b="1.0" a="1.0" />      
         </LIGHT>
 	
+        <!-- Middle left stage light, it's white -->
 	    <LIGHT id="stage_middleLeft">                                    
             <enable value ="1" />                   	      
              <position  x="4" y="7" z="5.5" w="1" />        	   
@@ -39,7 +36,8 @@
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />      
         </LIGHT>
-	
+    
+        <!-- Middle right stage light, it's green -->
 	    <LIGHT id="stage_middleRight">                                   
             <enable value ="1" />                   	       
              <position  x="6" y="7" z="5.5" w="1" />        		   
@@ -48,6 +46,7 @@
             <specular r="0.5" g="1.0" b="0.5" a="1.0" />       
         </LIGHT>
 
+        <!-- Far right stage light, it's red -->
         <LIGHT id="stage_farRight">                                   
             <enable value ="1" />                   	       
             <position  x="8" y="7" z="5.5" w="1" />        			
@@ -56,6 +55,7 @@
             <specular r="1.0" g="0.5" b="0.5" a="1.0" />     
         </LIGHT>
 
+        <!-- The following four lights are dimmer wall lights -->
         <LIGHT id="wall_leftFront">                                   
             <enable value ="0" />                   	       
              <position  x="0.15" y="5" z="8" w="1" />        			
@@ -90,42 +90,61 @@
     </LIGHTS>
 
     <TEXTURES>
+        <!-- Dark wood texture -->
         <TEXTURE id="darkwood">
             <file path="images/darkwood.jpg" />                
             <amplif_factor s="1" t="1" />                           
         </TEXTURE>
+
+        <!-- Light wood texture -->
         <TEXTURE id="lightwood">
             <file path="images/stage.jpg" />                
             <amplif_factor s="0.5" t="0.5" />                           
         </TEXTURE>
+
+        <!-- Curtain texture -->
         <TEXTURE id="curtain">
             <file path="images/curtain.jpg" />                
             <amplif_factor s="1" t="1" />                           
         </TEXTURE>
+
+        <!-- Dark wood texture, for the floor -->
         <TEXTURE id="darkfloor">
             <file path="images/darkfloor.png" />                
             <amplif_factor s="1" t="1" />                           
         </TEXTURE>
+
+        <!-- Dark cement texture -->
         <TEXTURE id="cement">
             <file path="images/cement.jpg" />                
             <amplif_factor s="1" t="1" />                           
         </TEXTURE>
+
+        <!-- Red felt texture -->
         <TEXTURE id="rug">
             <file path="images/rug.jpg" />                
             <amplif_factor s="1" t="1" />
         </TEXTURE>
+
+        <!-- Metallic texture -->
         <TEXTURE id="metal">
             <file path="images/metal.jpg" />                
             <amplif_factor s="1" t="1" />
         </TEXTURE>
+
+        <!-- Red fabric texture -->
         <TEXTURE id="chair">
             <file path="images/redfabric.jpg" />                
             <amplif_factor s="1" t="1" />
         </TEXTURE>
+
+        <!-- Marble-like texture -->
         <TEXTURE id="lamp">
             <file path="images/lamp.jpg" />                
             <amplif_factor s="1" t="1" />                           
         </TEXTURE>
+
+        <!-- Drawing for the stage screen -->
         <TEXTURE id="pintura">
              <file path="images/tela.jpg"/>
              <amplif_factor s="1" t="1" />
@@ -133,7 +152,7 @@
     </TEXTURES>
 
     <MATERIALS>
-        <!--Default MATERIAL-->
+        <!--Default material-->
         <MATERIAL id="defaultMaterial">                                  
             <shininess value="1" />
             <specular r="0.0" g="0.0" b="0.0" a="1" />        
@@ -142,7 +161,7 @@
             <emission r="0.0" g="0.0" b="0.0" a="1" />        
         </MATERIAL>
 
-        <!--MATERIAL 1-->
+        <!-- Red diffuse material -->
         <MATERIAL id="Red_diffuse">
             <shininess value="1" />
             <specular r="0.3" g="0.0" b="0.0" a="1" />        
@@ -151,7 +170,7 @@
             <emission r="0.0" g="0.0" b="0.0" a="1" />
         </MATERIAL>
         
-        <!--MATERIAL 2-->
+        <!-- Grey specular material -->
         <MATERIAL id="Grey_specular">
             <shininess value="1" />
             <specular r="0.7" g="0.7" b="0.7" a="1" />        
@@ -160,7 +179,7 @@
             <emission r="0.0" g="0.0" b="0.0" a="1" />
         </MATERIAL>
 
-        <!--MATERIAL 3-->
+        <!-- Wooden material (reddish-brownish) -->
         <MATERIAL id="WoodenM">
             <shininess value="1" />
             <specular r="0.1" g="0.1" b="0.1" a="1" />        
@@ -169,6 +188,7 @@
             <emission r="0.0" g="0.0" b="0.0" a="1" />
         </MATERIAL>
 
+        <!-- Blue specular material -->
         <MATERIAL id="BlueShiny">
             <shininess value="1" />
             <specular r="0.1" g="0.1" b="0.3" a="1" />        
@@ -177,6 +197,7 @@
             <emission r="0.0" g="0.0" b="0.0" a="1" />
         </MATERIAL>
 
+        <!-- Dark and specular material -->
         <MATERIAL id="DarkSpecular">
             <shininess value="1" />
             <specular r="0.3" g="0.3" b="0.3" a="1" />        
@@ -238,8 +259,8 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- First step -->
         <NODE id="step1">
-            <!-- first step -->
             <MATERIAL id="null" />
             <TEXTURE id="null" />
 
@@ -251,8 +272,8 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Second step -->
         <NODE id="step2">
-            <!-- second step -->
             <MATERIAL id="null" />
             <TEXTURE id="null" />
 
@@ -264,8 +285,8 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Third step -->
         <NODE id="step3">
-            <!-- third step -->
             <MATERIAL id="null" />
             <TEXTURE id="null" />
 
@@ -276,11 +297,12 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Generic step -->
         <NODE id="step">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
             <DESCENDANTS>
-                <!-- back faces are always covered up so it's not rendered -->
+                <!-- back and bottom faces are always covered up so they're not rendered -->
                 <NODEREF id="cubeFace1" />
                 <NODEREF id="cubeFace2" />
                 <NODEREF id="cubeFace4" />
@@ -289,6 +311,7 @@
         </NODE>
 
         <!-- ITEMS DO PALCO -->
+        <!-- Blue ball -->
         <NODE id="ball">
             <MATERIAL id="BlueShiny" />
             <TEXTURE id="null" />
@@ -299,6 +322,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Red chair -->
         <NODE id="puff">
             <MATERIAL id="Red_diffuse" />
             <TEXTURE id="chair" />
@@ -309,6 +333,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Stage screen for scenery -->
         <NODE id="tela">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
@@ -323,6 +348,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Front side of the screen -->
         <NODE id="telaFrente">
             <MATERIAL id="defaultMaterial" />
             <TEXTURE id="pintura" />
@@ -360,6 +386,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Backside of the screen -->
         <NODE id="telaTras">
             <MATERIAL id="defaultMaterial" />
             <TEXTURE id="clear" />
@@ -395,6 +422,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Left support for the screen -->
         <NODE id="suporteEsq">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
@@ -404,6 +432,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Right support of the screen -->
         <NODE id="suporteDir">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
@@ -413,6 +442,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Generic screen support -->
         <NODE id="suporte">
             <MATERIAL id="DarkSpecular" />
             <TEXTURE id="metal" />
@@ -422,17 +452,19 @@
             </DESCENDANTS>
         </NODE>
         
-        <!-- BANCOS -->
+        <!-- Benches -->
+        <!-- Front left row -->
         <NODE id="filaEsqFrente">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
-            <!-- fila tem comprimento de 2.2 unidades-->
+            
             <TRANSLATION x="1.025" y="0" z="9.5" />   
             <DESCENDANTS>
                 <NODEREF id="filaBancos" />
             </DESCENDANTS>
         </NODE>
 
+        <!-- Back left row -->
         <NODE id="filaEsqTras">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
@@ -442,6 +474,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Front right row -->
         <NODE id="filaDirFrente">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
@@ -451,6 +484,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Back right row -->
         <NODE id="filaDirTras">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
@@ -460,12 +494,16 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Generic row -->
         <NODE id="filaBancos">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
-            <!-- fila tem comprimento de 2.2 unidades-->
+            
+            <!-- Bench is 2.2 units long-->
             <TRANSLATION x="2.2" y="0" z="0.75" />   
             <ROTATION axis="y" angle="180" />
+            
+            <!-- Bench is divided into three seats plus an ending armrest -->
             <DESCENDANTS>
                 <NODEREF id="bancoEsq" />
                 <NODEREF id="bancoMeio" />
@@ -474,6 +512,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Left seat -->
         <NODE id="bancoEsq">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
@@ -482,6 +521,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Middle seat -->
         <NODE id="bancoMeio">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
@@ -491,6 +531,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Right seat -->
         <NODE id="bancoDir">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
@@ -499,7 +540,8 @@
                 <NODEREF id="banco" />           
             </DESCENDANTS>
         </NODE>
-
+        
+        <!-- Ending armrest (right side) -->
         <NODE id="encostoDir">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
@@ -509,6 +551,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Generic seat -->
         <NODE id="banco">
             <MATERIAL id="null" />
             <TEXTURE id="chair" />
@@ -519,6 +562,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Generic armrest -->
         <NODE id="encosto">
             <MATERIAL id="Grey_specular" />
             <TEXTURE id="metal" />
@@ -529,6 +573,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Seating part of the seat -->
         <NODE id="assento">
             <MATERIAL id="Red_diffuse" />
             <TEXTURE id="null" />
@@ -544,6 +589,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Back part of the seat -->
         <NODE id="costas">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
@@ -559,6 +605,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Armrest top -->
         <NODE id="encostoTopo">
             <MATERIAL id="WoodenM" />
             <TEXTURE id="darkwood" />
@@ -574,6 +621,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Armrest middle -->
         <NODE id="encostoMeio">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
@@ -584,6 +632,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Armrest base -->
         <NODE id="encostoBase">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
@@ -597,7 +646,7 @@
             </DESCENDANTS>
         </NODE>
 
-        <!-- TAPETE -->
+        <!-- RUG -->
         <NODE id="rug">
             <MATERIAL id="Red_diffuse" />
             <TEXTURE id="rug" />
@@ -612,9 +661,9 @@
             </DESCENDANTS>
         </NODE>
 
-        <!-- CORTINAS -->
+        <!-- CURTAINS -->
+        <!-- Curtain set -->
         <NODE id="curtains">
-            <!-- third step -->
             <MATERIAL id="null" />
             <TEXTURE id="curtain" />
             <TRANSLATION x="0" y="1" z="4.5" />
@@ -625,6 +674,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Right curtain -->
         <NODE id="curtainRight">
             <!-- third step -->
             <MATERIAL id="null" />
@@ -636,6 +686,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Left curtain -->
         <NODE id="curtainLeft">
             <!-- third step -->
             <MATERIAL id="null" />
@@ -645,6 +696,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Generic curtain -->
         <NODE id="curtain">
             <MATERIAL id="Red_diffuse" />
             <TEXTURE id="null" />
@@ -659,9 +711,9 @@
             </DESCENDANTS>
         </NODE>
 
-        <!-- CANDEERIROS -->
+        <!-- LAMPS -->
+        <!-- Lamp set -->
         <NODE id="candeeiros">
-            <!-- third step -->
             <MATERIAL id="null" />
             <TEXTURE id="lamp" />
             <DESCENDANTS>
@@ -672,8 +724,8 @@
             </DESCENDANTS>
         </NODE>
         
+        <!-- Left front lamp -->
         <NODE id="candeeiroEsqFrente">
-            <!-- third step -->
             <MATERIAL id="null" />
             <TEXTURE id="null" />
             <TRANSLATION x="0" y="0" z="8" />
@@ -682,8 +734,8 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Left back lamp -->
         <NODE id="candeeiroEsqTras">
-            <!-- third step -->
             <MATERIAL id="null" />
             <TEXTURE id="null" />
             <TRANSLATION x="0" y="0" z="13" />
@@ -692,8 +744,8 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Right front lamp -->
         <NODE id="candeeiroDirFrente">
-            <!-- third step -->
             <MATERIAL id="null" />
             <TEXTURE id="null" />
             <TRANSLATION x="10" y="0" z="8" />
@@ -703,8 +755,8 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Right back lamp -->
         <NODE id="candeeiroDirTras">
-            <!-- third step -->
             <MATERIAL id="null" />
             <TEXTURE id="null" />
             <TRANSLATION x="10" y="0" z="13" />
@@ -714,6 +766,7 @@
             </DESCENDANTS>
         </NODE>
         
+        <!-- Generic lamp -->
         <NODE id="candeeiro">      
             <MATERIAL id="null" />    
             <TEXTURE id="null" />       			
@@ -731,7 +784,8 @@
 
         </NODE>
 
-        <!-- CHAO E PAREDES -->
+        <!-- FLOOR AND WALLS -->
+        <!-- Floor-->
         <NODE id="floor">      
             <MATERIAL id="null" />    
             <TEXTURE id="darkfloor" />       			
@@ -745,6 +799,7 @@
 
         </NODE>
 
+        <!-- Back wall -->
         <NODE id="stagewall">      
             <MATERIAL id="null" />    
             <TEXTURE id="cement" /> 
@@ -754,6 +809,7 @@
 
         </NODE>
 
+        <!-- Left wall -->
         <NODE id="sidewallL">
             <!-- third step -->
             <MATERIAL id="null" />
@@ -765,6 +821,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Side wall -->
         <NODE id="sidewallR">
             <!-- third step -->
             <MATERIAL id="null" />
@@ -776,6 +833,7 @@
             </DESCENDANTS>
         </NODE>
 
+        <!-- Front part of the left wall -->
         <NODE id="sidewallL1">      
             <MATERIAL id="null" />    
             <TEXTURE id="darkwood" />       			
@@ -789,6 +847,7 @@
 
         </NODE>
 
+        <!-- Back part of the left wall (just like the stage wall) -->
         <NODE id="sidewallL2">      
             <MATERIAL id="null" />    
             <TEXTURE id="cement" />       			
@@ -802,6 +861,7 @@
 
         </NODE>
 
+        <!-- Front part of the right wall -->
         <NODE id="sidewallR1">
             <MATERIAL id="null" />    
             <TEXTURE id="darkwood" />       			
@@ -814,6 +874,7 @@
 			</DESCENDANTS>
         </NODE>
 
+        <!-- Back part of the right wall (just like the stage wall) -->
         <NODE id="sidewallR2">
             <MATERIAL id="null" />    
             <TEXTURE id="cement" />       			
@@ -825,7 +886,7 @@
 			</DESCENDANTS>
         </NODE>
 
-        <!-- FACES DO CUBO UNITARIO -->
+        <!-- UNIT CUBE FACES -->
         <!-- 1 - zpos, 2 - x pos, 3 - zneg, 4 - xneg, 5 - ypos, 6 - yneg-->
         <NODE id="cubeFace1"> 
             <MATERIAL id="null" />
