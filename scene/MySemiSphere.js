@@ -50,8 +50,6 @@ MySemiSphere.prototype.initBuffers = function () {
 	
 
 	this.indices = [];
-	console.log(this.vertices.length/3);
-	console.log((this.stacks+1)*this.slices+this.stacks-1+1);
 	for (var j = 0; j < this.stacks; j++) {
 		for (var i = 0; i <= this.slices; i++) {
 			var a=j * (this.slices+1) + i;
