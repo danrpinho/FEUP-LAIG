@@ -6,7 +6,7 @@ var ILLUMINATION_INDEX = 1;
 var LIGHTS_INDEX = 2;
 var TEXTURES_INDEX = 3;
 var MATERIALS_INDEX = 4;
-var LEAVES_INDEX = 5;
+var ANIMATIONS_INDEX = 5;
 var NODES_INDEX = 6;
 
 /**
@@ -29,7 +29,7 @@ function MySceneGraph(filename, scene) {
     this.axisCoords['y'] = [0, 1, 0];
     this.axisCoords['z'] = [0, 0, 1];
 
-    // File reading 
+    // File reading
     this.reader = new CGFXMLreader();
 
     /*
@@ -133,6 +133,17 @@ MySceneGraph.prototype.parseLSXFile = function (rootElement) {
     else {
         if (index != MATERIALS_INDEX)
             this.onXMLMinorError("tag <MATERIALS> out of order");
+
+        if ((error = this.parseMaterials(nodes[index])) != null)
+            return error;
+    }
+
+    // <ANIMATIONS>
+    if ((index = nodeNames.indexOf("ANIMATIONS")) == -1)
+        return "tag <ANIMATIONS> missing";
+    else {
+        if (index != ANIMATIONS_INDEX)
+            this.onXMLMinorError("tag <ANIMATIONS> out of order");
 
         if ((error = this.parseMaterials(nodes[index])) != null)
             return error;
@@ -1157,6 +1168,65 @@ MySceneGraph.prototype.parseMaterials = function (materialsNode) {
     console.log("Parsed materials");
 }
 
+/**
+ * Parses the <ANIMATIONS> block.
+ */
+MySceneGraph.prototype.parseAnimations = function(animationsNode) {
+
+    var children = animationsNode.children;
+    // Each material.
+
+    this.animations = [];
+
+    for (var i = 0; i < children.length; i++) {
+        if (children[i].nodeName != "ANIMATION") {
+            this.onXMLMinorError("unknown tag name <" + children[i].nodeName + ">");
+            continue;
+        }
+
+        var animationID = this.reader.getString(children[i], 'id');
+        if (animationID == null)
+            return "no ID defined for animation";
+
+        if (this.animations[animationID] != null)
+            return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
+
+        var animationSpeed = this.reader.getFloat(children[i], 'speed');
+        if (animationSpeed == 0)
+            return "animation speed must be a positive number"
+
+        var animationType = this.reader.getItem(children[i], 'type', ['linear', 'circular', 'bezier', 'combo'], true);
+
+        if (animationType == 'circular') {
+            var center = [this.reader.getFloat(children[i], 'centerx'), this.reader.getFloat(children[i], 'centery'),
+                this.reader.getFloat(children[i], 'centerz')];
+            var radius = this.reader.getFloat(children[i], 'radius');
+            var startAng = this.reader.getFloat(children[i], 'startang');
+            var rotAng = this.reader.getFloat(children[i], 'rotang');
+        } else if (animationType == 'combo') {
+            var indAnimations = children[i].children;
+            //TODO processar animacoes aqui
+        } else {
+            var cPoints = children[i].children;
+            var controlPoints = [];
+
+            if (animationType == 'bezier' && cPoints.length != 4) {
+                this.onXMLMinorError(animationID + " does not have four control points");
+                continue;
+            }
+
+            for (var j = 0; j < cPoints.length; j++) {
+                controlPoints.push([this.reader.getFloat(cPoints[i], 'xx'), this.reader.getFloat(cPoints[i], 'yy'),
+                    this.reader.getFloat(cPoints[i], 'zz')])
+            }
+        }
+
+
+
+    }
+
+    console.log("Parsed animations");
+}
 
 /**
  * Parses the <NODES> block.
