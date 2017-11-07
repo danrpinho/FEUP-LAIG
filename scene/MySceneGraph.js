@@ -1171,7 +1171,7 @@ MySceneGraph.prototype.parseMaterials = function (materialsNode) {
 /**
  * Parses the <ANIMATIONS> block.
  */
-MySceneGraph.prototype.parseAnimations = function(animationsNode) {
+MySceneGraph.prototype.parseAnimations = function (animationsNode) {
 
     var children = animationsNode.children;
     // Each material.
@@ -1191,38 +1191,47 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
         if (this.animations[animationID] != null)
             return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
 
-        var animationSpeed = this.reader.getFloat(children[i], 'speed');
-        if (animationSpeed == 0)
-            return "animation speed must be a positive number"
-
         var animationType = this.reader.getItem(children[i], 'type', ['linear', 'circular', 'bezier', 'combo'], true);
+        if (animationType == 'combo') {
+            var comboChildren = children[i].children;
 
-        if (animationType == 'circular') {
-            var center = [this.reader.getFloat(children[i], 'centerx'), this.reader.getFloat(children[i], 'centery'),
-                this.reader.getFloat(children[i], 'centerz')];
-            var radius = this.reader.getFloat(children[i], 'radius');
-            var startAng = this.reader.getFloat(children[i], 'startang');
-            var rotAng = this.reader.getFloat(children[i], 'rotang');
-        } else if (animationType == 'combo') {
-            var indAnimations = children[i].children;
-            //TODO processar animacoes aqui
         } else {
-            var cPoints = children[i].children;
-            var controlPoints = [];
+            var animationSpeed = this.reader.getFloat(children[i], 'speed');
+            if (animationSpeed == 0)
+                return "animation speed must be a positive number"
 
-            if (animationType == 'bezier' && cPoints.length != 4) {
-                this.onXMLMinorError(animationID + " does not have four control points");
-                continue;
-            }
+            if (animationType == 'circular') {
+                var center = [this.reader.getFloat(children[i], 'centerx'), this.reader.getFloat(children[i], 'centery'),
+                this.reader.getFloat(children[i], 'centerz')];
+                var radius = this.reader.getFloat(children[i], 'radius');
+                var startAng = this.reader.getFloat(children[i], 'startang');
+                var rotAng = this.reader.getFloat(children[i], 'rotang');
 
-            for (var j = 0; j < cPoints.length; j++) {
-                controlPoints.push([this.reader.getFloat(cPoints[i], 'xx'), this.reader.getFloat(cPoints[i], 'yy'),
+                var newAnimation = new CircularAnimation(this.scene, animationSpeed, center, radius, startAng, rotAng);
+                this.animations[animationID] = newAnimation;
+            } else {                                        //vai ser linear ou bezier
+                var cPoints = children[i].children;
+                var controlPoints = [];
+
+                if (animationType == 'bezier' && cPoints.length != 4) {
+                    this.onXMLMinorError(animationID + " does not have four control points");
+                    continue;
+                }
+
+                for (var j = 0; j < cPoints.length; j++) {
+                    controlPoints.push([this.reader.getFloat(cPoints[i], 'xx'), this.reader.getFloat(cPoints[i], 'yy'),
                     this.reader.getFloat(cPoints[i], 'zz')])
+                }
+
+                var newAnimation;
+                if (animationType == 'linear')
+                    newAnimation = new LinearAnimation(this.scene, animationSpeed, controlPoints);
+                else
+                    newAnimation = new BezierAnimation(this.scene, animationSpeed, controlPoints);
+
+                this.animations[animationID] = newAnimation;
             }
         }
-
-
-
     }
 
     console.log("Parsed animations");
@@ -1379,6 +1388,22 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
                     default:
                         break;
                 }
+            }
+
+            var animationsIndex = specsNames.indexOf("ANIMATIONREFS");
+            if (animationsIndex != -1){
+                var animations = nodeSpecs[animationsIndex].children;
+
+                for (var j = 0; j < animations.length; j++){
+                    if (animations[j].nodeName == "ANIMATIONREF"){
+                        var animID = this.reader.getString(animations[j], 'id');
+                        this.nodes[nodeID].addAnimation(animID);
+                    } else
+                        this.onXMLMinorError("unknown tag <" + animations[j].nodeName + ">");
+
+
+                }
+
             }
 
             // Retrieves information about children.
