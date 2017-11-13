@@ -1241,7 +1241,7 @@ MySceneGraph.prototype.parseAnimations = function (animationsNode) {
             }
         }
     }
-
+    //TODO verificar se os combos referenciam animacoes nao existentes (os combos sao sempre os ultimos a ser declarados)
     console.log("Parsed animations");
 }
 
@@ -1283,7 +1283,7 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
             // Gathers child nodes.
             var nodeSpecs = children[i].children;
             var specsNames = [];
-            var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "DESCENDANTS"];
+            var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "ANIMATIONREFS", "DESCENDANTS"];
             for (var j = 0; j < nodeSpecs.length; j++) {
                 var name = nodeSpecs[j].nodeName;
                 specsNames.push(nodeSpecs[j].nodeName);
@@ -1405,11 +1405,15 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
                 for (var j = 0; j < animations.length; j++){
                     if (animations[j].nodeName == "ANIMATIONREF"){
                         var animID = this.reader.getString(animations[j], 'id');
-                        this.nodes[nodeID].addAnimation(animID);
+                        if (this.animations[animID].constructor === Array){
+                            for (var k = 0; k < this.animations[animID].length; k++){
+                                var comboID = this.animations[animID][k];
+                                this.nodes[nodeID].addAnimation(this.animations[comboID]);
+                            }
+                        } else
+                            this.nodes[nodeID].addAnimation(this.animations[animID]);
                     } else
                         this.onXMLMinorError("unknown tag <" + animations[j].nodeName + ">");
-
-
                 }
 
             }
