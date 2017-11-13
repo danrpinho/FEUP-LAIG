@@ -1194,7 +1194,15 @@ MySceneGraph.prototype.parseAnimations = function (animationsNode) {
         var animationType = this.reader.getItem(children[i], 'type', ['linear', 'circular', 'bezier', 'combo'], true);
         if (animationType == 'combo') {
             var comboChildren = children[i].children;
-
+            var comboIDs = [];
+            for(var j = 0; j < comboChildren.length; j++){
+                if (comboChildren[j].nodeName != "SPANREF"){
+                    this.onXMLMinorError("unknown tag name <" + comboChildren[j].nodeName + ">");
+                    continue;
+                }
+                comboIDs.push(this.reader.getString(comboChildren[j], 'id'));
+            }
+            this.animations[animationID] = comboIDs;
         } else {
             var animationSpeed = this.reader.getFloat(children[i], 'speed');
             if (animationSpeed == 0)
@@ -1226,7 +1234,7 @@ MySceneGraph.prototype.parseAnimations = function (animationsNode) {
                 var newAnimation;
                 if (animationType == 'linear')
                     newAnimation = new LinearAnimation(this.scene, animationSpeed, controlPoints);
-                else
+                else-
                     newAnimation = new BezierAnimation(this.scene, animationSpeed, controlPoints);
 
                 this.animations[animationID] = newAnimation;
