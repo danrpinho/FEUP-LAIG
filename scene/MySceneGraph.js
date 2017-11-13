@@ -1275,6 +1275,13 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
             if (this.nodes[nodeID] != null)
                 return "node ID must be unique (conflict: ID = " + nodeID + ")";
 
+            if(this.reader.hasAttribute(children[i], 'selectable')){
+                var selectable = this.reader.getString(children[i], 'selectable');
+                this.nodes[nodeID].selectable = selectable;
+
+            } else
+                this.nodes[nodeID].selectable = false;
+
             this.log("Processing node " + nodeID);
 
             // Creates node.
