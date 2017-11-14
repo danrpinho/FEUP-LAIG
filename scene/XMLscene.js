@@ -30,7 +30,7 @@ XMLscene.prototype.init = function(application) {
     this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
 
-    this.setPeriodTime(100);
+    this.setUpdatePeriod(100);
 
     this.axis = new CGFaxis(this);
 }
