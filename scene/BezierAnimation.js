@@ -1,6 +1,6 @@
 function BezierAnimation(scene, animationSpeed, controlPoints) {
 	Animation.apply(this, [scene, animationSpeed]);
-	var distance = casteljau(0, 2, controlPoints);
+	var distance = this.casteljau(0, 2, controlPoints);
 	this.totalTime = distance/animationSpeed;
 };
 
@@ -9,27 +9,29 @@ BezierAnimation.prototype.constructor = BezierAnimation;
 
 BezierAnimation.prototype.transform = function(time){
 	var t = time/this.totalTime;
-	var point = calculatePoint(controlPoints, t);
+	var point = this.calculatePoint(controlPoints, t);
 	this.scene.translate(point[0], point[1], point[2]);
+	this.orientation(this.calculateDeriv(controlPoints, t));
+
 }
 
 BezierAnimation.prototype.casteljau = function(level, goal, controlPoints){
-	var p12 = calculateMidpoint(controlPoints[0], controlPoints[1]);
-	var p23 = calculateMidpoint(controlPoints[1], controlPoints[2]);
-	var p34 = calculateMidpoint(controlPoints[2], controlPoints[3]);
-	var p123 = calculateMidpoint(p12, p23);
-	var p234 = calculateMidpoint(p23, p34);
-	var m = calculateMidpoint(p123, p234);
+	var p12 = this.calculateMidpoint(controlPoints[0], controlPoints[1]);
+	var p23 = this.calculateMidpoint(controlPoints[1], controlPoints[2]);
+	var p34 = this.calculateMidpoint(controlPoints[2], controlPoints[3]);
+	var p123 = this.calculateMidpoint(p12, p23);
+	var p234 = this.calculateMidpoint(p23, p34);
+	var m = this.calculateMidpoint(p123, p234);
 
 	if (level < goal){
-		return (casteljau(level + 1, goal, [controlPoints[0], p12, p123, m]) +
-			casteljau (level + 1, goal, [m, p234, p34, controlPoints[3]]));
+		return (this.casteljau(level + 1, goal, [controlPoints[0], p12, p123, m]) +
+				this.casteljau(level + 1, goal, [m, p234, p34, controlPoints[3]]));
 	} else {
-		var dist = calculateDistance(controlPoints[0], p12);
-		dist += calculateDistance(p12, p123);
-		dist += calculateDistance(p123, p234);
-		dist += calculateDistance(p234, p34);
-		dist += calculateDistance(p34, controlPoints[3]);
+		var dist = this.calculateDistance(controlPoints[0], p12);
+		dist += this.calculateDistance(p12, p123);
+		dist += this.calculateDistance(p123, p234);
+		dist += this.calculateDistance(p234, p34);
+		dist += this.calculateDistance(p34, controlPoints[3]);
 		return dist;
 	}
 }
