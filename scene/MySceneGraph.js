@@ -1177,6 +1177,8 @@ MySceneGraph.prototype.parseAnimations = function (animationsNode) {
     // Each material.
 
     this.animations = [];
+    this.standardAnimIDs = [];
+    this.comboAnimIDs = [];
 
     for (var i = 0; i < children.length; i++) {
         if (children[i].nodeName != "ANIMATION") {
@@ -1193,6 +1195,7 @@ MySceneGraph.prototype.parseAnimations = function (animationsNode) {
 
         var animationType = this.reader.getItem(children[i], 'type', ['linear', 'circular', 'bezier', 'combo'], true);
         if (animationType == 'combo') {
+            this.comboAnimIDs.push(animationID);
             var comboChildren = children[i].children;
             var comboIDs = [];
             for(var j = 0; j < comboChildren.length; j++){
@@ -1204,6 +1207,7 @@ MySceneGraph.prototype.parseAnimations = function (animationsNode) {
             }
             this.animations[animationID] = comboIDs;
         } else {
+            this.standardAnimIDs.push(animationID);
             var animationSpeed = this.reader.getFloat(children[i], 'speed');
             if (animationSpeed == 0)
                 return "animation speed must be a positive number"
@@ -1241,7 +1245,17 @@ MySceneGraph.prototype.parseAnimations = function (animationsNode) {
             }
         }
     }
-    //TODO verificar se os combos referenciam animacoes nao existentes (os combos sao sempre os ultimos a ser declarados)
+
+    for(var i = 0; i < this.comboAnimIDs.length; i++){
+        var currentCombo = this.animations[this.comboAnimIDs[i]];
+        for(var j = 0; j < currentCombo.length; j++){
+            if (this.standardAnimIDs.indexOf(currentCombo[j]) == -1)
+                return "Combo animation " + comboAnimIDs[i] + " references undeclared animation " + currentCombo[j];
+            if (this.comboAnimIDs.indexOf(currentCombo[j]) != -1)
+                return "Combo animation " + comboAnimIDs[i] + " references combo animation " + currentCombo[j];
+        }
+    }
+
     console.log("Parsed animations");
 }
 
