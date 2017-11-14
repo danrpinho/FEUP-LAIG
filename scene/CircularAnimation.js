@@ -7,7 +7,7 @@ function CircularAnimation(scene, speed, center, radius, initialAngle, rotationA
 };
 
 CircularAnimation.prototype.transform=function(time){
-    this.scene.translate(cente[0], center[1], center[2]);
+    this.scene.translate(this.center[0], this.center[1], this.center[2]);
     var angularSpeed=this.speed/this.radius;
     var rotationAngle =Math.min(angularSpeed*time, this.rotationAngle);
     this.scene.rotate(0,1,0,rotationAngle);
@@ -16,5 +16,5 @@ CircularAnimation.prototype.transform=function(time){
 }
 
 CircularAnimation.prototype = Object.create(Animation.prototype);
-CircularAnimation.prototype.constructor = LinearAnimation;
+CircularAnimation.prototype.constructor = CircularAnimation;
 
