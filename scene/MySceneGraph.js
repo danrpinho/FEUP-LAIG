@@ -1194,18 +1194,18 @@ MySceneGraph.prototype.parseAnimations = function (animationsNode) {
             return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
 
         var animationType = this.reader.getItem(children[i], 'type', ['linear', 'circular', 'bezier', 'combo'], true);
+
         if (animationType == 'combo') {
             this.comboAnimIDs.push(animationID);
+            newAnimation = new ComboAnimation(this.scene);
             var comboChildren = children[i].children;
-            var comboIDs = [];
             for(var j = 0; j < comboChildren.length; j++){
                 if (comboChildren[j].nodeName != "SPANREF"){
                     this.onXMLMinorError("unknown tag name <" + comboChildren[j].nodeName + ">");
                     continue;
                 }
-                comboIDs.push(this.reader.getString(comboChildren[j], 'id'));
+                newAnimation.addAnimation(this.reader.getString(comboChildren[j], 'id'));
             }
-            this.animations[animationID] = comboIDs;
         } else {
             this.standardAnimIDs.push(animationID);
             var animationSpeed = this.reader.getFloat(children[i], 'speed');
@@ -1220,7 +1220,7 @@ MySceneGraph.prototype.parseAnimations = function (animationsNode) {
                 var rotAng = this.reader.getFloat(children[i], 'rotang');
 
                 var newAnimation = new CircularAnimation(this.scene, animationSpeed, center, radius, startAng, rotAng);
-                this.animations[animationID] = newAnimation;
+
             } else {                                        //vai ser linear ou bezier
                 var cPoints = children[i].children;
                 var controlPoints = [];
@@ -1240,20 +1240,15 @@ MySceneGraph.prototype.parseAnimations = function (animationsNode) {
                     newAnimation = new LinearAnimation(this.scene, animationSpeed, controlPoints);
                 else-
                     newAnimation = new BezierAnimation(this.scene, animationSpeed, controlPoints);
-
-                this.animations[animationID] = newAnimation;
             }
         }
+
+        this.animations[animationID] = newAnimation;
     }
 
     for(var i = 0; i < this.comboAnimIDs.length; i++){
-        var currentCombo = this.animations[this.comboAnimIDs[i]];
-        for(var j = 0; j < currentCombo.length; j++){
-            if (this.standardAnimIDs.indexOf(currentCombo[j]) == -1)
-                return "Combo animation " + comboAnimIDs[i] + " references undeclared animation " + currentCombo[j];
-            if (this.comboAnimIDs.indexOf(currentCombo[j]) != -1)
-                return "Combo animation " + comboAnimIDs[i] + " references combo animation " + currentCombo[j];
-        }
+        if(this.animations[this.comboAnimIDs[i]].invalidAnimations(this.standardAnimIDs))
+            return "Combo animation " + this.comboAnimIDs[i] + " uses an invalid animation"
     }
 
     console.log("Parsed animations");
@@ -1426,12 +1421,17 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
                 for (var j = 0; j < animations.length; j++){
                     if (animations[j].nodeName == "ANIMATIONREF"){
                         var animID = this.reader.getString(animations[j], 'id');
-                        if (this.animations[animID].constructor === Array){
-                            for (var k = 0; k < this.animations[animID].length; k++){
-                                var comboID = this.animations[animID][k];
+                        if (this.animations.indexOf(animID) == -1)
+                            this.onXMLMinorError("unknown animation " + animID);
+
+                        //verifica se e combo
+                        if (this.animations[animID].constructor === ComboAnimation){
+                            var currentAnim = this.animations[animID];
+                            for (var k = 0; k < currentAnim.animations.length; k++){
+                                var comboID = currentAnim.animations[k];
                                 this.nodes[nodeID].addAnimation(this.animations[comboID]);
                             }
-                        } else
+                        } else      //caso nao seja, simplesmente adiciona a animacao
                             this.nodes[nodeID].addAnimation(this.animations[animID]);
                     } else
                         this.onXMLMinorError("unknown tag <" + animations[j].nodeName + ">");
