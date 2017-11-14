@@ -8,7 +8,7 @@ function Animation(scene, speed) {
 
 Animation.prototype.constructor = Animation;
 
-Animation.prototype.Orientation = function(newOrientation){
+Animation.prototype.orientation = function(newOrientation){
     //Now we are going to calculate degree which is the orientation in the xy plane
     var degree;
     if(newOrientation[0]==0 && newOrientation[1]>0){

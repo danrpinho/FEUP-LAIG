@@ -11,7 +11,7 @@ CircularAnimation.prototype.transform=function(time){
     var angularSpeed=this.speed/this.radius;
     var rotationAngle =Math.min(angularSpeed*time, this.rotationAngle);
     this.scene.rotate(0,1,0,rotationAngle);
-    this.scene.translate(radius, 1, 0, 0);
+    this.scene.translate(radius, 0, 0);
 
 }
 
