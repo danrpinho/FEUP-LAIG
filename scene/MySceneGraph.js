@@ -1545,11 +1545,13 @@ MySceneGraph.prototype.displayScene = function () {
     this.textStack = [];
     this.materStack = [];
     this.selectStack = [];
-    
+    this.animStack = [];
+
     //default values for root (its "parent")
     this.materStack.push(this.defaultMaterialID);
     this.textStack.push(null);
     this.selectStack.push(0);
+    this.animStack.push(null);
 
     //call to recursive function
     this.processNode(this.nodes[this.idRoot]);
