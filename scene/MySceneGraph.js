@@ -145,7 +145,7 @@ MySceneGraph.prototype.parseLSXFile = function (rootElement) {
         if (index != ANIMATIONS_INDEX)
             this.onXMLMinorError("tag <ANIMATIONS> out of order");
 
-        if ((error = this.parseMaterials(nodes[index])) != null)
+        if ((error = this.parseAnimations(nodes[index])) != null)
             return error;
     }
 
@@ -1238,7 +1238,7 @@ MySceneGraph.prototype.parseAnimations = function (animationsNode) {
                 var newAnimation;
                 if (animationType == 'linear')
                     newAnimation = new LinearAnimation(this.scene, animationSpeed, controlPoints);
-                else-
+                else
                     newAnimation = new BezierAnimation(this.scene, animationSpeed, controlPoints);
             }
         }
@@ -1284,17 +1284,17 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
             if (this.nodes[nodeID] != null)
                 return "node ID must be unique (conflict: ID = " + nodeID + ")";
 
+            this.log("Processing node " + nodeID);
+
+            // Creates node.
+            this.nodes[nodeID] = new MyGraphNode(this, nodeID);
+
             if(this.reader.hasAttribute(children[i], 'selectable')){
                 var selectable = this.reader.getString(children[i], 'selectable');
                 this.nodes[nodeID].selectable = selectable;
 
             } else
                 this.nodes[nodeID].selectable = false;
-
-            this.log("Processing node " + nodeID);
-
-            // Creates node.
-            this.nodes[nodeID] = new MyGraphNode(this, nodeID);
 
             // Gathers child nodes.
             var nodeSpecs = children[i].children;
@@ -1544,10 +1544,12 @@ MySceneGraph.prototype.displayScene = function () {
     // material and texture stack creation, along with introducing root elements
     this.textStack = [];
     this.materStack = [];
-
+    this.selectStack = [];
+    
     //default values for root (its "parent")
     this.materStack.push(this.defaultMaterialID);
     this.textStack.push(null);
+    this.selectStack.push(0);
 
     //call to recursive function
     this.processNode(this.nodes[this.idRoot]);
@@ -1559,6 +1561,12 @@ MySceneGraph.prototype.displayScene = function () {
 MySceneGraph.prototype.processNode = function (node) {
     this.scene.pushMatrix();
     this.scene.multMatrix(node.transformMatrix);
+
+    //shader-selectable handling
+    if(node.selectable || this.selectStack[this.selectStack.length-1] == 1)
+        this.selectStack.push(1);
+    else
+        this.selectStack.push(0);
 
     //material handling
     var currentMaterial;
@@ -1596,8 +1604,9 @@ MySceneGraph.prototype.processNode = function (node) {
         node.leaves[i].obj.display();
     }
 
-    //depois de percorrer os filhos todos, tratamento da pilha
+    //depois de percorrer os filhos todos, tratamento das pilhas
     this.textStack.pop();
     this.materStack.pop();
+    this.selectStack.pop();
     this.scene.popMatrix();
 }
