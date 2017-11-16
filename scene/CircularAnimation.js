@@ -4,6 +4,7 @@ function CircularAnimation(scene, speed, center, radius, initialAngle, rotationA
     this.radius=radius;
     this.initialAngle=initialAngle;
     this.rotationAngle=rotationAngle;
+    this.totalTime;
 };
 
 CircularAnimation.prototype.transform=function(time){
@@ -12,7 +13,6 @@ CircularAnimation.prototype.transform=function(time){
     var rotationAngle =Math.min(angularSpeed*time, this.rotationAngle);
     this.scene.rotate(0,1,0,rotationAngle);
     this.scene.translate(radius, 0, 0);
-
 }
 
 CircularAnimation.prototype = Object.create(Animation.prototype);

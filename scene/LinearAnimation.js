@@ -11,6 +11,7 @@ function LinearAnimation(scene, speed, controlPoints) {
     for(var i=0;i<this.distances.size();i++){
         this.times.push(this.distances[i]/this.speed);
     }
+    this.totalTime;
 };
 
 LinearAnimation.prototype.transform=function(time){

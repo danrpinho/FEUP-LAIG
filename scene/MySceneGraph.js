@@ -1545,7 +1545,6 @@ MySceneGraph.prototype.displayScene = function () {
     this.textStack = [];
     this.materStack = [];
     this.selectStack = [];
-    this.animStack = [];
 
     //default values for root (its "parent")
     this.materStack.push(this.defaultMaterialID);
@@ -1588,6 +1587,8 @@ MySceneGraph.prototype.processNode = function (node) {
     }
     this.textStack.push(currentTexture);
 
+    this.applyAnimations(node.animations);
+
     //recursive call for child intermediate nodes
     for (var i = 0; i < node.children.length; i++) {
         this.processNode(this.nodes[node.children[i]]);
@@ -1602,6 +1603,8 @@ MySceneGraph.prototype.processNode = function (node) {
             node.leaves[i].obj.amplifFactors(currentTexture[1], currentTexture[2]);
         }
 
+        //TODO mostrar select
+
         //displaying primitives
         node.leaves[i].obj.display();
     }
@@ -1611,4 +1614,13 @@ MySceneGraph.prototype.processNode = function (node) {
     this.materStack.pop();
     this.selectStack.pop();
     this.scene.popMatrix();
+}
+
+MySceneGraph.prototype.applyAnimations(animations){
+
+    /*
+        Pegar na animaçao
+        Ver qual é suposto aplicar dado o tempo atual do relogio
+        Chamar a função transform(time) correta com o valor atual do relogio
+    */
 }

@@ -31,6 +31,7 @@ XMLscene.prototype.init = function(application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
     this.setUpdatePeriod(100);
+    this.time = 0;
 
     this.axis = new CGFaxis(this);
 }
@@ -157,5 +158,6 @@ XMLscene.prototype.display = function() {
 }
 
 XMLscene.prototype.update = function(){
-
+    this.time += this.setUpdatePeriod;
+    //@TODO verificar
 }

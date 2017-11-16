@@ -24,7 +24,7 @@ Animation.prototype.orientation = function(newOrientation){
         }
     }
     this.scene.rotate(0,0,1,degree);
-    
+
     //Now we are going to calculate slope which is the orientation in the xz plane
     var slope;
      if(newOrientation[0]==0 && newOrientation[1]>0){
