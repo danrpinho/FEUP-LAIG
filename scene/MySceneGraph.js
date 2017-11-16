@@ -1617,7 +1617,15 @@ MySceneGraph.prototype.processNode = function (node) {
 }
 
 MySceneGraph.prototype.applyAnimations(animations){
-
+    var animTime = this.scene.time;
+    for (var i = 0; i < animations.length; i++){
+        if (animTime > animations[i].totalTime){
+            animTime -= animations[i].totalTime;
+        } else {
+            animations[i].transform(animTime/totalTime);
+            break;
+        }
+    }
     /*
         Pegar na animaçao
         Ver qual é suposto aplicar dado o tempo atual do relogio
