@@ -1550,7 +1550,6 @@ MySceneGraph.prototype.displayScene = function () {
     this.materStack.push(this.defaultMaterialID);
     this.textStack.push(null);
     this.selectStack.push(0);
-    this.animStack.push(null);
 
     //call to recursive function
     this.processNode(this.nodes[this.idRoot]);
@@ -1622,7 +1621,7 @@ MySceneGraph.prototype.applyAnimations = function (animations){
         if (animTime > animations[i].totalTime){
             animTime -= animations[i].totalTime;
         } else {
-            animations[i].transform(animTime/totalTime);
+            animations[i].transform(animTime/animations[i].totalTime);
             break;
         }
     }

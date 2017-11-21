@@ -1,5 +1,6 @@
 function ComboAnimation() {
-    Animation.apply(this, arguments);
+	Animation.apply(this, arguments);
+	this.animations=[];
 };
 
 ComboAnimation.prototype = Object.create(Animation.prototype);

@@ -215,16 +215,26 @@
             <controlpoint xx="-2" yy="2" zz="6" />
         </ANIMATION>
 
-        <ANIMATION id="comboLCL1" speed="0.5">
+        <ANIMATION id="comboLCL1" speed="0.5" type="linear">
             <controlpoint xx="0" yy="0" zz="0" />
-            <controlpoint xx="2" yy="2" zz="2" />
+            <controlpoint xx="0" yy="2" zz="2" />
         </ANIMATION>
 
-        <!--<ANIMATION id="comboLCL" type="combo"> -->
-          <!--  <SPANREF id="comboLCL1"/> -->
-          <!--  <SPANREF id="comboLCL2"/>  -->
-          <!--  <SPANREF id="comboLCL3"/>  -->
-        <!-- </ANIMATION> -->
+        <ANIMATION id="comboLCL3" speed="0.8" type="linear">
+            <controlpoint xx="0" yy="2" zz="3" />
+            <controlpoint xx="0" yy="-1" zz="6" />
+        </ANIMATION>
+
+        <ANIMATION id="comboLCL2" speed="0.3" type="circular"
+                centerx="0" centery="2.5" centerz="2.5"
+                radius="0.5" startang="45" rotang="90"
+        />
+
+        <ANIMATION id="comboLCL" type="combo">
+            <SPANREF id="comboLCL1"/>
+            <SPANREF id="comboLCL2"/>
+            <SPANREF id="comboLCL3"/>
+        </ANIMATION>
     </ANIMATIONS>
 
     <NODES>
@@ -338,7 +348,7 @@
             <TRANSLATION x="7" y="1.33" z="3.5" />
             <ROTATION axis="x" angle="-90" />
             <ANIMATIONREFS>
-                <ANIMATIONREF id="linearTest">
+                <ANIMATIONREF id="linearTest"/>
             </ANIMATIONREFS>
             <DESCENDANTS>
                 <LEAF type="sphere" args="0.33 20 20" />
