@@ -158,5 +158,5 @@ XMLscene.prototype.display = function() {
 }
 
 XMLscene.prototype.update = function(time){
-    this.oldTime = time/1000;
+    this.oldTime =this.oldTime+UPDATE_SCENE;
 }

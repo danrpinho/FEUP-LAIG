@@ -1617,11 +1617,13 @@ MySceneGraph.prototype.processNode = function (node) {
 
 MySceneGraph.prototype.applyAnimations = function (animations){
     var animTime = this.scene.oldTime;
+    console.log(this.scene.oldTime);
     for (var i = 0; i < animations.length; i++){
         if (animTime > animations[i].totalTime){
-            animTime -= animations[i].totalTime;
+            //animTime -= animations[i].totalTime;
         } else {
-            animations[i].transform(animTime/animations[i].totalTime);
+            console.log(animations[i]);
+            animations[i].transform(animTime);
             break;
         }
     }
