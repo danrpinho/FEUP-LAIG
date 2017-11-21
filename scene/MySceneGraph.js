@@ -1616,7 +1616,7 @@ MySceneGraph.prototype.processNode = function (node) {
     this.scene.popMatrix();
 }
 
-MySceneGraph.prototype.applyAnimations(animations){
+MySceneGraph.prototype.applyAnimations = function (animations){
     var animTime = this.scene.time;
     for (var i = 0; i < animations.length; i++){
         if (animTime > animations[i].totalTime){
