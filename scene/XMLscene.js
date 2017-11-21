@@ -1,4 +1,5 @@
 var DEGREE_TO_RAD = Math.PI / 180;
+var UPDATE_SCENE=0.1;
 
 /**
  * XMLscene class, representing the scene that is to be rendered.
@@ -30,7 +31,7 @@ XMLscene.prototype.init = function(application) {
     this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
 
-    this.setUpdatePeriod(100);
+    this.setUpdatePeriod(UPDATE_SCENE*1000);
 
     this.axis = new CGFaxis(this);
 }
@@ -157,5 +158,5 @@ XMLscene.prototype.display = function() {
 }
 
 XMLscene.prototype.update = function(time){
-    this.oldTime = time;
+    this.oldTime = time/1000;
 }
