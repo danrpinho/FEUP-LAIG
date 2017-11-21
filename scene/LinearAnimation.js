@@ -4,7 +4,7 @@ function LinearAnimation(scene, speed, controlPoints) {
     this.distances = [];
     //this.distances.push(0);
     for (var i = 0; i < (this.controlPoints.length - 1); i++) {
-        this.distances.push(Math.sqrt(this.controlPoints[0] * this.controlPoints[0] + this.controlPoints[1] * this.controlPoints[1] + this.controlPoints[2] * this.controlPoints[2]));
+        this.distances.push(Math.sqrt(this.controlPoints[i][0] * this.controlPoints[i][0] + this.controlPoints[i][1] * this.controlPoints[i][1] + this.controlPoints[i][2] * this.controlPoints[i][2]));
     }
     this.times = [];
     //this.times.push(0);
