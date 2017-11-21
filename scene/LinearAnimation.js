@@ -4,7 +4,10 @@ function LinearAnimation(scene, speed, controlPoints) {
     this.distances = [];
     //this.distances.push(0);
     for (var i = 0; i < (this.controlPoints.length - 1); i++) {
-        this.distances.push(Math.sqrt(this.controlPoints[i][0] * this.controlPoints[i][0] + this.controlPoints[i][1] * this.controlPoints[i][1] + this.controlPoints[i][2] * this.controlPoints[i][2]));
+        var distx=this.controlPoints[i+1][0]-this.controlPoints[i][0];
+        var disty=this.controlPoints[i+1][1]-this.controlPoints[i][1];
+        var distz=this.controlPoints[i+1][2]-this.controlPoints[i][2];
+        this.distances.push(Math.sqrt(distx*distx+disty*disty+distz*distz));
     }
     this.times = [];
     //this.times.push(0);
@@ -13,13 +16,14 @@ function LinearAnimation(scene, speed, controlPoints) {
     }
 
     var totalDistance = 0;
-    for (var i = 0; i < this.distances; i++) {
+    for (var i = 0; i < this.distances.length; i++) {
         totalDistance += this.distances[i];
     }
     this.totalTime = totalDistance / speed;
 };
 
 LinearAnimation.prototype.transform = function (time) {
+    console.log('ola');
     var sumTimes = 0;
     var i = 0;
     var timeExceeded = 0;

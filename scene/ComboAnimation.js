@@ -18,3 +18,4 @@ ComboAnimation.prototype.invalidAnimations = function(standardAnimIDs) {
 
 	return false;
 }
+
