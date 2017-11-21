@@ -209,24 +209,24 @@
 
     <ANIMATIONS>
         <ANIMATION id="linearTest" speed="0.5" type="linear">
-            <controlpoint xx="0" yy="0" zz="0" />
-            <controlpoint xx="2" yy="2" zz="2" />
-            <controlpoint xx="0" yy="4" zz="4" />
-            <controlpoint xx="-2" yy="2" zz="6" />
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+            <controlpoint xx="2.0" yy="2.0" zz="2.0" />
+            <controlpoint xx="0.0" yy="4.0" zz="4.0" />
+            <controlpoint xx="-2.0" yy="2.0" zz="6" />
         </ANIMATION>
 
         <ANIMATION id="comboLCL1" speed="0.5" type="linear">
-            <controlpoint xx="0" yy="0" zz="0" />
-            <controlpoint xx="0" yy="2" zz="2" />
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="2" zz="2" />
         </ANIMATION>
 
         <ANIMATION id="comboLCL3" speed="0.8" type="linear">
-            <controlpoint xx="0" yy="2" zz="3" />
-            <controlpoint xx="0" yy="-1" zz="6" />
+            <controlpoint xx="0.0" yy="2" zz="3" />
+            <controlpoint xx="0.0" yy="-1" zz="6" />
         </ANIMATION>
 
         <ANIMATION id="comboLCL2" speed="0.3" type="circular"
-                centerx="0" centery="2.5" centerz="2.5"
+                centerx="0.0" centery="2.5" centerz="2.5"
                 radius="0.5" startang="45" rotang="90"
         />
 

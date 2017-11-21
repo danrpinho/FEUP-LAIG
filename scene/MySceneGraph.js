@@ -1231,8 +1231,8 @@ MySceneGraph.prototype.parseAnimations = function (animationsNode) {
                 }
 
                 for (var j = 0; j < cPoints.length; j++) {
-                    controlPoints.push([this.reader.getFloat(cPoints[i], 'xx'), this.reader.getFloat(cPoints[i], 'yy'),
-                    this.reader.getFloat(cPoints[i], 'zz')])
+                    controlPoints.push([this.reader.getFloat(cPoints[j], 'xx'), this.reader.getFloat(cPoints[j], 'yy'),
+                    this.reader.getFloat(cPoints[j], 'zz')])
                 }
 
                 var newAnimation;
