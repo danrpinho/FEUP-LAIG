@@ -3,12 +3,12 @@ function LinearAnimation(scene, speed, controlPoints) {
     this.controlPoints = controlPoints;
     this.distances = [];
     //this.distances.push(0);
-    for (var i = 0; i < (this.controlPoints.size() - 1); i++) {
+    for (var i = 0; i < (this.controlPoints.length - 1); i++) {
         this.distances.push(Math.sqrt(this.controlPoints[0] * this.controlPoints[0] + this.controlPoints[1] * this.controlPoints[1] + this.controlPoints[2] * this.controlPoints[2]));
     }
     this.times = [];
     //this.times.push(0);
-    for (var i = 0; i < this.distances.size(); i++) {
+    for (var i = 0; i < this.distances.length; i++) {
         this.times.push(this.distances[i] / this.speed);
     }
 
@@ -33,7 +33,7 @@ LinearAnimation.prototype.transform = function (time) {
     }
     i--;
     if (timeExceeded) {
-        this.scene.translate(this.controlPoints[this.controlPoints.size() - 1][0], this.controlPoints[this.controlPoints.size() - 1][1], this.controlPoints[this.controlPoints.size() - 1][2]);
+        this.scene.translate(this.controlPoints[this.controlPoints.length - 1][0], this.controlPoints[this.controlPoints.length - 1][1], this.controlPoints[this.controlPoints.length - 1][2]);
     } else if (i < 0) {
         this.scene.translate(this.controlPoints[0][0], this.controlPoints[0][1], this.controlPoints[0][2]);
     } else {
