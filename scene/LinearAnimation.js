@@ -1,5 +1,5 @@
 function LinearAnimation(scene, speed, controlPoints) {
-    Animation.apply(this, [scene, speed]);
+    Animation.call(this, scene, speed);
     this.controlPoints = controlPoints;
     this.distances = [];
     //this.distances.push(0);
@@ -22,13 +22,15 @@ function LinearAnimation(scene, speed, controlPoints) {
     this.totalTime = totalDistance / speed;
 };
 
+LinearAnimation.prototype = Object.create(Animation.prototype);
+LinearAnimation.prototype.constructor = LinearAnimation;
+
 LinearAnimation.prototype.transform = function (time) {
-    console.log('ola');
     var sumTimes = 0;
     var i = 0;
     var timeExceeded = 0;
     while (sumTimes < time) {
-        if (i >= this.times[i]) {
+        if (i >= this.times.length) {
             timeExceeded = 1;
             break;
         }
@@ -49,5 +51,4 @@ LinearAnimation.prototype.transform = function (time) {
     }
 }
 
-LinearAnimation.prototype = Object.create(Animation.prototype);
-LinearAnimation.prototype.constructor = LinearAnimation;
+

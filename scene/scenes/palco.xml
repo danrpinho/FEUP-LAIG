@@ -282,6 +282,9 @@
             <MATERIAL id="WoodenM" />
             <TEXTURE id="lightwood" />
             <TRANSLATION x="0" y="0" z="6" />
+            <ANIMATIONREFS>
+                <ANIMATIONREF id="linearTest"/>
+            </ANIMATIONREFS>
             <DESCENDANTS>
                 <NODEREF id="step1" />
                 <NODEREF id="step2" />
@@ -347,9 +350,6 @@
             <TEXTURE id="null" />
             <TRANSLATION x="7" y="1.33" z="3.5" />
             <ROTATION axis="x" angle="-90" />
-            <ANIMATIONREFS>
-                <ANIMATIONREF id="linearTest"/>
-            </ANIMATIONREFS>
             <DESCENDANTS>
                 <LEAF type="sphere" args="0.33 20 20" />
             </DESCENDANTS>

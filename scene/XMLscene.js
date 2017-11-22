@@ -9,7 +9,7 @@ function XMLscene(interface) {
     CGFscene.call(this);
 
     this.interface = interface;
-	this.oldTime = 0;
+	this.mainTime = 0;
     this.lightValues = {};
 }
 
@@ -158,5 +158,5 @@ XMLscene.prototype.display = function() {
 }
 
 XMLscene.prototype.update = function(time){
-    this.oldTime =this.oldTime+UPDATE_SCENE;
+    this.mainTime =this.mainTime+UPDATE_SCENE;
 }

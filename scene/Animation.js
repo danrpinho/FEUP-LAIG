@@ -10,6 +10,8 @@ Animation.prototype.constructor = Animation;
 
 Animation.prototype.orientation = function(newOrientation){
     //Now we are going to calculate degree which is the orientation in the xy plane
+    console.log("Animation: Orientation");
+    console.log(newOrientation);
     var degree;
     if(newOrientation[0]==0 && newOrientation[1]>0){
         degree=Math.PI/2;
@@ -23,7 +25,8 @@ Animation.prototype.orientation = function(newOrientation){
             degree=Math.PI-degree;
         }
     }
-    this.scene.rotate(0,0,1,degree);
+    this.scene.rotate(degree, 0,0,1);
+
 
     //Now we are going to calculate slope which is the orientation in the xz plane
     var slope;
@@ -39,9 +42,6 @@ Animation.prototype.orientation = function(newOrientation){
             slope=Math.PI-slope;
         }
     }
-     this.scene.rotate(0,1,0,slope);
+     this.scene.rotate(-slope, 0,1,0);
 }
 
-Animation.prototype.transform=function(time){
-    console.log('Animation: transform');
-}

@@ -1616,16 +1616,9 @@ MySceneGraph.prototype.processNode = function (node) {
 }
 
 MySceneGraph.prototype.applyAnimations = function (animations){
-    var animTime = this.scene.oldTime;
-    console.log(this.scene.oldTime);
     for (var i = 0; i < animations.length; i++){
-        if (animTime > animations[i].totalTime){
-            //animTime -= animations[i].totalTime;
-        } else {
-            console.log(animations[i]);
-            animations[i].transform(animTime);
-            break;
-        }
+       animations[i].transform(this.scene.mainTime);
+
     }
     /*
         Pegar na animaçao
