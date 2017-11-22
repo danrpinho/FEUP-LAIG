@@ -1,5 +1,5 @@
 function BezierAnimation(scene, animationSpeed, controlPoints) {
-	Animation.apply(this, [scene, animationSpeed]);
+	Animation.call(this, scene, animationSpeed);
 	var distance = this.casteljau(0, 2, controlPoints);
 	this.totalTime = distance/animationSpeed;
 };

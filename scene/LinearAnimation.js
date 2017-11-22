@@ -40,6 +40,9 @@ LinearAnimation.prototype.transform = function (time) {
     i--;
     if (timeExceeded) {
         this.scene.translate(this.controlPoints[this.controlPoints.length - 1][0], this.controlPoints[this.controlPoints.length - 1][1], this.controlPoints[this.controlPoints.length - 1][2]);
+        if(this.controlPoints.length>1){
+            this.orientation([(this.controlPoints[this.controlPoints.length - 1][0] - this.controlPoints[this.controlPoints.length - 2][0]), 0, (this.controlPoints[this.controlPoints.length - 1][2] - this.controlPoints[this.controlPoints.length - 2][2])]);
+        }
     } else if (i < 0) {
         this.scene.translate(this.controlPoints[0][0], this.controlPoints[0][1], this.controlPoints[0][2]);
     } else {
