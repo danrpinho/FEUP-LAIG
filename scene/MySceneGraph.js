@@ -1606,6 +1606,7 @@ MySceneGraph.prototype.processNode = function (node) {
 
         //displaying primitives
         node.leaves[i].obj.display();
+
     }
 
     //depois de percorrer os filhos todos, tratamento das pilhas
