@@ -1619,6 +1619,7 @@ MySceneGraph.prototype.processNode = function (node) {
 MySceneGraph.prototype.applyAnimations = function (animations){
     for (var i = 0; i < animations.length; i++){
        animations[i].transform(this.scene.mainTime);
+       //this.scene.axis.display();
 
     }
     /*

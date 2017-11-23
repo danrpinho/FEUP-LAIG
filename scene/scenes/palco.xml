@@ -214,6 +214,10 @@
             <controlpoint xx="0.0" yy="4.0" zz="4.0" />
             <controlpoint xx="-2.0" yy="2.0" zz="6" />
         </ANIMATION>
+        <ANIMATION id="circularTest" speed="0.5" type="circular"
+                centerx="0.0" centery="0.0" centerz="0.0"
+                radius="10" startang="0" rotang="90"
+         />
 
         <ANIMATION id="comboLCL1" speed="0.5" type="linear">
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
@@ -283,7 +287,7 @@
             <TEXTURE id="lightwood" />
             <TRANSLATION x="0" y="0" z="6" />
             <ANIMATIONREFS>
-                <ANIMATIONREF id="linearTest"/>
+                <!--<ANIMATIONREF id="linearTest"/>-->
             </ANIMATIONREFS>
             <DESCENDANTS>
                 <NODEREF id="step1" />
@@ -371,7 +375,9 @@
             <MATERIAL id="null" />
             <TEXTURE id="null" />
             <TRANSLATION x="5" y="1" z="1" />
-
+            <ANIMATIONREFS>
+                <ANIMATIONREF id="circularTest"/>
+            </ANIMATIONREFS>
             <DESCENDANTS>
                 <NODEREF id="telaFrente" />
                 <NODEREF id="telaTras" />

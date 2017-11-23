@@ -52,7 +52,6 @@ LinearAnimation.prototype.transform = function (time) {
         var ratio = (relativeTime / this.times[i]) ;
         this.scene.translate(ratio*(this.controlPoints[i + 1][0] - this.controlPoints[i][0]),ratio*(this.controlPoints[i + 1][1] - this.controlPoints[i][1]), ratio*(this.controlPoints[i + 1][2] - this.controlPoints[i][2]));
         this.orientation([(this.controlPoints[i + 1][0] - this.controlPoints[i][0]), 0, (this.controlPoints[i + 1][2] - this.controlPoints[i][2])]);
-        this.scene.axis.display();
     }
 }
 

@@ -47,3 +47,6 @@ Animation.prototype.orientation = function(newOrientation){
      this.scene.rotate(-slope, 0,1,0);
 }
 
+/*Animation.prototype.transform = function(time){
+    console.log("Animation Transform");
+}*/
