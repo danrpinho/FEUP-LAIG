@@ -1560,12 +1560,11 @@ MySceneGraph.prototype.processNode = function (node) {
     this.scene.pushMatrix();
     this.scene.multMatrix(node.transformMatrix);
 
-    //selectable node handling
-    /*
+
     if (this.scene.currentSelectable = node.nodeID){
-        enableshaders();
+        this.scene.setActiveShader(this.scene.shader);
     }
-    */
+
 
     //material handling
     var currentMaterial;
@@ -1608,7 +1607,7 @@ MySceneGraph.prototype.processNode = function (node) {
 
     }
 
-    //TODO disablestack();
+    this.scene.setActiveShader(this.scene.defaultShader);
 
     //depois de percorrer os filhos todos, tratamento das pilhas
     this.textStack.pop();

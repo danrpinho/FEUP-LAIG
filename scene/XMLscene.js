@@ -34,6 +34,9 @@ XMLscene.prototype.init = function(application) {
 
     this.setUpdatePeriod(UPDATE_SCENE*1000);
 
+    this.shader = new CGFShader(this.gl, "t2-shader.vert", "t2-shader.frag");
+
+
     this.axis = new CGFaxis(this);
 }
 
