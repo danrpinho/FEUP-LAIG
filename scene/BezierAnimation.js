@@ -1,17 +1,16 @@
-function BezierAnimation(scene, animationSpeed, controlPoints) {
-	Animation.call(this, scene, animationSpeed);
+function BezierAnimation(scene, speed, controlPoints, startTime=0) {
+	Animation.call(this, scene, startTime);
+	this.speed=speed;
 	this.controlPoints=controlPoints;
 	var distance = this.bezierLength(controlPoints, 100);
-	console.log(this.controlPoints);
-	console.log("distance");
-	console.log(distance);
-	this.totalTime = distance/animationSpeed;
+	this.totalTime = distance/speed;
 };
 
 BezierAnimation.prototype = Object.create(Animation.prototype);
 BezierAnimation.prototype.constructor = BezierAnimation;
 
 BezierAnimation.prototype.transform = function(time){
+	if(time>=this.startTime){
 	var t = time/this.totalTime;
 	var point=this.controlPoints[this.controlPoints.length-1];
 	if(t<=1){
@@ -26,6 +25,7 @@ BezierAnimation.prototype.transform = function(time){
 	}
 	else{
 		this.orientation(this.calculateDeriv(this.controlPoints, 1));
+	}
 	}
 
 }
