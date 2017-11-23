@@ -2,16 +2,23 @@
 precision highp float;
 #endif
 
+uniform float timeFactor;
 varying vec2 vTextureCoord;
 uniform sampler2D uSampler;
+
+uniform float timeFactor;
+uniform float selRed;
+uniform float selGreen;
+uniform float selBlue;
 
 void main() {
 
 	vec4 color = texture2D(uSampler, vTextureCoord);
+	float colorVariance = abs(cos(timeFactor));
 
-	color.r = color.r * 0.393 + color.g *0.769 + color.b * 0.189;
-	color.g = color.r * 0.349 + color.g *0.686 + color.b * 0.168;
-	color.b = color.r * 0.272 + color.g *0.534 + color.b * 0.131;
+	color.r = color.r * (1-colorVariance) + colorVariance * selRed;
+	color.g = color.g * (1-colorVariance) + colorVariance * selGreen;
+	color.b = color.b * (1-colorVariance) + colorVariance * selBlue;
 
 	gl_FragColor = color;
 }

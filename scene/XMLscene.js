@@ -165,4 +165,5 @@ XMLscene.prototype.display = function() {
 
 XMLscene.prototype.update = function(time){
     this.mainTime =this.mainTime+UPDATE_SCENE;
+    this.shader.setUniformsValues({selRed: 1.0, selGreen: 0.0, selBue: 0.0, timeFactor: this.mainTime});
 }
