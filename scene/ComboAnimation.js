@@ -1,5 +1,5 @@
-function ComboAnimation() {
-	Animation.apply(this, arguments);
+function ComboAnimation(scene, startTime=0) {
+	Animation.call(this, arguments);
 	this.animations=[];
 };
 

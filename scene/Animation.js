@@ -1,9 +1,9 @@
-function Animation(scene, speed) {
+function Animation(scene, startTime=0) {
     if (this.constructor == Animation) {
         throw new Error("Can't instanciate abstract class.")
     }
     this.scene=scene;
-    this.speed=speed;
+    this.startTime=startTime;
 }
 
 Animation.prototype.constructor = Animation;

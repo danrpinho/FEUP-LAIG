@@ -1,6 +1,8 @@
-function LinearAnimation(scene, speed, controlPoints) {
-    Animation.call(this, scene, speed);
+function LinearAnimation(scene, speed,  controlPoints, startTime=0) {
+    
+    Animation.call(this, scene, startTime);
     this.controlPoints = controlPoints;
+    this.speed=speed;
     this.distances = [];
     //this.distances.push(0);
     for (var i = 0; i < (this.controlPoints.length - 1); i++) {
@@ -20,12 +22,14 @@ function LinearAnimation(scene, speed, controlPoints) {
         totalDistance += this.distances[i];
     }
     this.totalTime = totalDistance / speed;
+   
 };
 
 LinearAnimation.prototype = Object.create(Animation.prototype);
 LinearAnimation.prototype.constructor = LinearAnimation;
 
 LinearAnimation.prototype.transform = function (time) {
+    if(time>=this.startTime){
     var sumTimes = 0;
     var i = 0;
     var timeExceeded = 0;
@@ -52,6 +56,7 @@ LinearAnimation.prototype.transform = function (time) {
         var ratio = (relativeTime / this.times[i]) ;
         this.scene.translate(ratio*(this.controlPoints[i + 1][0] - this.controlPoints[i][0]),ratio*(this.controlPoints[i + 1][1] - this.controlPoints[i][1]), ratio*(this.controlPoints[i + 1][2] - this.controlPoints[i][2]));
         this.orientation([(this.controlPoints[i + 1][0] - this.controlPoints[i][0]), 0, (this.controlPoints[i + 1][2] - this.controlPoints[i][2])]);
+    }
     }
 }
 
