@@ -1,6 +1,10 @@
 function BezierAnimation(scene, animationSpeed, controlPoints) {
 	Animation.call(this, scene, animationSpeed);
-	var distance = this.casteljau(0, 2, controlPoints);
+	this.controlPoints=controlPoints;
+	var distance = this.bezierLength(controlPoints, 100);
+	console.log(this.controlPoints);
+	console.log("distance");
+	console.log(distance);
 	this.totalTime = distance/animationSpeed;
 };
 
@@ -9,13 +13,24 @@ BezierAnimation.prototype.constructor = BezierAnimation;
 
 BezierAnimation.prototype.transform = function(time){
 	var t = time/this.totalTime;
-	var point = this.calculatePoint(controlPoints, t);
+	var point=this.controlPoints[this.controlPoints.length-1];
+	if(t<=1){
+		point = this.bezierPoint(this.controlPoints, t);
+	}
+
+	/*console.log(t);
+	console.log(point);*/
 	this.scene.translate(point[0], point[1], point[2]);
-	this.orientation(this.calculateDeriv(controlPoints, t));
+	if(t<=1){
+		this.orientation(this.calculateDeriv(this.controlPoints, t));
+	}
+	else{
+		this.orientation(this.calculateDeriv(this.controlPoints, 1));
+	}
 
 }
 
-BezierAnimation.prototype.casteljau = function(level, goal, controlPoints){
+/*BezierAnimation.prototype.casteljau = function(level, goal, controlPoints){
 	var p12 = this.calculateMidpoint(controlPoints[0], controlPoints[1]);
 	var p23 = this.calculateMidpoint(controlPoints[1], controlPoints[2]);
 	var p34 = this.calculateMidpoint(controlPoints[2], controlPoints[3]);
@@ -34,6 +49,20 @@ BezierAnimation.prototype.casteljau = function(level, goal, controlPoints){
 		dist += this.calculateDistance(p34, controlPoints[3]);
 		return dist;
 	}
+}*/
+
+BezierAnimation.prototype.bezierLength = function(controlPoints, divisions){
+	var currentPoint=this.bezierPoint(this.controlPoints, 0);
+	var sumDistances=0;
+	for(var i=1;i<=divisions;i++){
+		var t=i/divisions;
+		var newPoint=this.bezierPoint(this.controlPoints, t);
+		sumDistances=sumDistances+this.calculateDistance(currentPoint, newPoint);
+		currentPoint=newPoint;
+
+	}	
+	return sumDistances;
+
 }
 
 BezierAnimation.prototype.calculateMidpoint = function(p1, p2){
@@ -44,12 +73,12 @@ BezierAnimation.prototype.calculateMidpoint = function(p1, p2){
 	return [x,y,z];
 }
 
-BezierAnimation.prototype.calculateDistance = function(p1, p2){
+/*BezierAnimation.prototype.calculateDistance = function(p1, p2){
 	return Math.sqrt((p1[0] + p2[0])*(p1[0] + p2[0]) +
 		(p1[1] + p2[1])*(p1[1] + p2[1]) + (p1[2] + p2[2])*(p1[2] + p2[2]));
-}
+}*/
 
-BezierAnimation.prototype.calculatePoint = function(p, t){
+BezierAnimation.prototype.bezierPoint = function(p, t){
 	var k = 1 - t;
 	var a = k * k * k;
 	var b = 3 * k * k * t;
