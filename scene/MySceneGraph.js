@@ -1568,11 +1568,11 @@ MySceneGraph.prototype.processNode = function (node) {
     this.scene.multMatrix(node.transformMatrix);
 
 
-    /*
-    //DANIEL CODE: HAS ERRORS
-    if (this.scene.currentSelectable = node.nodeID){
+
+    if (this.scene.currentSelectable == node.nodeID){
+
         this.scene.setActiveShader(this.scene.shader);
-    }*/
+    }
 
 
     //material handling
@@ -1615,10 +1615,12 @@ MySceneGraph.prototype.processNode = function (node) {
         node.leaves[i].obj.display();
 
     }
-    /*
-    DANIEL CODE: HAS ERRORS
-    this.scene.setActiveShader(this.scene.defaultShader);
-    */
+
+
+    if (this.scene.currentSelectable == node.nodeID){
+        this.scene.setActiveShader(this.scene.defaultShader);
+    }
+
 
     //depois de percorrer os filhos todos, tratamento das pilhas
     this.textStack.pop();
