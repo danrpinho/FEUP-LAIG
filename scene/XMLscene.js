@@ -12,6 +12,7 @@ function XMLscene(interface) {
 	this.mainTime = 0;
     this.lightValues = {};
     this.currentSelectable = "none";
+    this.shaderColor = [255, 0, 0];
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -34,7 +35,7 @@ XMLscene.prototype.init = function(application) {
 
     this.setUpdatePeriod(UPDATE_SCENE*1000);
 
-    this.shader = new CGFShader(this.gl, "t2-shader.vert", "t2-shader.frag");
+    this.shader = new CGFshader(this.gl, "t2shader.vert", "t2shader.frag");
 
 
     this.axis = new CGFaxis(this);
@@ -99,7 +100,7 @@ XMLscene.prototype.onGraphLoaded = function()
 
     // Adds lights group.
     this.interface.addLightsGroup(this.graph.lights);
-    this.interface.addSelectablesGroup(this.graph.selectableNodes);
+    this.interface.addSelectablesGroup(this.graph.selectableNodes, this.shaderColor);
 
 }
 
@@ -165,5 +166,10 @@ XMLscene.prototype.display = function() {
 
 XMLscene.prototype.update = function(time){
     this.mainTime =this.mainTime+UPDATE_SCENE;
-    this.shader.setUniformsValues({selRed: 1.0, selGreen: 0.0, selBue: 0.0, timeFactor: this.mainTime});
+    this.shader.setUniformsValues({
+        selRed: this.shaderColor[0]/256,
+        selGreen: this.shaderColor[1]/256,
+        selBue: this.shaderColor[2]/256,
+        timeFactor: this.mainTime
+    });
 }

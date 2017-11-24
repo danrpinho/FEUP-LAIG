@@ -48,8 +48,9 @@ MyInterface.prototype.addLightsGroup = function(lights) {
     }
 }
 
-MyInterface.prototype.addSelectablesGroup = function(nodes) {
+MyInterface.prototype.addSelectablesGroup = function(nodes, color) {
     var shadersGroup = this.gui.addFolder("Shader setings");
     shadersGroup.open();
     shadersGroup.add(this.scene, "currentSelectable", nodes).name("Selected Node");
+    shadersGroup.addColor(this.scene, "shaderColor", color).name("Shader Color");
 }
