@@ -17,8 +17,7 @@ BezierAnimation.prototype.transform = function(time){
 		point = this.bezierPoint(this.controlPoints, t);
 	}
 
-	/*console.log(t);
-	console.log(point);*/
+	
 	this.scene.translate(point[0], point[1], point[2]);
 	if(t<=1){
 		this.orientation(this.calculateDeriv(this.controlPoints, t));

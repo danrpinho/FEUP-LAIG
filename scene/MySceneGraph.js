@@ -1204,7 +1204,7 @@ MySceneGraph.prototype.parseAnimations = function (animationsNode) {
                     this.onXMLMinorError("unknown tag name <" + comboChildren[j].nodeName + ">");
                     continue;
                 }
-                newAnimation.addAnimation(this.reader.getString(comboChildren[j], 'id'));
+                newAnimation.addAnimationID(this.reader.getString(comboChildren[j], 'id'));
             }
         } else {
             this.standardAnimIDs.push(animationID);
@@ -1250,7 +1250,13 @@ MySceneGraph.prototype.parseAnimations = function (animationsNode) {
         if(this.animations[this.comboAnimIDs[i]].invalidAnimations(this.standardAnimIDs))
             return "Combo animation " + this.comboAnimIDs[i] + " uses an invalid animation"
     }
-
+    for(var i=0;i<this.comboAnimIDs.length;i++){
+        var currentComboAnim=this.animations[this.comboAnimIDs[i]];
+        for(var j=0;j<currentComboAnim.animationsID.length;j++){
+            var subanimationID=currentComboAnim.animationsID[j];
+            currentComboAnim.addAnimation(this.animations[subanimationID]);
+        }
+    }
     console.log("Parsed animations");
 }
 
@@ -1425,13 +1431,14 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
                             this.onXMLMinorError("unknown animation " + animID);
 
                         //verifica se e combo
-                        if (this.animations[animID].constructor === ComboAnimation){
+                        /*if (this.animations[animID].constructor === ComboAnimation){
                             var currentAnim = this.animations[animID];
                             for (var k = 0; k < currentAnim.animations.length; k++){
                                 var comboID = currentAnim.animations[k];
-                                this.nodes[nodeID].addAnimation(this.animations[comboID]);
+                                //this.nodes[nodeID].addAnimation(this.animations[comboID]);
+                                //this.animations[anim
                             }
-                        } else      //caso nao seja, simplesmente adiciona a animacao
+                        } else      //caso nao seja, simplesmente adiciona a animacao*/
                             this.nodes[nodeID].addAnimation(this.animations[animID]);
                     } else
                         this.onXMLMinorError("unknown tag <" + animations[j].nodeName + ">");
@@ -1561,9 +1568,11 @@ MySceneGraph.prototype.processNode = function (node) {
     this.scene.multMatrix(node.transformMatrix);
 
 
+    /*
+    //DANIEL CODE: HAS ERRORS
     if (this.scene.currentSelectable = node.nodeID){
         this.scene.setActiveShader(this.scene.shader);
-    }
+    }*/
 
 
     //material handling
@@ -1606,8 +1615,10 @@ MySceneGraph.prototype.processNode = function (node) {
         node.leaves[i].obj.display();
 
     }
-
+    /*
+    DANIEL CODE: HAS ERRORS
     this.scene.setActiveShader(this.scene.defaultShader);
+    */
 
     //depois de percorrer os filhos todos, tratamento das pilhas
     this.textStack.pop();

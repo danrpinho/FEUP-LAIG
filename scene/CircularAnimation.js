@@ -5,7 +5,7 @@ function CircularAnimation(scene, speed, center, radius, initialAngle, rotationA
     this.speed=speed;
     this.initialAngle=initialAngle*Math.PI/180;
     this.rotationAngle=rotationAngle*Math.PI/180;
-    this.totalTime=Math.abs((rotationAngle*this.radius)/this.speed);
+    this.totalTime=Math.abs((this.rotationAngle*this.radius)/this.speed);
 };
 
 CircularAnimation.prototype = Object.create(Animation.prototype);

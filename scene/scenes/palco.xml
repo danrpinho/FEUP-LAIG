@@ -227,24 +227,24 @@
 
         <ANIMATION id="comboLCL1" speed="0.5" type="linear">
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
-            <controlpoint xx="0.0" yy="2" zz="2" />
+            <controlpoint xx="0.0" yy="2.0" zz="2.0" />
         </ANIMATION>
 
-        <ANIMATION id="comboLCL3" speed="0.8" type="linear">
-            <controlpoint xx="0.0" yy="2" zz="3" />
-            <controlpoint xx="0.0" yy="-1" zz="6" />
+        <ANIMATION id="comboLCL3" speed="0.5" type="linear">
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="2.0" zz="3.0" />
         </ANIMATION>
 
-        <ANIMATION id="comboLCL2" speed="0.3" type="circular"
-                centerx="0.0" centery="2.5" centerz="2.5"
-                radius="0.5" startang="45" rotang="90"
+        <ANIMATION id="comboLCL2" speed="0.5" type="circular"
+                centerx="2.0" centery="0.0" centerz="0.0"
+                radius="2.0" startang="0" rotang="90"
         />
 
-        <ANIMATION id="comboLCL" type="combo">
+        <ANIMATION id="comboTest" type="combo">
             <SPANREF id="comboLCL1"/>
             <SPANREF id="comboLCL2"/>
             <SPANREF id="comboLCL3"/>
-        </ANIMATION>
+        </ANIMATION>-
     </ANIMATIONS>
 
     <NODES>
@@ -293,8 +293,9 @@
             <TEXTURE id="lightwood" />
             <TRANSLATION x="0" y="0" z="6" />
             <ANIMATIONREFS>
-                <ANIMATIONREF id="linearTest"/>
-                <ANIMATIONREF id="bezierTest"/>
+                <!--<ANIMATIONREF id="linearTest"/>
+                <ANIMATIONREF id="bezierTest"/>-->
+                <ANIMATIONREF id="comboTest"/>
 
             </ANIMATIONREFS>
             <DESCENDANTS>

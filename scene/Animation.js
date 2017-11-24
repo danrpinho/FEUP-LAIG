@@ -32,10 +32,10 @@ Animation.prototype.orientation = function(newOrientation){
 
     //Now we are going to calculate slope which is the orientation in the xz plane
     var slope;
-     if(newOrientation[0]==0 && newOrientation[1]>0){
+     if(newOrientation[0]==0 && newOrientation[2]>=0){
         slope=Math.PI/2;
     }
-    else if(newOrientation[0]==0 && newOrientation[1]<=0){
+    else if(newOrientation[0]==0 && newOrientation[2]<0){
         slope=-Math.PI/2;
     }
     else{
