@@ -13,7 +13,7 @@ uniform float selBlue;
 void main() {
 
 	vec4 color = texture2D(uSampler, vTextureCoord);
-	float colorVariance = abs(cos(timeFactor));
+	float colorVariance = cos(timeFactor) * 0.5 + 0.5;
 
 	color.r = color.r * (1.0 - colorVariance) + colorVariance * selRed;
 	color.g = color.g * (1.0 - colorVariance) + colorVariance * selGreen;

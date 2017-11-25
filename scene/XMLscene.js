@@ -12,7 +12,7 @@ function XMLscene(interface) {
 	this.mainTime = 0;
     this.lightValues = {};
     this.currentSelectable = "none";
-    this.shaderColor = [255, 0, 0];
+    this.shaderColor = [0, 0, 255];
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -169,9 +169,9 @@ XMLscene.prototype.display = function() {
 XMLscene.prototype.update = function(time){
     this.mainTime =this.mainTime+UPDATE_SCENE;
     this.shader.setUniformsValues({
-        selRed: this.shaderColor[0]/256,
-        selGreen: this.shaderColor[1]/256,
-        selBue: this.shaderColor[2]/256,
+        selRed: this.shaderColor[0]/255,
+        selGreen: this.shaderColor[1]/255,
+        selBlue: this.shaderColor[2]/255,
         timeFactor: this.mainTime
     });
 }
