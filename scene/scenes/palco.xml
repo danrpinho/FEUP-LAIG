@@ -208,43 +208,54 @@
     </MATERIALS>
 
     <ANIMATIONS>
-        <ANIMATION id="linearTest" speed="2.0" type="linear">
+        <ANIMATION id="comboBLB1" speed="2.0" type="bezier">
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
-            <controlpoint xx="2.0" yy="2.0" zz="2.0" />
-            <controlpoint xx="4.0" yy="4.0" zz="4.0" />
-            <controlpoint xx="6.0" yy="6.0" zz="6.0" />
-        </ANIMATION>
-        <ANIMATION id="circularTest" speed="0.5" type="circular"
-                centerx="0.0" centery="0.0" centerz="0.0"
-                radius="10" startang="0" rotang="90"
-         />
-          <ANIMATION id="bezierTest" speed="2.0" type="bezier">
-            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
-            <controlpoint xx="2.0" yy="2.0" zz="2.0" />
-            <controlpoint xx="6.0" yy="4.0" zz="2.0" />
-            <controlpoint xx="8.0" yy="6.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="0.0" zz="3.0" />
+            <controlpoint xx="-2.0" yy="1.0" zz="2.0" />
+            <controlpoint xx="-2.0" yy="1.0" zz="4.0" />
         </ANIMATION>
 
-        <ANIMATION id="comboLCL1" speed="0.5" type="linear">
+        <ANIMATION id="comboBLB2" speed="2.0" type="linear">
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+            <controlpoint xx="-1.0" yy="1.0" zz="2.0" />
+            <controlpoint xx="-2.0" yy="1.0" zz="2.0" />
+            <controlpoint xx="-3.0" yy="0.0" zz="0.0" />
+        </ANIMATION>
+
+        <ANIMATION id="comboBLB3" speed="2.0" type="bezier">
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="-0.33" zz="-3.0" />
+            <controlpoint xx="1.0" yy="-0.66" zz="-4.0" />
+            <controlpoint xx="5.0" yy="-1.0" zz="-4.0" />
+        </ANIMATION>
+
+        <ANIMATION id="comboLCL1" speed="2.0" type="linear">
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
             <controlpoint xx="0.0" yy="2.0" zz="2.0" />
         </ANIMATION>
 
         <ANIMATION id="comboLCL3" speed="0.5" type="linear">
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
-            <controlpoint xx="0.0" yy="2.0" zz="3.0" />
+            <controlpoint xx="0.0" yy="-2.0" zz="2.0" />
+
         </ANIMATION>
 
         <ANIMATION id="comboLCL2" speed="0.5" type="circular"
                 centerx="2.0" centery="0.0" centerz="0.0"
-                radius="2.0" startang="0" rotang="90"
+                radius="2.0" startang="0" rotang="180"
         />
 
-        <ANIMATION id="comboTest" type="combo">
+        <ANIMATION id="linearCombo" type="combo">
             <SPANREF id="comboLCL1"/>
             <SPANREF id="comboLCL2"/>
             <SPANREF id="comboLCL3"/>
-        </ANIMATION>-
+        </ANIMATION>
+
+        <ANIMATION id="bezierCombo" type="combo">
+            <SPANREF id="comboBLB1"/>
+            <SPANREF id="comboBLB2"/>
+            <SPANREF id="comboBLB3"/>
+        </ANIMATION>
     </ANIMATIONS>
 
     <NODES>
@@ -293,10 +304,7 @@
             <TEXTURE id="lightwood" />
             <TRANSLATION x="0" y="0" z="6" />
             <ANIMATIONREFS>
-                <!--<ANIMATIONREF id="linearTest"/>
-                <ANIMATIONREF id="bezierTest"/>-->
-                <ANIMATIONREF id="comboTest"/>
-
+                <ANIMATIONREF id="linearCombo"/>
             </ANIMATIONREFS>
             <DESCENDANTS>
                 <NODEREF id="step1" />
@@ -363,6 +371,9 @@
             <TEXTURE id="null" />
             <TRANSLATION x="7" y="1.33" z="3.5" />
             <ROTATION axis="x" angle="-90" />
+            <ANIMATIONREFS>
+                <ANIMATIONREF id="bezierCombo"/>
+            </ANIMATIONREFS>
             <DESCENDANTS>
                 <LEAF type="sphere" args="0.33 20 20" />
             </DESCENDANTS>
@@ -380,7 +391,7 @@
         </NODE>
 
         <!-- Stage screen for scenery -->
-        <NODE id="tela">
+        <NODE id="tela" selectable="true">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
             <TRANSLATION x="5" y="1" z="1" />
@@ -397,7 +408,7 @@
         </NODE>
 
         <!-- Front side of the screen -->
-        <NODE id="telaFrente">
+        <NODE id="telaFrente" selectable="true">
             <MATERIAL id="defaultMaterial" />
             <TEXTURE id="pintura" />
             <SCALE sx="2" sy="1.5" sz="0.8" />
@@ -502,7 +513,7 @@
 
         <!-- Benches -->
         <!-- Front left row -->
-        <NODE id="filaEsqFrente">
+        <NODE id="filaEsqFrente" selectable="true">
             <MATERIAL id="null" />
             <TEXTURE id="null" />
 
