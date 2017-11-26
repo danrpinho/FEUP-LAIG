@@ -1245,11 +1245,14 @@ MySceneGraph.prototype.parseAnimations = function (animationsNode) {
 
         this.animations[animationID] = newAnimation;
     }
-
+    
+    //Verifies that all combo Animations have a valid ID
     for(var i = 0; i < this.comboAnimIDs.length; i++){
         if(this.animations[this.comboAnimIDs[i]].invalidAnimations(this.standardAnimIDs))
             return "Combo animation " + this.comboAnimIDs[i] + " uses an invalid animation"
     }
+
+    //Creates the combo Animations
     for(var i=0;i<this.comboAnimIDs.length;i++){
         var currentComboAnim=this.animations[this.comboAnimIDs[i]];
         for(var j=0;j<currentComboAnim.animationsID.length;j++){
@@ -1430,15 +1433,7 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
                         if (this.animations.indexOf(animID) == -1)
                             this.onXMLMinorError("unknown animation " + animID);
 
-                        //verifica se e combo
-                        /*if (this.animations[animID].constructor === ComboAnimation){
-                            var currentAnim = this.animations[animID];
-                            for (var k = 0; k < currentAnim.animations.length; k++){
-                                var comboID = currentAnim.animations[k];
-                                //this.nodes[nodeID].addAnimation(this.animations[comboID]);
-                                //this.animations[anim
-                            }
-                        } else      //caso nao seja, simplesmente adiciona a animacao*/
+                        
                             this.nodes[nodeID].addAnimation(this.animations[animID]);
                     } else
                         this.onXMLMinorError("unknown tag <" + animations[j].nodeName + ">");
@@ -1547,7 +1542,6 @@ MySceneGraph.generateRandomString = function (length) {
  * Displays the scene, processing each node, starting in the root node.
  */
 MySceneGraph.prototype.displayScene = function () {
-    //console.log("display");
     // material and texture stack creation, along with introducing root elements
     this.textStack = [];
     this.materStack = [];
@@ -1629,16 +1623,11 @@ MySceneGraph.prototype.processNode = function (node) {
 }
 
 MySceneGraph.prototype.applyAnimations = function (animations){
-    var sumTimes=0;
+    var sumTimes=0; //sum of the Times of the Animations
     for (var i = 0; i < animations.length; i++){
        animations[i].transform(this.scene.mainTime-sumTimes);
        sumTimes += animations[i].totalTime;
-       //this.scene.axis.display();
 
     }
-    /*
-        Pegar na animaçao
-        Ver qual é suposto aplicar dado o tempo atual do relogio
-        Chamar a função transform(time) correta com o valor atual do relogio
-    */
+    
 }

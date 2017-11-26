@@ -1,10 +1,16 @@
+/**
+ *LinearAnimation
+ *@brief - constructor of LinearAnimation
+ *@param scene - scene the object this Animation is going to move belongs to
+ *@param speed - speed of the Animation
+ *@param controlPoints - control Points of the LinearAnimation
+ */
 function LinearAnimation(scene, speed,  controlPoints, startTime=0) {
     
     Animation.call(this, scene, startTime);
     this.controlPoints = controlPoints;
     this.speed=speed;
     this.distances = [];
-    //this.distances.push(0);
     for (var i = 0; i < (this.controlPoints.length - 1); i++) {
         var distx=this.controlPoints[i+1][0]-this.controlPoints[i][0];
         var disty=this.controlPoints[i+1][1]-this.controlPoints[i][1];
@@ -12,7 +18,6 @@ function LinearAnimation(scene, speed,  controlPoints, startTime=0) {
         this.distances.push(Math.sqrt(distx*distx+disty*disty+distz*distz));
     }
     this.times = [];
-    //this.times.push(0);
     for (var i = 0; i < this.distances.length; i++) {
         this.times.push(this.distances[i] / this.speed);
     }
@@ -28,6 +33,11 @@ function LinearAnimation(scene, speed,  controlPoints, startTime=0) {
 LinearAnimation.prototype = Object.create(Animation.prototype);
 LinearAnimation.prototype.constructor = LinearAnimation;
 
+/**
+*transform
+*@brief - performs the Animation
+*@param time - time in seconds since the start of the Animation
+*/
 LinearAnimation.prototype.transform = function (time) {
     if(time>=this.startTime){
     var sumTimes = 0;

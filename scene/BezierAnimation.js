@@ -1,3 +1,10 @@
+/**
+ *BezierAnimation
+ *@brief - constructor of BezierAnimation
+ *@param scene - scene the object this Animation is going to move belongs to
+ *@param speed - speed of the Animation
+ *@param controlPoints - control Points of the Bezier Curve
+ */
 function BezierAnimation(scene, speed, controlPoints, startTime=0) {
 	Animation.call(this, scene, startTime);
 	this.speed=speed;
@@ -9,6 +16,11 @@ function BezierAnimation(scene, speed, controlPoints, startTime=0) {
 BezierAnimation.prototype = Object.create(Animation.prototype);
 BezierAnimation.prototype.constructor = BezierAnimation;
 
+/**
+*transform
+*@brief - performs the Animation
+*@param time - time in seconds since the start of the Animation
+*/
 BezierAnimation.prototype.transform = function(time){
 	if(time>=this.startTime){
 	var t = time/this.totalTime;
@@ -29,27 +41,13 @@ BezierAnimation.prototype.transform = function(time){
 
 }
 
-/*BezierAnimation.prototype.casteljau = function(level, goal, controlPoints){
-	var p12 = this.calculateMidpoint(controlPoints[0], controlPoints[1]);
-	var p23 = this.calculateMidpoint(controlPoints[1], controlPoints[2]);
-	var p34 = this.calculateMidpoint(controlPoints[2], controlPoints[3]);
-	var p123 = this.calculateMidpoint(p12, p23);
-	var p234 = this.calculateMidpoint(p23, p34);
-	var m = this.calculateMidpoint(p123, p234);
 
-	if (level < goal){
-		return (this.casteljau(level + 1, goal, [controlPoints[0], p12, p123, m]) +
-				this.casteljau(level + 1, goal, [m, p234, p34, controlPoints[3]]));
-	} else {
-		var dist = this.calculateDistance(controlPoints[0], p12);
-		dist += this.calculateDistance(p12, p123);
-		dist += this.calculateDistance(p123, p234);
-		dist += this.calculateDistance(p234, p34);
-		dist += this.calculateDistance(p34, controlPoints[3]);
-		return dist;
-	}
-}*/
-
+/**
+*bezierLength
+*@brief - calculates the length of a bezier curve
+*@param controlPoints - control Points of a bezier curve
+*@param divisions - divisions of the bezier Curve made to calculate its distance
+*/
 BezierAnimation.prototype.bezierLength = function(controlPoints, divisions){
 	var currentPoint=this.bezierPoint(this.controlPoints, 0);
 	var sumDistances=0;
@@ -64,19 +62,12 @@ BezierAnimation.prototype.bezierLength = function(controlPoints, divisions){
 
 }
 
-BezierAnimation.prototype.calculateMidpoint = function(p1, p2){
-	var x, y, z;
-	x = (p1[0] + p2[0])/2;
-	y = (p1[1] + p2[1])/2;
-	z = (p1[2] + p2[2])/2;
-	return [x,y,z];
-}
-
-/*BezierAnimation.prototype.calculateDistance = function(p1, p2){
-	return Math.sqrt((p1[0] + p2[0])*(p1[0] + p2[0]) +
-		(p1[1] + p2[1])*(p1[1] + p2[1]) + (p1[2] + p2[2])*(p1[2] + p2[2]));
-}*/
-
+/**
+*bezierPoint
+*@brief - calculates the bezier Point corresponding to a set of control Points and to a certain time
+*@param p - control Points of a bezier curve
+*@param t - time of the the Bezier Curve 0<=t<=1
+*/
 BezierAnimation.prototype.bezierPoint = function(p, t){
 	var k = 1 - t;
 	var a = k * k * k;
@@ -93,6 +84,12 @@ BezierAnimation.prototype.bezierPoint = function(p, t){
 	//B(t)  = (1-t)^3 P0 + 3(1-t)^2 t P1 + 3(1-t) t^2 P2 + t^3 P3, t E (0, 1)
 }
 
+/**
+*bezierPoint
+*@brief - calculates the derivative of a Bezier Curve corresponding to a set of control Points and to a certain time
+*@param p - control Points of a bezier curve
+*@param t - time of the the Bezier Curve 0<=t<=1
+*/
 BezierAnimation.prototype.calculateDeriv = function(p, t){
 	var k = 1 - t;
 	var a = 3 * k * k;

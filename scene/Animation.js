@@ -1,3 +1,8 @@
+/**
+ *Animation
+ *@brief - constructor of Animation
+ *@param scene - scene the object this Animation is going to move belongs to
+ */
 function Animation(scene, startTime=0) {
     if (this.constructor == Animation) {
         throw new Error("Can't instanciate abstract class.")
@@ -8,27 +13,14 @@ function Animation(scene, startTime=0) {
 
 Animation.prototype.constructor = Animation;
 
+/**
+*orientation
+*@brief - changes the horizontal orientation of an object to newOrientation
+*@param newOrientation - new Orientation of the object 
+*/
 Animation.prototype.orientation = function(newOrientation){
     this.scene.rotate(Math.PI/2, 0, 1, 0);
-    //Now we are going to calculate degree which is the orientation in the xy plane
-    /*console.log("Animation: Orientation");
-    console.log(newOrientation);
-    var degree;
-    if(newOrientation[0]==0 && newOrientation[1]>0){
-        degree=Math.PI/2;
-    }
-    else if(newOrientation[0]==0 && newOrientation[1]<=0){
-        degree=-Math.PI/2;
-    }
-    else{
-        degree=Math.atan(newOrientation[1]/newOrientation[0]);
-        if(newOrientation[0]<0){
-            degree=Math.PI+degree;
-        }
-    }
-    console.log(degree);
-    this.scene.rotate(degree, 0,0,1);*/
-
+   
 
     //Now we are going to calculate slope which is the orientation in the xz plane
     var slope;
@@ -47,10 +39,13 @@ Animation.prototype.orientation = function(newOrientation){
      this.scene.rotate(-slope, 0,1,0);
 }
 
-/*Animation.prototype.transform = function(time){
-    console.log("Animation Transform");
-}*/
 
+/**
+*calculateDistance
+*@brief - calculates the distance between two points in space
+*@param p1 - first point 
+*@param p2 - second point
+*/
 Animation.prototype.calculateDistance = function(p1, p2){
 	return Math.sqrt((p1[0] - p2[0])*(p1[0] - p2[0]) +
 		(p1[1] - p2[1])*(p1[1] - p2[1]) + (p1[2] - p2[2])*(p1[2] - p2[2]));
