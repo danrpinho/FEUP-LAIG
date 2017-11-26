@@ -208,6 +208,16 @@
     </MATERIALS>
 
     <ANIMATIONS>
+        <ANIMATION id="linearUp" speed="1.0" type="linear">
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="2.0" zz="0.0" />
+        </ANIMATION>
+
+        <ANIMATION id="linearDn" speed="1.0" type="linear">
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="-2.0" zz="0.0" />
+        </ANIMATION>
+
         <ANIMATION id="comboBLB1" speed="2.0" type="bezier">
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
             <controlpoint xx="0.0" yy="0.0" zz="3.0" />
@@ -237,10 +247,9 @@
         <ANIMATION id="comboLCL3" speed="0.5" type="linear">
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
             <controlpoint xx="0.0" yy="-2.0" zz="2.0" />
-
         </ANIMATION>
 
-        <ANIMATION id="comboLCL2" speed="0.5" type="circular"
+        <ANIMATION id="comboLCL2" speed="1.0" type="circular"
                 centerx="2.0" centery="0.0" centerz="0.0"
                 radius="2.0" startang="0" rotang="180"
         />
@@ -334,6 +343,11 @@
             <TRANSLATION x="0" y="0" z="0.25" />
             <SCALE sx="1" sy="0.5" sz="0.25" />
 
+            <ANIMATIONREFS>
+                <ANIMATIONREF id="linearUp"/>
+                <ANIMATIONREF id="linearDn"/>
+            </ANIMATIONREFS>
+
             <DESCENDANTS>
                 <NODEREF id="step" />
             </DESCENDANTS>
@@ -359,6 +373,7 @@
                 <!-- back and bottom faces are always covered up so they're not rendered -->
                 <NODEREF id="cubeFace1" />
                 <NODEREF id="cubeFace2" />
+                <NODEREF id="cubeFace3" />
                 <NODEREF id="cubeFace4" />
                 <NODEREF id="cubeFace5" />
             </DESCENDANTS>
