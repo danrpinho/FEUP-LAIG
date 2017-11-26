@@ -224,9 +224,9 @@
 
         <ANIMATION id="comboBLB3" speed="2.0" type="bezier">
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
-            <controlpoint xx="0.0" yy="-0.33" zz="-3.0" />
-            <controlpoint xx="1.0" yy="-0.66" zz="-4.0" />
-            <controlpoint xx="5.0" yy="-1.0" zz="-4.0" />
+            <controlpoint xx="0.0" yy="-0.33" zz="3.0" />
+            <controlpoint xx="-1.0" yy="-0.66" zz="4.0" />
+            <controlpoint xx="-5.0" yy="-1.0" zz="4.0" />
         </ANIMATION>
 
         <ANIMATION id="comboLCL1" speed="2.0" type="linear">
@@ -253,8 +253,8 @@
 
         <ANIMATION id="bezierCombo" type="combo">
             <SPANREF id="comboBLB1"/>
-            <!--<SPANREF id="comboBLB2"/>
-            <SPANREF id="comboBLB3"/>-->
+            <SPANREF id="comboBLB2"/>
+            <SPANREF id="comboBLB3"/>
         </ANIMATION>
     </ANIMATIONS>
 
@@ -370,7 +370,6 @@
             <MATERIAL id="BlueShiny" />
             <TEXTURE id="null" />
             <TRANSLATION x="7" y="1.33" z="3.5" />
-            <ROTATION axis="x" angle="-90" />
             <ANIMATIONREFS>
                 <ANIMATIONREF id="bezierCombo"/>
             </ANIMATIONREFS>
