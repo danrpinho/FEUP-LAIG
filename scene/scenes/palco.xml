@@ -253,8 +253,8 @@
 
         <ANIMATION id="bezierCombo" type="combo">
             <SPANREF id="comboBLB1"/>
-            <SPANREF id="comboBLB2"/>
-            <SPANREF id="comboBLB3"/>
+            <!--<SPANREF id="comboBLB2"/>
+            <SPANREF id="comboBLB3"/>-->
         </ANIMATION>
     </ANIMATIONS>
 
