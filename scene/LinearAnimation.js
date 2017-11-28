@@ -53,7 +53,7 @@ LinearAnimation.prototype.transform = function (time, currentAnimation=1) {
     }
     i--;
     if(timeExceeded){
-    if (this.relativeAnimation==1 || currentAnimation) {
+    if (this.relativeAnimation==1 || currentAnimation==1) {
         this.scene.translate(this.controlPoints[this.controlPoints.length - 1][0], this.controlPoints[this.controlPoints.length - 1][1], this.controlPoints[this.controlPoints.length - 1][2]);
         if(this.controlPoints.length>1){
             this.orientation([(this.controlPoints[this.controlPoints.length - 1][0] - this.controlPoints[this.controlPoints.length - 2][0]), 0, (this.controlPoints[this.controlPoints.length - 1][2] - this.controlPoints[this.controlPoints.length - 2][2])]);

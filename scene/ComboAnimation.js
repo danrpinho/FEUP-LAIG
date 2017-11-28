@@ -4,7 +4,7 @@
  *@param scene - scene the object this Animation is going to move belongs to
  */
 function ComboAnimation(scene, startTime=0) {
-	Animation.call(this, arguments);
+	Animation.call(this, scene, startTime);
 	this.animations=[];
 	this.animationsID=[];
 	this.startTimes=[];
@@ -23,12 +23,20 @@ ComboAnimation.prototype.transform = function(time, currentAnimation=1){
 	if(time>=this.startTime){
 		if(time<=this.startTime+this.totalTime){
 			for(var i=0;i<this.animations.length;i++){
-				this.animations[i].transform(time-this.startTimes[i]);
+				if(i == (this.animations.length-1) || this.startTimes[i+1] > time){
+					this.animations[i].transform(time-this.startTimes[i], 1);
+				}
+				else{
+					this.animations[i].transform(time-this.startTimes[i], 0);
+				}
 			}
 		}
-		else if(this.relativeAnimation==1 || this.currentAnimation==1){
-			for(var i=0;i<this.animations.length;i++){
-				this.animations[i].transform(time-this.startTimes[i]);
+		else if(this.relativeAnimation==1 || currentAnimation==1){
+			for(var i=0;i<this.animations.length-1;i++){
+				this.animations[i].transform(time-this.startTimes[i], 0);
+			}
+			if(this.animations.length >= 1){
+				this.animations[this.animations.length-1].transform(time-this.startTimes[this.animations.length-1], 1);
 			}
 		}
 	}

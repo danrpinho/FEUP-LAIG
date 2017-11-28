@@ -258,7 +258,7 @@
     </ANIMATIONS>-->
     <ANIMATION id="linearTest" speed="0.5" type="linear">
     	<controlpoint xx="0.0" yy="0.0" zz="0.0" />
-        <controlpoint xx="0.0" yy="4.0" zz="1.0" />
+        <controlpoint xx="0.0" yy="-4.0" zz="1.0" />
  	</ANIMATION>
  	<ANIMATION id="bezierTest" speed="0.5" type="bezier">
     	<controlpoint xx="0.0" yy="0.0" zz="0.0" />
@@ -266,6 +266,19 @@
         <controlpoint xx="0.0" yy="2.0" zz="0.66" />
         <controlpoint xx="0.0" yy="3.0" zz="0.99" />
  	</ANIMATION>
+ 	<ANIMATION id="circularTest" speed="3.0" type="circular"
+    	 centerx="10.0" centery="1.0" centerz="4.0"
+          radius="10.0" startang="0" rotang="180"
+ 	/>
+ 	<ANIMATION id="circularTest2" speed="3.0" type="circular"
+    	 centerx="10.0" centery="0.0" centerz="0.0"
+          radius="10.0" startang="0" rotang="360"
+ 	/>
+ 	<ANIMATION id="comboTest" type="combo">
+            <SPANREF id="linearTest"/>
+            <SPANREF id="bezierTest"/>
+            <SPANREF id="circularTest"/>
+        </ANIMATION>
  	</ANIMATIONS>
     		
 
@@ -315,7 +328,10 @@
             <TEXTURE id="lightwood" />
             <TRANSLATION x="0" y="0" z="6" />
             <ANIMATIONREFS>
-                <ANIMATIONREF id="bezierTest"/>
+                <!--<ANIMATIONREF id="bezierTest"/>
+                 <ANIMATIONREF id="linearTest"/>
+                 <ANIMATIONREF id="circularTest2"/>-->
+                 <ANIMATIONREF id="comboTest"/>
             </ANIMATIONREFS>
             <DESCENDANTS>
                 <NODEREF id="step1" />

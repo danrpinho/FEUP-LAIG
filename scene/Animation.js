@@ -9,7 +9,7 @@ function Animation(scene, startTime=0) {
     }
     this.scene=scene;
     this.startTime=startTime;
-    this.relativeAnimation=1;
+    this.relativeAnimation=0;
 }
 
 Animation.prototype.constructor = Animation;

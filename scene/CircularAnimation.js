@@ -26,16 +26,17 @@ CircularAnimation.prototype.constructor = CircularAnimation;
 *@brief - performs the Animation
 *@param time - time in seconds since the start of the Animation
 */
-CircularAnimation.prototype.transform=function(time, currentAnimation=1){
-    if(time>=this.startTime){
-    this.scene.translate(this.center[0], this.center[1], this.center[2]);
+CircularAnimation.prototype.transform=function ( time, currentAnimation=1){
+    if(time>=this.startTime){    
     var angularSpeed=this.speed/this.radius;
     //var tmpRotationAngle =Math.min(angularSpeed*time, this.rotationAngle);
     if(angularSpeed*time<=this.rotationAngle){
+        this.scene.translate(this.center[0], this.center[1], this.center[2]);
         this.scene.rotate(this.initialAngle+angularSpeed*time, 0,1,0);
         this.scene.translate(-this.radius, 0, 0);
     }
-    else if(this.relativeAnimation==1 || this.currentAnimation==1){
+    else if(this.relativeAnimation==1 || currentAnimation==1){
+        this.scene.translate(this.center[0], this.center[1], this.center[2]);
         this.scene.rotate(this.initialAngle+this.rotationAngle, 0,1,0);
         this.scene.translate(-this.radius, 0, 0);
     }
