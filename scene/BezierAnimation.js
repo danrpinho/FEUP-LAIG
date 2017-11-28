@@ -21,7 +21,7 @@ BezierAnimation.prototype.constructor = BezierAnimation;
 *@brief - performs the Animation
 *@param time - time in seconds since the start of the Animation
 */
-BezierAnimation.prototype.transform = function(time){
+BezierAnimation.prototype.transform = function(time, currentAnimation=1){
 	if(time>=this.startTime){
 	var t = time/this.totalTime;
 	var point=this.controlPoints[this.controlPoints.length-1];
@@ -30,11 +30,13 @@ BezierAnimation.prototype.transform = function(time){
 	}
 
 	
-	this.scene.translate(point[0], point[1], point[2]);
+	
 	if(t<=1){
+		this.scene.translate(point[0], point[1], point[2]);
 		this.orientation(this.calculateDeriv(this.controlPoints, t));
 	}
-	else{
+	else if(this.relativeAnimation==1 || currentAnimation==1){
+		this.scene.translate(point[0], point[1], point[2]);
 		this.orientation(this.calculateDeriv(this.controlPoints, 1));
 	}
 	}
