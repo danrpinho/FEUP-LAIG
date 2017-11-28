@@ -1199,8 +1199,8 @@ MySceneGraph.prototype.parseAnimations = function (animationsNode) {
             this.comboAnimIDs.push(animationID);
             newAnimation = new ComboAnimation(this.scene);
             var comboChildren = children[i].children;
-            for(var j = 0; j < comboChildren.length; j++){
-                if (comboChildren[j].nodeName != "SPANREF"){
+            for (var j = 0; j < comboChildren.length; j++) {
+                if (comboChildren[j].nodeName != "SPANREF") {
                     this.onXMLMinorError("unknown tag name <" + comboChildren[j].nodeName + ">");
                     continue;
                 }
@@ -1245,18 +1245,18 @@ MySceneGraph.prototype.parseAnimations = function (animationsNode) {
 
         this.animations[animationID] = newAnimation;
     }
-    
+
     //Verifies that all combo Animations have a valid ID
-    for(var i = 0; i < this.comboAnimIDs.length; i++){
-        if(this.animations[this.comboAnimIDs[i]].invalidAnimations(this.standardAnimIDs))
+    for (var i = 0; i < this.comboAnimIDs.length; i++) {
+        if (this.animations[this.comboAnimIDs[i]].invalidAnimations(this.standardAnimIDs))
             return "Combo animation " + this.comboAnimIDs[i] + " uses an invalid animation"
     }
 
     //Creates the combo Animations
-    for(var i=0;i<this.comboAnimIDs.length;i++){
-        var currentComboAnim=this.animations[this.comboAnimIDs[i]];
-        for(var j=0;j<currentComboAnim.animationsID.length;j++){
-            var subanimationID=currentComboAnim.animationsID[j];
+    for (var i = 0; i < this.comboAnimIDs.length; i++) {
+        var currentComboAnim = this.animations[this.comboAnimIDs[i]];
+        for (var j = 0; j < currentComboAnim.animationsID.length; j++) {
+            var subanimationID = currentComboAnim.animationsID[j];
             currentComboAnim.addAnimation(this.animations[subanimationID]);
         }
     }
@@ -1298,7 +1298,7 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
             // Creates node.
             this.nodes[nodeID] = new MyGraphNode(this, nodeID);
 
-            if(this.reader.hasAttribute(children[i], 'selectable')){
+            if (this.reader.hasAttribute(children[i], 'selectable')) {
                 var selectable = this.reader.getString(children[i], 'selectable');
                 this.nodes[nodeID].selectable = selectable;
                 this.selectableNodes.push(nodeID);
@@ -1424,17 +1424,17 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
             }
 
             var animationsIndex = specsNames.indexOf("ANIMATIONREFS");
-            if (animationsIndex != -1){
+            if (animationsIndex != -1) {
                 var animations = nodeSpecs[animationsIndex].children;
 
-                for (var j = 0; j < animations.length; j++){
-                    if (animations[j].nodeName == "ANIMATIONREF"){
+                for (var j = 0; j < animations.length; j++) {
+                    if (animations[j].nodeName == "ANIMATIONREF") {
                         var animID = this.reader.getString(animations[j], 'id');
                         if (this.animations.indexOf(animID) == -1)
                             this.onXMLMinorError("unknown animation " + animID);
 
-                        
-                            this.nodes[nodeID].addAnimation(this.animations[animID]);
+
+                        this.nodes[nodeID].addAnimation(this.animations[animID]);
                     } else
                         this.onXMLMinorError("unknown tag <" + animations[j].nodeName + ">");
                 }
@@ -1563,7 +1563,7 @@ MySceneGraph.prototype.processNode = function (node) {
 
 
 
-    if (this.scene.currentSelectable == node.nodeID){
+    if (this.scene.currentSelectable == node.nodeID) {
 
         this.scene.setActiveShader(this.scene.shader);
     }
@@ -1611,7 +1611,7 @@ MySceneGraph.prototype.processNode = function (node) {
     }
 
 
-    if (this.scene.currentSelectable == node.nodeID){
+    if (this.scene.currentSelectable == node.nodeID) {
         this.scene.setActiveShader(this.scene.defaultShader);
     }
 
@@ -1622,18 +1622,18 @@ MySceneGraph.prototype.processNode = function (node) {
     this.scene.popMatrix();
 }
 
-MySceneGraph.prototype.applyAnimations = function (animations){
-    var sumTimes=0; //sum of the Times of the Animations
-    for (var i = 0; i < animations.length; i++){
-        var sumTimes2=sumTimes + animations[i].totalTime;
-        if(sumTimes2 > this.scene.mainTime || (i == (animations.length-1))){
-            animations[i].transform(this.scene.mainTime-sumTimes, 1);
-       }
-       else{
-            animations[i].transform(this.scene.mainTime-sumTimes, 0);
-       }
-       sumTimes += animations[i].totalTime;
+MySceneGraph.prototype.applyAnimations = function (animations) {
+    var sumTimes = 0; //sum of the Times of the Animations
+    for (var i = 0; i < animations.length; i++) {
+        var sumTimes2 = sumTimes + animations[i].totalTime;
+        if (sumTimes2 > this.scene.mainTime || (i == (animations.length - 1))) {
+            animations[i].transform(this.scene.mainTime - sumTimes, 1);
+        }
+        else {
+            animations[i].transform(this.scene.mainTime - sumTimes, 0);
+        }
+        sumTimes += animations[i].totalTime;
 
     }
-    
+
 }

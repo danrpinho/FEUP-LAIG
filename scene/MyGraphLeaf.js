@@ -8,7 +8,7 @@ function MyGraphLeaf(graph, node) {
 
     //gets item from the xml block
     var type = this.graph.reader.getItem(node, 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
-    
+
     //checks if the leaf has a valid type
     if (type != null)
         this.graph.log("   Leaf: " + type);

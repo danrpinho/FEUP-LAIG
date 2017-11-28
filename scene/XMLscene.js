@@ -1,6 +1,6 @@
 var DEGREE_TO_RAD = Math.PI / 180;
-var UPDATE_SCENE=0.1;
-var RELATIVE_ANIMATION=1;
+var UPDATE_SCENE = 0.1;
+var RELATIVE_ANIMATION = 1;
 
 /**
  * XMLscene class, representing the scene that is to be rendered.
@@ -10,7 +10,7 @@ function XMLscene(interface) {
     CGFscene.call(this);
 
     this.interface = interface;
-	this.mainTime = 0;
+    this.mainTime = 0;
     this.lightValues = {};
     this.currentSelectable = "none";
     this.shaderColor = [0, 0, 255];
@@ -22,7 +22,7 @@ XMLscene.prototype.constructor = XMLscene;
 /**
  * Initializes the scene, setting some WebGL defaults, initializing the camera and the axis.
  */
-XMLscene.prototype.init = function(application) {
+XMLscene.prototype.init = function (application) {
     CGFscene.prototype.init.call(this, application);
 
     this.initCameras();
@@ -34,12 +34,9 @@ XMLscene.prototype.init = function(application) {
     this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
 
-    this.setUpdatePeriod(UPDATE_SCENE*1000);
-
+    this.setUpdatePeriod(UPDATE_SCENE * 1000);
 
     this.shader = new CGFshader(this.gl, "t2shader.vert", "t2shader.frag");
-
-
 
     this.axis = new CGFaxis(this);
 }
@@ -47,7 +44,7 @@ XMLscene.prototype.init = function(application) {
 /**
  * Initializes the scene lights with the values read from the LSX file.
  */
-XMLscene.prototype.initLights = function() {
+XMLscene.prototype.initLights = function () {
     var i = 0;
     // Lights index.
 
@@ -81,21 +78,20 @@ XMLscene.prototype.initLights = function() {
 /**
  * Initializes the scene cameras.
  */
-XMLscene.prototype.initCameras = function() {
-    this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
+XMLscene.prototype.initCameras = function () {
+    this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
 }
 
 /* Handler called when the graph is finally loaded.
  * As loading is asynchronous, this may be called already after the application has started the run loop
  */
-XMLscene.prototype.onGraphLoaded = function()
-{
+XMLscene.prototype.onGraphLoaded = function () {
     this.camera.near = this.graph.near;
     this.camera.far = this.graph.far;
-    this.axis = new CGFaxis(this,this.graph.referenceLength);
+    this.axis = new CGFaxis(this, this.graph.referenceLength);
 
     this.setGlobalAmbientLight(this.graph.ambientIllumination[0], this.graph.ambientIllumination[1],
-    this.graph.ambientIllumination[2], this.graph.ambientIllumination[3]);
+        this.graph.ambientIllumination[2], this.graph.ambientIllumination[3]);
 
     this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
 
@@ -110,7 +106,7 @@ XMLscene.prototype.onGraphLoaded = function()
 /**
  * Displays the scene.
  */
-XMLscene.prototype.display = function() {
+XMLscene.prototype.display = function () {
     // ---- BEGIN Background, camera and axis setup
 
     // Clear image and depth buffer everytime we update the scene
@@ -126,13 +122,12 @@ XMLscene.prototype.display = function() {
 
     this.pushMatrix();
 
-    if (this.graph.loadedOk)
-    {
+    if (this.graph.loadedOk) {
         // Applies initial transformations.
         this.multMatrix(this.graph.initialTransforms);
 
-		// Draw axis
-		this.axis.display();
+        // Draw axis
+        this.axis.display();
 
         var i = 0;
         for (var key in this.lightValues) {
@@ -154,11 +149,10 @@ XMLscene.prototype.display = function() {
         this.graph.displayScene();
 
     }
-	else
-	{
-		// Draw axis
-		this.axis.display();
-	}
+    else {
+        // Draw axis
+        this.axis.display();
+    }
 
 
     this.popMatrix();
@@ -167,12 +161,12 @@ XMLscene.prototype.display = function() {
 
 }
 
-XMLscene.prototype.update = function(time){
-    this.mainTime =this.mainTime+UPDATE_SCENE;
+XMLscene.prototype.update = function (time) {
+    this.mainTime = this.mainTime + UPDATE_SCENE;
     this.shader.setUniformsValues({
-        selRed: this.shaderColor[0]/255,
-        selGreen: this.shaderColor[1]/255,
-        selBlue: this.shaderColor[2]/255,
+        selRed: this.shaderColor[0] / 255,
+        selGreen: this.shaderColor[1] / 255,
+        selBlue: this.shaderColor[2] / 255,
         timeFactor: this.mainTime
     });
 }

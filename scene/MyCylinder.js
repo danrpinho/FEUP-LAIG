@@ -2,13 +2,13 @@
  * MyCylinder
  *@brief - constructor of object MyCylinder
  *@param scene - scene this object belongs to
- *@param slices - slices the cylinder is divided in 
+ *@param slices - slices the cylinder is divided in
  *@param stacks - stacks the cylinder is divided in
- *@param bottomradius - radius of the bottom base of the cylinder 
+ *@param bottomradius - radius of the bottom base of the cylinder
  *@param topradius - radius of the top base of the cylinder
  *@param height - height of the cylinder
  *@param topCap - boolean that tells if there is a circle on top of this cylinder
- *@param botCap - boolean that tells if there is a circle on the bottom of this cylinder 
+ *@param botCap - boolean that tells if there is a circle on the bottom of this cylinder
  */
 function MyCylinder(scene, slices, stacks, bottomradius, topradius, height, topCap, botCap) {
 	CGFobject.call(this, scene);
@@ -41,7 +41,7 @@ MyCylinder.prototype.display = function () {
 		this.circle.display();
 		this.scene.popMatrix();
 	}
-	
+
 	//top
 	if (this.topCap == 1) {
 		this.scene.pushMatrix();

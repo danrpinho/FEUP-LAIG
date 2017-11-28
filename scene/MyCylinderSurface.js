@@ -2,13 +2,13 @@
  * MyCylinderSurface
  *@brief - constructor of object MyCylinderSurface
  *@param scene - scene this object belongs to
- *@param slices - slices the cylinder is divided in 
+ *@param slices - slices the cylinder is divided in
  *@param stacks - stacks the cylinder is divided in
- *@param bottomradius - radius of the bottom base of the cylinder 
+ *@param bottomradius - radius of the bottom base of the cylinder
  *@param topradius - radius of the top base of the cylinder
  *@param height - height of the cylinder
  *@param topCap - boolean that tells if there is a circle on top of this cylinder
- *@param botCap - boolean that tells if there is a circle on the bottom of this cylinder 
+ *@param botCap - boolean that tells if there is a circle on the bottom of this cylinder
  */
 function MyCylinderSurface(scene, slices, stacks, bottomradius, topradius, height) {
 	CGFobject.call(this, scene);
@@ -19,8 +19,6 @@ function MyCylinderSurface(scene, slices, stacks, bottomradius, topradius, heigh
 	this.height = height;
 	this.initBuffers();
 };
-
-
 
 MyCylinderSurface.prototype = Object.create(CGFobject.prototype);
 MyCylinderSurface.prototype.constructor = MyCylinderSurface;
@@ -57,12 +55,12 @@ MyCylinderSurface.prototype.initBuffers = function () {
 	for (var j = 0; j < this.stacks; j++) {
 		for (var i = 0; i <= this.slices; i++) {
 
-			this.indices.push((j + 1) * (this.slices+1) + (i + 1) % (this.slices+1));
-			this.indices.push(j * (this.slices+1) + i);
-			this.indices.push(j * (this.slices+1) + (i + 1) % (this.slices+1));
-			this.indices.push((j + 1) * (this.slices+1) + i);
-			this.indices.push(j * (this.slices+1) + i);
-			this.indices.push((j + 1) * (this.slices+1) + (i + 1) % (this.slices+1));
+			this.indices.push((j + 1) * (this.slices + 1) + (i + 1) % (this.slices + 1));
+			this.indices.push(j * (this.slices + 1) + i);
+			this.indices.push(j * (this.slices + 1) + (i + 1) % (this.slices + 1));
+			this.indices.push((j + 1) * (this.slices + 1) + i);
+			this.indices.push(j * (this.slices + 1) + i);
+			this.indices.push((j + 1) * (this.slices + 1) + (i + 1) % (this.slices + 1));
 		}
 	}
 

@@ -3,7 +3,7 @@
  *@brief - constructor of object MySphere
  *@param radius - radius of the sphere
  *@param scene - scene this object belongs to
- *@param slices - slices the sphere is divided in 
+ *@param slices - slices the sphere is divided in
  *@param stacks - stacks the sphere is divided in
  */
 function MySphere(scene, radius, slices, stacks) {
@@ -37,5 +37,5 @@ MySphere.prototype.display = function () {
  *@param ampFactorS - amplification factor on the S axis
  *@param ampFactorT - amplification factor on the T axis
  */
-MySphere.prototype.amplifFactors = function(ampFactorS, ampFactorT){
+MySphere.prototype.amplifFactors = function (ampFactorS, ampFactorT) {
 }

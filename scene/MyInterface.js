@@ -1,7 +1,7 @@
- /**
- * MyInterface class, creating a GUI interface.
- * @constructor
- */
+/**
+* MyInterface class, creating a GUI interface.
+* @constructor
+*/
 function MyInterface() {
     //call CGFinterface constructor
     CGFinterface.call(this);
@@ -15,7 +15,7 @@ MyInterface.prototype.constructor = MyInterface;
  * Initializes the interface.
  * @param {CGFapplication} application
  */
-MyInterface.prototype.init = function(application) {
+MyInterface.prototype.init = function (application) {
     // call CGFinterface init
     CGFinterface.prototype.init.call(this, application);
 
@@ -32,7 +32,7 @@ MyInterface.prototype.init = function(application) {
 /**
  * Adds a folder containing the IDs of the lights passed as parameter.
  */
-MyInterface.prototype.addLightsGroup = function(lights) {
+MyInterface.prototype.addLightsGroup = function (lights) {
 
     var group = this.gui.addFolder("Lights");
     group.open();
@@ -48,7 +48,7 @@ MyInterface.prototype.addLightsGroup = function(lights) {
     }
 }
 
-MyInterface.prototype.addSelectablesGroup = function(nodes, color) {
+MyInterface.prototype.addSelectablesGroup = function (nodes, color) {
     var shadersGroup = this.gui.addFolder("Shader setings");
     shadersGroup.open();
     shadersGroup.add(this.scene, "currentSelectable", nodes).name("Selected Node");

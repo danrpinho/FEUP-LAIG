@@ -17,10 +17,10 @@ function MyGraphNode(graph, nodeID) {
     this.animations = [];
 
     // The material ID.
-    this.materialID = null ;
+    this.materialID = null;
 
     // The texture ID.
-    this.textureID = null ;
+    this.textureID = null;
 
     this.selectable = false;
 
@@ -31,14 +31,14 @@ function MyGraphNode(graph, nodeID) {
 /**
  * Adds the reference (ID) of another node to this node's children array.
  */
-MyGraphNode.prototype.addChild = function(nodeID) {
+MyGraphNode.prototype.addChild = function (nodeID) {
     this.children.push(nodeID);
 }
 
 /**
  * Adds the reference (ID) of another node to this node's children array.
  */
-MyGraphNode.prototype.addAnimation = function(nodeID) {
+MyGraphNode.prototype.addAnimation = function (nodeID) {
     this.animations.push(nodeID);
 }
 
@@ -46,7 +46,7 @@ MyGraphNode.prototype.addAnimation = function(nodeID) {
 /**
  * Adds a leaf to this node's leaves array.
  */
-MyGraphNode.prototype.addLeaf = function(leaf) {
+MyGraphNode.prototype.addLeaf = function (leaf) {
     this.leaves.push(leaf);
 }
 

@@ -10,8 +10,6 @@ function MyCircle(scene, slices) {
 	this.initBuffers();
 };
 
-
-
 MyCircle.prototype = Object.create(CGFobject.prototype);
 MyCircle.prototype.constructor = MyCircle;
 
