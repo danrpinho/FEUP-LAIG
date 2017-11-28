@@ -19,10 +19,17 @@ ComboAnimation.prototype.constructor = ComboAnimation;
 *@brief - performs the Animation
 *@param time - time in seconds since the start of the Animation
 */
-ComboAnimation.prototype.transform = function(time){
+ComboAnimation.prototype.transform = function(time, currentAnimation=1){
 	if(time>=this.startTime){
-		for(var i=0;i<this.animations.length;i++){
-			this.animations[i].transform(time-this.startTimes[i]);
+		if(time<=this.startTime+this.totalTime){
+			for(var i=0;i<this.animations.length;i++){
+				this.animations[i].transform(time-this.startTimes[i]);
+			}
+		}
+		else if(this.relativeAnimation==1 || this.currentAnimation==1){
+			for(var i=0;i<this.animations.length;i++){
+				this.animations[i].transform(time-this.startTimes[i]);
+			}
 		}
 	}
 }
