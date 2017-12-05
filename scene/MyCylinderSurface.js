@@ -10,13 +10,14 @@
  *@param topCap - boolean that tells if there is a circle on top of this cylinder
  *@param botCap - boolean that tells if there is a circle on the bottom of this cylinder
  */
-function MyCylinderSurface(scene, slices, stacks, bottomradius, topradius, height) {
+function MyCylinderSurface(scene, slices, stacks, bottomradius, topradius, height, half=0) {
 	CGFobject.call(this, scene);
 	this.slices = slices;
 	this.stacks = stacks;
 	this.bradius = bottomradius;
 	this.tradius = topradius;
 	this.height = height;
+	this.half=half;
 	this.initBuffers();
 };
 
@@ -32,8 +33,12 @@ MyCylinderSurface.prototype.initBuffers = function () {
 	this.normals = [];
 
 	var teta = 2 * Math.PI / this.slices;
+
+
+	var slicesLim=this.slices/(this.half+1); //IF half is on, slices becomes equal to slices/2
+	
 	for (var j = 0; j <= this.stacks; j++) {
-		for (var i = 0; i <= this.slices; i++) {
+		for (var i = 0; i <= slicesLim; i++) {
 			var radius = (j / (this.stacks)) * (this.tradius - this.bradius) + this.bradius;
 			var h = this.height * j / this.stacks;
 			var vx = radius * Math.cos(i * teta);
@@ -51,16 +56,17 @@ MyCylinderSurface.prototype.initBuffers = function () {
 	}
 
 	this.indices = [];
-
+	
 	for (var j = 0; j < this.stacks; j++) {
-		for (var i = 0; i <= this.slices; i++) {
+		for (var i = 0; i <= (slicesLim-this.half); i++) {
 
-			this.indices.push((j + 1) * (this.slices + 1) + (i + 1) % (this.slices + 1));
-			this.indices.push(j * (this.slices + 1) + i);
-			this.indices.push(j * (this.slices + 1) + (i + 1) % (this.slices + 1));
-			this.indices.push((j + 1) * (this.slices + 1) + i);
-			this.indices.push(j * (this.slices + 1) + i);
-			this.indices.push((j + 1) * (this.slices + 1) + (i + 1) % (this.slices + 1));
+			this.indices.push((j + 1) * (slicesLim + 1) + (i + 1) % (slicesLim + 1));
+			this.indices.push(j * (slicesLim + 1) + i);
+			this.indices.push(j * (slicesLim + 1) + (i + 1) % (slicesLim + 1));
+			this.indices.push((j + 1) * (slicesLim + 1) + i);
+			this.indices.push(j * (slicesLim + 1) + i);
+			this.indices.push((j + 1) * (slicesLim + 1) + (i + 1) % (slicesLim + 1));
+		
 		}
 	}
 
@@ -68,10 +74,10 @@ MyCylinderSurface.prototype.initBuffers = function () {
 
 	var s = 0;
 	var t = 0;
-	var s_inc = 1 / this.slices;
+	var s_inc = 1 / slicesLim;
 	var t_inc = 1 / this.stacks;
 	for (var i = 0; i <= this.stacks; i++) {
-		for (var j = 0; j <= this.slices; j++) {
+		for (var j = 0; j <= slicesLim; j++) {
 			this.texCoords.push(s, t);
 			s += s_inc;
 		}
@@ -82,4 +88,4 @@ MyCylinderSurface.prototype.initBuffers = function () {
 	this.primitiveType = this.scene.gl.TRIANGLES;
 	this.initGLBuffers();
 
-};
+}

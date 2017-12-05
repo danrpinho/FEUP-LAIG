@@ -186,6 +186,13 @@
             <ambient r="0.1" g="0.1" b="0.1" a="1" />
             <emission r="0.0" g="0.0" b="0.0" a="1" />
         </MATERIAL>
+       <!-- <MATERIAL id="WoodenM">
+            <shininess value="0.001" />
+            <specular r="0.0" g="0.0" b="0.0" a="1" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1" />
+            <emission r="0.0" g="0.0" b="0.0" a="1" />
+        </MATERIAL>-->
 
         <!-- Blue specular material -->
         <MATERIAL id="BlueShiny">
@@ -314,6 +321,7 @@
         <NODE id="stage" selectable="true">
             <MATERIAL id="WoodenM" />
             <TEXTURE id="lightwood" />
+             <!--<TEXTURE id="clear" />-->
             <SCALE sx="10" sy="1" sz="6" />
             <DESCENDANTS>
                 <NODEREF id="cubeFace1" />
