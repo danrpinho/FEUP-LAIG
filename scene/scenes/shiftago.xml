@@ -3,11 +3,11 @@
 <!-- Initial values -->
 <INITIALS>
     <frustum near="0.1" far="500"/>
-    <translation x="-1" y="1" z="0" />
+    <translation x="-11" y="-3" z="0" />
     <rotation axis="x" angle="0" />
-    <rotation axis="y" angle="0" />
+    <rotation axis="y" angle="45" />
     <rotation axis="z" angle="0" />
-    <scale sx="0.25" sy="0.25" sz="0.25" />
+    <scale sx="0.3" sy="0.3" sz="0.3" />
     <reference length="5" />
 </INITIALS>
 
@@ -74,9 +74,9 @@
 <!-- Textures -->
 <TEXTURES>
 	<!-- Tree trunk -->
-    <TEXTURE id="trunk">
-        <file path="images/trunk-image.jpg" />
-        <amplif_factor s="2" t="2" />
+    <TEXTURE id="boardT">
+        <file path="images/plastic.jpg" />
+        <amplif_factor s="0.5" t="0.5" />
     </TEXTURE>
 
      <!-- Tree leaves -->
@@ -108,7 +108,7 @@
 
 <MATERIALS>
     <MATERIAL id="selectorOdd">
-        <shininess value="1" />
+        <shininess value="15" />
         <specular r="0" g="0" b="0" a="1" />
         <diffuse r="0.25" g="0.25" b="0.25" a="1" />
         <ambient r="0.1" g="0.1" b="0.1" a="1" />
@@ -116,37 +116,42 @@
     </MATERIAL>
 
 	<MATERIAL id="selectorEven">
-        <shininess value="1" />
+        <shininess value="15" />
         <specular r="0" g="0" b="0" a="1" />
         <diffuse r="0.4" g="0.4" b="0.4" a="1" />
         <ambient r="0.1" g="0.1" b="0.1" a="1" />
         <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
-	<!-- Tree trunk material -->
-	<MATERIAL id="trunkTreeMaterial">
+    <MATERIAL id="red">
+        <shininess value="100" />
+        <specular r="1.0" g="0.25" b="0.25" a="1" />
+        <diffuse r="1" g="0.15" b="0.15" a="1" />
+        <ambient r="0.3" g="0.0" b="0.0" a="1" />
+        <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
+    <MATERIAL id="blue">
+        <shininess value="100" />
+        <specular r="0.25" g="0.3" b="1.0" a="1" />
+        <diffuse r="0.15" g="0.25" b="1.0" a="1" />
+        <ambient r="0.0" g="0.0" b="0.5" a="1" />
+        <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
+    <MATERIAL id="redBox">
         <shininess value="1" />
         <specular r="0.0" g="0.0" b="0.0" a="1" />
-        <diffuse r="0.6" g="0.298" b="0.0" a="1" />
-        <ambient r="0.1" g="0.1" b="0.1" a="1" />
+        <diffuse r="0.9" g="0.2" b="0.2" a="1" />
+        <ambient r="0.6" g="0.2" b="0.2" a="1" />
         <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
-    <!-- Lamp post material -->
-    <MATERIAL id="lightPostMaterial">
-        <shininess value="100" />
+    <MATERIAL id="blueBox">
+        <shininess value="1" />
         <specular r="0.0" g="0.0" b="0.0" a="1" />
-        <diffuse r="0.447" g="0.416" b="0.416" a="1" />
-        <ambient r="0.0" g="0.0" b="0.0" a="1" />
-        <emission r="0.0" g="0.0" b="0.0" a="1" />
-    </MATERIAL>
-
-    <!-- Light bulb material -->
-    <MATERIAL id="lightMaterial">
-        <shininess value="100" />
-        <specular r="0.5" g="0.5" b="0.5" a="1" />
-        <diffuse r="0.5" g="0.5" b="0.5" a="1" />
-        <ambient r="0.0" g="0.0" b="0.0" a="1" />
+        <diffuse r="0.2" g="0.2" b="0.9" a="1" />
+        <ambient r="0.2" g="0.2" b="0.6" a="1" />
         <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
@@ -179,22 +184,9 @@
 
         <DESCENDANTS>
             <NODEREF id="board" />
-            <NODEREF id="chao" />
+            <NODEREF id="p1piece"/>
+            <NODEREF id="p2piece"/>
         </DESCENDANTS>
-
-    </NODE>
-
-    <!-- The floor -->
-    <NODE id="chao">
-        <MATERIAL id="null" />
-        <TEXTURE id="rocks" />
-
-        <TRANSLATION x="0" y="0" z="30" />
-        <ROTATION axis="x" angle="-90" />
-
-        <DESCENDANTS>
-			<LEAF  type="rectangle" args="0 30 50 0" />
-		</DESCENDANTS>
 
     </NODE>
 
@@ -212,7 +204,7 @@
 
     <NODE id="base">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
 
         <TRANSLATION x="10" y="0" z="0" />
 
@@ -224,7 +216,7 @@
 
     <NODE id="boardBase">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
 
         <SCALE sx="30" sy="3.5" sz="31" />
 
@@ -236,7 +228,7 @@
 
     <NODE id="grid">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
 
         <TRANSLATION x="0" y="3.5" z="0.5" />
 
@@ -252,7 +244,7 @@
 
     <NODE id="corners">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <DESCENDANTS>
             <NODEREF id="corner1" />
             <NODEREF id="corner2" />
@@ -263,7 +255,7 @@
 
     <NODE id="corner1">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <DESCENDANTS>
             <NODEREF id="cube" />
 		</DESCENDANTS>
@@ -271,7 +263,7 @@
 
     <NODE id="corner2">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="29" y="0" z="0" />
         <DESCENDANTS>
             <NODEREF id="cube" />
@@ -280,7 +272,7 @@
 
     <NODE id="corner3">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="29" y="0" z="29" />
         <DESCENDANTS>
             <NODEREF id="cube" />
@@ -289,7 +281,7 @@
 
     <NODE id="corner4">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="0" y="0" z="29" />
         <DESCENDANTS>
             <NODEREF id="cube" />
@@ -300,7 +292,7 @@
 
     <NODE id="gridUp">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="1" y="0" z="0" />
         <DESCENDANTS>
             <NODEREF id="Up1" />
@@ -315,7 +307,7 @@
 
     <NODE id="gridDown">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="1" y="0" z="29" />
         <DESCENDANTS>
             <NODEREF id="Down1" />
@@ -330,7 +322,7 @@
 
     <NODE id="gridLeft">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="1" y="0" z="1" />
         <ROTATION axis="y" angle="-90" />
         <DESCENDANTS>
@@ -346,7 +338,7 @@
 
     <NODE id="gridRight">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="30" y="0" z="1" />
         <ROTATION axis="y" angle="-90" />
         <DESCENDANTS>
@@ -363,7 +355,7 @@
 
     <NODE id="Up1" selectable="true">
         <MATERIAL id="selectorOdd" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
             <NODEREF id="cube" />
@@ -372,7 +364,7 @@
 
     <NODE id="Up2" selectable="true">
         <MATERIAL id="selectorEven" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="4" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -382,7 +374,7 @@
 
     <NODE id="Up3" selectable="true">
         <MATERIAL id="selectorOdd" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="8" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -392,7 +384,7 @@
 
     <NODE id="Up4" selectable="true">
         <MATERIAL id="selectorEven" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="12" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -402,7 +394,7 @@
 
     <NODE id="Up5" selectable="true">
         <MATERIAL id="selectorOdd" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="16" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -412,7 +404,7 @@
 
     <NODE id="Up6" selectable="true">
         <MATERIAL id="selectorEven" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="20" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -422,7 +414,7 @@
 
     <NODE id="Up7" selectable="true">
         <MATERIAL id="selectorOdd" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="24" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -432,7 +424,7 @@
 
     <NODE id="Down1" selectable="true">
         <MATERIAL id="selectorOdd" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
             <NODEREF id="cube" />
@@ -441,7 +433,7 @@
 
     <NODE id="Down2" selectable="true">
         <MATERIAL id="selectorEven" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="4" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -451,7 +443,7 @@
 
     <NODE id="Down3" selectable="true">
         <MATERIAL id="selectorOdd" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="8" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -461,7 +453,7 @@
 
     <NODE id="Down4" selectable="true">
         <MATERIAL id="selectorEven" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="12" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -471,7 +463,7 @@
 
     <NODE id="Down5" selectable="true">
         <MATERIAL id="selectorOdd" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="16" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -481,7 +473,7 @@
 
     <NODE id="Down6" selectable="true">
         <MATERIAL id="selectorEven" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="20" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -491,7 +483,7 @@
 
     <NODE id="Down7" selectable="true">
         <MATERIAL id="selectorOdd" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="24" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -501,7 +493,7 @@
 
     <NODE id="Left1" selectable="true">
         <MATERIAL id="selectorOdd" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
             <NODEREF id="cube" />
@@ -510,7 +502,7 @@
 
     <NODE id="Left2" selectable="true">
         <MATERIAL id="selectorEven" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="4" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -520,7 +512,7 @@
 
     <NODE id="Left3" selectable="true">
         <MATERIAL id="selectorOdd" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="8" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -530,7 +522,7 @@
 
     <NODE id="Left4" selectable="true">
         <MATERIAL id="selectorEven" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="12" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -540,7 +532,7 @@
 
     <NODE id="Left5" selectable="true">
         <MATERIAL id="selectorOdd" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="16" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -550,7 +542,7 @@
 
     <NODE id="Left6" selectable="true">
         <MATERIAL id="selectorEven" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="20" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -560,7 +552,7 @@
 
     <NODE id="Left7" selectable="true">
         <MATERIAL id="selectorOdd" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="24" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -570,7 +562,7 @@
 
     <NODE id="Right1" selectable="true">
         <MATERIAL id="selectorOdd" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
             <NODEREF id="cube" />
@@ -579,7 +571,7 @@
 
     <NODE id="Right2" selectable="true">
         <MATERIAL id="selectorEven" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="4" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -589,7 +581,7 @@
 
     <NODE id="Right3" selectable="true">
         <MATERIAL id="selectorOdd" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="8" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -599,7 +591,7 @@
 
     <NODE id="Right4" selectable="true">
         <MATERIAL id="selectorEven" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="12" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -609,7 +601,7 @@
 
     <NODE id="Right5" selectable="true">
         <MATERIAL id="selectorOdd" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="16" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -619,7 +611,7 @@
 
     <NODE id="Right6" selectable="true">
         <MATERIAL id="selectorEven" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="20" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -629,7 +621,7 @@
 
     <NODE id="Right7" selectable="true">
         <MATERIAL id="selectorOdd" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="24" y="0" z="0" />
         <SCALE sx="4" sy="1" sz="1" />
         <DESCENDANTS>
@@ -640,7 +632,7 @@
 
     <NODE id="p1box">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
 
         <DESCENDANTS>
             <NODEREF id="box" />
@@ -650,7 +642,7 @@
 
     <NODE id="p2box">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="40" y="0" z="0" />
         <DESCENDANTS>
             <NODEREF id="box" />
@@ -660,7 +652,7 @@
 
     <NODE id="box">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <DESCENDANTS>
             <NODEREF id="boxBottom" />
             <NODEREF id="boxLeft" />
@@ -672,7 +664,7 @@
 
     <NODE id="boxBottom">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
 
         <SCALE sx="10" sy="0.5" sz="31" />
 
@@ -683,7 +675,7 @@
 
     <NODE id="boxLeft">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="0" y="0.5" z="0" />
         <SCALE sx="0.5" sy="3" sz="31" />
         <DESCENDANTS>
@@ -693,7 +685,7 @@
 
     <NODE id="boxRight">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="9.5" y="0.5" z="0" />
         <SCALE sx="0.5" sy="3" sz="31" />
         <DESCENDANTS>
@@ -703,7 +695,7 @@
 
     <NODE id="boxUp">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="0.5" y="0.5" z="0" />
         <SCALE sx="9" sy="3" sz="0.5" />
         <DESCENDANTS>
@@ -713,13 +705,42 @@
 
     <NODE id="boxDown">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="null" />
         <TRANSLATION x="0.5" y="0.5" z="30.5" />
         <SCALE sx="9" sy="3" sz="0.5" />
         <DESCENDANTS>
             <NODEREF id="cube" />
 		</DESCENDANTS>
     </NODE>
+
+
+    <!-- PLAYER PIECES -->
+    <NODE id="p1piece">
+        <MATERIAL id="blue" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="5" y="2.25" z="10" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece">
+        <MATERIAL id="red" />
+        <TEXTURE id="null" />
+            <TRANSLATION x="45" y="2.25" z="5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="piece">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <DESCENDANTS>
+            <LEAF type="sphere" args="1.5 20 20" />
+		</DESCENDANTS>
+    </NODE>
+
 
     <!-- UNIT CUBE FACES -->
         <!-- 1 - zpos, 2 - x pos, 3 - zneg, 4 - xneg, 5 - ypos, 6 - yneg-->
