@@ -184,12 +184,12 @@
 
         <DESCENDANTS>
             <NODEREF id="board" />
-            <NODEREF id="p1piece"/>
-            <NODEREF id="p2piece"/>
+            <NODEREF id="p1pieces"/>
+            <NODEREF id="p2pieces"/>
         </DESCENDANTS>
-
     </NODE>
 
+    <!-- GAME BOARD -->
     <NODE id="board">
         <MATERIAL id="null" />
         <TEXTURE id="clear" />
@@ -289,7 +289,6 @@
     </NODE>
 
     <!-- SELECTION GRID -->
-
     <NODE id="gridUp">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
@@ -351,7 +350,6 @@
             <NODEREF id="Right7" />
 		</DESCENDANTS>
     </NODE>
-
 
     <NODE id="Up1" selectable="true">
         <MATERIAL id="selectorOdd" />
@@ -628,8 +626,8 @@
             <NODEREF id="cube" />
 		</DESCENDANTS>
     </NODE>
-    <!-- Player piece boxes -->
 
+    <!-- Player piece boxes -->
     <NODE id="p1box">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
@@ -713,21 +711,456 @@
 		</DESCENDANTS>
     </NODE>
 
-
     <!-- PLAYER PIECES -->
-    <NODE id="p1piece">
+    <NODE id="p1pieces">
         <MATERIAL id="blue" />
         <TEXTURE id="null" />
-        <TRANSLATION x="5" y="2.25" z="10" />
+        <TRANSLATION x="0" y="5" z="0" />
+        <DESCENDANTS>
+            <NODEREF id="p1piece1" />
+            <NODEREF id="p1piece2" />
+            <NODEREF id="p1piece3" />
+            <NODEREF id="p1piece4" />
+            <NODEREF id="p1piece5" />
+            <NODEREF id="p1piece6" />
+            <NODEREF id="p1piece7" />
+            <NODEREF id="p1piece8" />
+            <NODEREF id="p1piece9" />
+            <NODEREF id="p1piece10" />
+            <NODEREF id="p1piece11" />
+            <NODEREF id="p1piece12" />
+            <NODEREF id="p1piece13" />
+            <NODEREF id="p1piece14" />
+            <NODEREF id="p1piece15" />
+            <NODEREF id="p1piece16" />
+            <NODEREF id="p1piece17" />
+            <NODEREF id="p1piece18" />
+            <NODEREF id="p1piece19" />
+            <NODEREF id="p1piece20" />
+            <NODEREF id="p1piece21" />
+            <NODEREF id="p1piece22" />
+		</DESCENDANTS>
+    </NODE>
+
+     <NODE id="p2pieces">
+         <MATERIAL id="red" />
+         <TEXTURE id="null" />
+         <TRANSLATION x="30" y="5" z="0" />
+         <DESCENDANTS>
+            <NODEREF id="p2piece1" />
+            <NODEREF id="p2piece2" />
+            <NODEREF id="p2piece3" />
+            <NODEREF id="p2piece4" />
+            <NODEREF id="p2piece5" />
+            <NODEREF id="p2piece6" />
+            <NODEREF id="p2piece7" />
+            <NODEREF id="p2piece8" />
+            <NODEREF id="p2piece9" />
+            <NODEREF id="p2piece10" />
+            <NODEREF id="p2piece11" />
+            <NODEREF id="p2piece12" />
+            <NODEREF id="p2piece13" />
+            <NODEREF id="p2piece14" />
+            <NODEREF id="p2piece15" />
+            <NODEREF id="p2piece16" />
+            <NODEREF id="p2piece17" />
+            <NODEREF id="p2piece18" />
+            <NODEREF id="p2piece19" />
+            <NODEREF id="p2piece20" />
+            <NODEREF id="p2piece21" />
+            <NODEREF id="p2piece22" />
+		 </DESCENDANTS>
+     </NODE>
+
+    <NODE id="p1piece1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
         <DESCENDANTS>
             <NODEREF id="piece" />
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="p2piece">
-        <MATERIAL id="red" />
+    <NODE id="p1piece2">
+        <MATERIAL id="null" />
         <TEXTURE id="null" />
-            <TRANSLATION x="45" y="2.25" z="5" />
+        <TRANSLATION x="0" y="0" z="3" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece3">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="0" y="0" z="6" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece4">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="0" y="0" z="9" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece5">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="0" y="0" z="12" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece6">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="0" y="0" z="15" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece7">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="0" y="0" z="18" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece8">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="0" y="0" z="21" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece9">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="0" y="0" z="24" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece10">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="0" y="0" z="27" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece11">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.65" y="0" z="1.5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece12">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.65" y="0" z="4.5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece13">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.65" y="0" z="7.5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece14">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.65" y="0" z="10.5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece15">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.65" y="0" z="13.5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece16">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.65" y="0" z="16.5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece17">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.65" y="0" z="19.5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece18">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.65" y="0" z="22.5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece19">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.65" y="0" z="25.5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece20">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="5.3" y="0" z="0" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece21">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="5.3" y="0" z="3" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1piece22">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="5.3" y="0" z="6" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="5.3" y="0" z="0" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="5.3" y="0" z="3" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece3">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="5.3" y="0" z="6" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece4">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="5.3" y="0" z="9" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece5">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="5.3" y="0" z="12" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece6">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="5.3" y="0" z="15" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece7">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="5.3" y="0" z="18" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece8">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="5.3" y="0" z="21" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece9">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="5.3" y="0" z="24" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece10">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="5.3" y="0" z="27" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece11">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.65" y="0" z="1.5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece12">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.65" y="0" z="4.5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece13">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.65" y="0" z="7.5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece14">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.65" y="0" z="10.5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece15">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.65" y="0" z="13.5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece16">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.65" y="0" z="16.5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece17">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.65" y="0" z="19.5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece18">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.65" y="0" z="22.5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece19">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.65" y="0" z="25.5" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece20">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece21">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="0" y="0" z="3" />
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2piece22">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="0" y="0" z="6" />
         <DESCENDANTS>
             <NODEREF id="piece" />
 		</DESCENDANTS>
