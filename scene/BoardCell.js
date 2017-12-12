@@ -16,14 +16,7 @@ function BoardCell(scene, sphereRadius, cylinderRadius, topCylinderLength, botto
 	this.bottom=Math.max(sphereRadius, bottomCylinderLength);
 	this.left=Math.max(sphereRadius, leftCylinderLength);
 	this.right=Math.max(sphereRadius, rightCylinderLength);
-	//Top Face
-	this.quad=new MyQuad(scene, depth, 0, 0, this.left+this.right);
-	//Left Face
-	this.quad=new MyQuad(scene, depth, 0, 0, this.top+this.bottom); 
-	//Semisphere
-	this.semisphere=new MySemiSphere(scene,sphereRadius, 100, 100, 0);
-	//Top 	Cylinder
-	this.topCylinder=new MyCylinderSurface(scene, 100, 100, )
+	this.initBuffers();
 
 	
 };
@@ -31,7 +24,14 @@ function BoardCell(scene, sphereRadius, cylinderRadius, topCylinderLength, botto
 BoardCell.prototype = Object.create(CGFobject.prototype);
 BoardCell.prototype.constructor = BoardCell;
 
-
+BoardCell.prototype.initBuffers = function (){
+	this.vertices=[];
+	this.normals=[];
+	var inc=0.001;
+	for(var i=this.bottom; i<=this.top;i=i+inc){
+		
+	}
+}
 
 
 /**
