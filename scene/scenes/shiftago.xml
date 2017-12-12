@@ -715,7 +715,7 @@
     <NODE id="p1pieces">
         <MATERIAL id="blue" />
         <TEXTURE id="null" />
-        <TRANSLATION x="0" y="5" z="0" />
+        <TRANSLATION x="2.5" y="1.5" z="2" />
         <DESCENDANTS>
             <NODEREF id="p1piece1" />
             <NODEREF id="p1piece2" />
@@ -745,7 +745,7 @@
      <NODE id="p2pieces">
          <MATERIAL id="red" />
          <TEXTURE id="null" />
-         <TRANSLATION x="30" y="5" z="0" />
+         <TRANSLATION x="42.5" y="1.5" z="2" />
          <DESCENDANTS>
             <NODEREF id="p2piece1" />
             <NODEREF id="p2piece2" />
