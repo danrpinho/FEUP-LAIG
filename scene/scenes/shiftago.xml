@@ -73,16 +73,61 @@
 
 <!-- Textures -->
 <TEXTURES>
-	<!-- Tree trunk -->
+	<!-- Board textures -->
     <TEXTURE id="boardT">
         <file path="images/plastic.jpg" />
         <amplif_factor s="0.5" t="0.5" />
     </TEXTURE>
 
-     <!-- Tree leaves -->
-    <TEXTURE id="folhas">
-        <file path="images/leaves.jpg" />
-        <amplif_factor s="3" t="4" />
+     <!-- Score -->
+    <TEXTURE id="score0">
+        <file path="images/0.png" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="score1">
+        <file path="images/1.png" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="score2">
+        <file path="images/2.png" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="score3">
+        <file path="images/3.png" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="score4">
+        <file path="images/4.png" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="score5">
+        <file path="images/5.png" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="score6">
+        <file path="images/6.png" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="score7">
+        <file path="images/7.png" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="score8">
+        <file path="images/8.png" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="score9">
+        <file path="images/9.png" />
+        <amplif_factor s="1" t="1" />
     </TEXTURE>
 
     <!-- Rocks -->
@@ -186,7 +231,151 @@
             <NODEREF id="board" />
             <NODEREF id="p1pieces"/>
             <NODEREF id="p2pieces"/>
+            <NODEREF id="scoreboard"/>
         </DESCENDANTS>
+    </NODE>
+
+    <NODE id="scoreboard">
+        <MATERIAL id="null" />
+        <TEXTURE id="vidral" />
+
+        <TRANSLATION x="25" y="1.75" z="31" />
+        <SCALE sx="0.5" sy="0.5" sz="0.5"/>
+
+        <DESCENDANTS>
+            <NODEREF id="p1score" />
+            <NODEREF id="p2score" />
+            <NODEREF id="timerD" />
+            <NODEREF id="timerU" />
+            <NODEREF id="scoreborder" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="timerD">
+        <MATERIAL id="null" />
+        <TEXTURE id="score4" />
+
+        <TRANSLATION x="-2.5" y="-2.5" z="-0.5" />
+        <SCALE sx="2.5" sy="5" sz="1"/>
+
+        <DESCENDANTS>
+            <NODEREF id="cube" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="timerU">
+        <MATERIAL id="null" />
+        <TEXTURE id="score5" />
+
+        <TRANSLATION x="0" y="-2.5" z="-0.5" />
+        <SCALE sx="2.5" sy="5" sz="1"/>
+
+        <DESCENDANTS>
+            <NODEREF id="cube" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p1score">
+        <MATERIAL id="blue" />
+        <TEXTURE id="score3" />
+
+        <TRANSLATION x="-6" y="-2.5" z="-0.5" />
+        <SCALE sx="2.5" sy="5" sz="1"/>
+
+        <DESCENDANTS>
+            <NODEREF id="cube" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="p2score">
+        <MATERIAL id="red" />
+        <TEXTURE id="score2" />
+
+        <TRANSLATION x="3.5" y="-2.5" z="-0.5"/>
+        <SCALE sx="2.5" sy="5" sz="1"/>
+
+        <DESCENDANTS>
+            <NODEREF id="cube" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="scoreborder">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <DESCENDANTS>
+            <NODEREF id="borderU" />
+            <NODEREF id="borderD" />
+            <NODEREF id="borderM1" />
+            <NODEREF id="borderM2" />
+            <NODEREF id="borderL" />
+            <NODEREF id="borderR" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="borderM1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="-3.5" y="-2.5" z="-0.5" />
+        <SCALE sx="1" sy="5" sz="1"/>
+        <DESCENDANTS>
+            <NODEREF id="cube" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="borderM2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="2.5" y="-2.5" z="-0.5" />
+        <SCALE sx="1" sy="5" sz="1"/>
+        <DESCENDANTS>
+            <NODEREF id="cube" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="borderL">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="-7" y="-2.5" z="-0.5" />
+        <SCALE sx="1" sy="5" sz="1"/>
+        <DESCENDANTS>
+            <NODEREF id="cube" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="borderR">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="6" y="-2.5" z="-0.5" />
+        <SCALE sx="1" sy="5" sz="1"/>
+        <DESCENDANTS>
+            <NODEREF id="cube" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="borderU">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="-7" y="2.5" z="-0.5" />
+        <SCALE sx="14" sy="1" sz="1"/>
+        <DESCENDANTS>
+            <NODEREF id="cube" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="borderD">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="-7" y="-3.5" z="-0.5" />
+        <SCALE sx="14" sy="1" sz="1"/>
+        <DESCENDANTS>
+            <NODEREF id="cube" />
+		</DESCENDANTS>
     </NODE>
 
     <!-- GAME BOARD -->
