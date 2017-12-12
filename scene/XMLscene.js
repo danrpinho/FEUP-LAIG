@@ -12,6 +12,14 @@ function XMLscene(interface) {
     this.interface = interface;
     this.mainTime = 0;
     this.lightValues = {};
+
+    this.gameDifficulty="Random (Easy)";
+    this.difficulties=["Random (Easy)","Basic logic (Medium)","Too overpowered (Hard)"];
+    this.gametypes=["Player vs Player", "Player vs CPU", "CPU vs CPU"];
+    this.gametype="Player vs CPU";
+    this.playStack = [];
+    this.score=[0,0];
+
     this.currentSelectable = "none";
     this.shaderColor = [0, 0, 255];
 }
@@ -100,6 +108,7 @@ XMLscene.prototype.onGraphLoaded = function () {
     // Adds lights group.
     this.interface.addLightsGroup(this.graph.lights);
     this.interface.addSelectablesGroup(this.graph.selectableNodes, this.shaderColor);
+    this.interface.addGameOptions(this.difficulties, this.gametypes, this.playStack, this.score, this.mainTime);
 
 }
 

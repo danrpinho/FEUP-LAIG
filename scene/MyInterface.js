@@ -35,7 +35,7 @@ MyInterface.prototype.init = function (application) {
 MyInterface.prototype.addLightsGroup = function (lights) {
 
     var group = this.gui.addFolder("Lights");
-    group.open();
+    group.close();
 
     // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
     // e.g. this.option1=true; this.option2=false;
@@ -50,7 +50,15 @@ MyInterface.prototype.addLightsGroup = function (lights) {
 
 MyInterface.prototype.addSelectablesGroup = function (nodes, color) {
     var shadersGroup = this.gui.addFolder("Shader setings");
-    shadersGroup.open();
+    shadersGroup.close();
     shadersGroup.add(this.scene, "currentSelectable", nodes).name("Selected Node");
     shadersGroup.addColor(this.scene, "shaderColor", color).name("Shader Color");
+}
+
+MyInterface.prototype.addGameOptions = function(difficulty, gametype, playStack, time){
+    var optionsGroup = this.gui.addFolder("Game Settings");
+    optionsGroup.open();
+    optionsGroup.add(this.scene, "gameDifficulty", difficulty).name("Game difficulty");
+    optionsGroup.add(this.scene, "gametype", gametype).name("Game type");
+    //optionsGroup.add(this.scene, "undo").name("Undo");
 }
