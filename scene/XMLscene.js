@@ -11,7 +11,6 @@ function XMLscene(interface) {
 
     this.interface = interface;
     this.mainTime = 0;
-    this.pickCount = 1;
     this.lightValues = {};
 
     this.gameDifficulty="Random (Easy)";
