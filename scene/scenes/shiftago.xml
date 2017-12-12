@@ -540,7 +540,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Up1" selectable="true">
+    <NODE id="Up1" selectable="true" pickable="true">
         <MATERIAL id="selectorOdd" />
         <TEXTURE id="null" />
         <SCALE sx="4" sy="1" sz="1" />
@@ -549,7 +549,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Up2" selectable="true">
+    <NODE id="Up2" selectable="true" pickable="true">
         <MATERIAL id="selectorEven" />
         <TEXTURE id="null" />
         <TRANSLATION x="4" y="0" z="0" />
@@ -559,7 +559,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Up3" selectable="true">
+    <NODE id="Up3" selectable="true" pickable="true">
         <MATERIAL id="selectorOdd" />
         <TEXTURE id="null" />
         <TRANSLATION x="8" y="0" z="0" />
@@ -569,7 +569,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Up4" selectable="true">
+    <NODE id="Up4" selectable="true" pickable="true">
         <MATERIAL id="selectorEven" />
         <TEXTURE id="null" />
         <TRANSLATION x="12" y="0" z="0" />
@@ -579,7 +579,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Up5" selectable="true">
+    <NODE id="Up5" selectable="true" pickable="true">
         <MATERIAL id="selectorOdd" />
         <TEXTURE id="null" />
         <TRANSLATION x="16" y="0" z="0" />
@@ -589,7 +589,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Up6" selectable="true">
+    <NODE id="Up6" selectable="true" pickable="true">
         <MATERIAL id="selectorEven" />
         <TEXTURE id="null" />
         <TRANSLATION x="20" y="0" z="0" />
@@ -599,7 +599,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Up7" selectable="true">
+    <NODE id="Up7" selectable="true" pickable="true">
         <MATERIAL id="selectorOdd" />
         <TEXTURE id="null" />
         <TRANSLATION x="24" y="0" z="0" />
@@ -609,7 +609,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Down1" selectable="true">
+    <NODE id="Down1" selectable="true" pickable="true">
         <MATERIAL id="selectorOdd" />
         <TEXTURE id="null" />
         <SCALE sx="4" sy="1" sz="1" />
@@ -618,7 +618,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Down2" selectable="true">
+    <NODE id="Down2" selectable="true" pickable="true">
         <MATERIAL id="selectorEven" />
         <TEXTURE id="null" />
         <TRANSLATION x="4" y="0" z="0" />
@@ -628,7 +628,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Down3" selectable="true">
+    <NODE id="Down3" selectable="true" pickable="true">
         <MATERIAL id="selectorOdd" />
         <TEXTURE id="null" />
         <TRANSLATION x="8" y="0" z="0" />
@@ -638,7 +638,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Down4" selectable="true">
+    <NODE id="Down4" selectable="true" pickable="true">
         <MATERIAL id="selectorEven" />
         <TEXTURE id="null" />
         <TRANSLATION x="12" y="0" z="0" />
@@ -648,7 +648,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Down5" selectable="true">
+    <NODE id="Down5" selectable="true" pickable="true">
         <MATERIAL id="selectorOdd" />
         <TEXTURE id="null" />
         <TRANSLATION x="16" y="0" z="0" />
@@ -658,7 +658,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Down6" selectable="true">
+    <NODE id="Down6" selectable="true" pickable="true">
         <MATERIAL id="selectorEven" />
         <TEXTURE id="null" />
         <TRANSLATION x="20" y="0" z="0" />
@@ -668,7 +668,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Down7" selectable="true">
+    <NODE id="Down7" selectable="true" pickable="true">
         <MATERIAL id="selectorOdd" />
         <TEXTURE id="null" />
         <TRANSLATION x="24" y="0" z="0" />
@@ -678,7 +678,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Left1" selectable="true">
+    <NODE id="Left1" selectable="true" pickable="true">
         <MATERIAL id="selectorOdd" />
         <TEXTURE id="null" />
         <SCALE sx="4" sy="1" sz="1" />
@@ -687,7 +687,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Left2" selectable="true">
+    <NODE id="Left2" selectable="true" pickable="true">
         <MATERIAL id="selectorEven" />
         <TEXTURE id="null" />
         <TRANSLATION x="4" y="0" z="0" />
@@ -697,7 +697,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Left3" selectable="true">
+    <NODE id="Left3" selectable="true" pickable="true">
         <MATERIAL id="selectorOdd" />
         <TEXTURE id="null" />
         <TRANSLATION x="8" y="0" z="0" />
@@ -707,7 +707,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Left4" selectable="true">
+    <NODE id="Left4" selectable="true" pickable="true">
         <MATERIAL id="selectorEven" />
         <TEXTURE id="null" />
         <TRANSLATION x="12" y="0" z="0" />
@@ -717,7 +717,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Left5" selectable="true">
+    <NODE id="Left5" selectable="true" pickable="true">
         <MATERIAL id="selectorOdd" />
         <TEXTURE id="null" />
         <TRANSLATION x="16" y="0" z="0" />
@@ -727,7 +727,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Left6" selectable="true">
+    <NODE id="Left6" selectable="true" pickable="true">
         <MATERIAL id="selectorEven" />
         <TEXTURE id="null" />
         <TRANSLATION x="20" y="0" z="0" />
@@ -737,7 +737,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Left7" selectable="true">
+    <NODE id="Left7" selectable="true" pickable="true">
         <MATERIAL id="selectorOdd" />
         <TEXTURE id="null" />
         <TRANSLATION x="24" y="0" z="0" />
@@ -747,7 +747,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Right1" selectable="true">
+    <NODE id="Right1" selectable="true" pickable="true">
         <MATERIAL id="selectorOdd" />
         <TEXTURE id="null" />
         <SCALE sx="4" sy="1" sz="1" />
@@ -756,7 +756,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Right2" selectable="true">
+    <NODE id="Right2" selectable="true" pickable="true">
         <MATERIAL id="selectorEven" />
         <TEXTURE id="null" />
         <TRANSLATION x="4" y="0" z="0" />
@@ -766,7 +766,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Right3" selectable="true">
+    <NODE id="Right3" selectable="true" pickable="true">
         <MATERIAL id="selectorOdd" />
         <TEXTURE id="null" />
         <TRANSLATION x="8" y="0" z="0" />
@@ -776,7 +776,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Right4" selectable="true">
+    <NODE id="Right4" selectable="true" pickable="true">
         <MATERIAL id="selectorEven" />
         <TEXTURE id="null" />
         <TRANSLATION x="12" y="0" z="0" />
@@ -786,7 +786,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Right5" selectable="true">
+    <NODE id="Right5" selectable="true" pickable="true">
         <MATERIAL id="selectorOdd" />
         <TEXTURE id="null" />
         <TRANSLATION x="16" y="0" z="0" />
@@ -796,7 +796,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Right6" selectable="true">
+    <NODE id="Right6" selectable="true" pickable="true">
         <MATERIAL id="selectorEven" />
         <TEXTURE id="null" />
         <TRANSLATION x="20" y="0" z="0" />
@@ -806,7 +806,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="Right7" selectable="true">
+    <NODE id="Right7" selectable="true" pickable="true">
         <MATERIAL id="selectorOdd" />
         <TEXTURE id="null" />
         <TRANSLATION x="24" y="0" z="0" />
@@ -964,7 +964,7 @@
 		 </DESCENDANTS>
      </NODE>
 
-    <NODE id="piece1">
+    <NODE id="piece1"  pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <DESCENDANTS>
@@ -972,7 +972,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece2">
+    <NODE id="piece2"  pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="0" y="0" z="3" />
@@ -981,7 +981,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece3">
+    <NODE id="piece3"  pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="0" y="0" z="6" />
@@ -990,7 +990,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece4">
+    <NODE id="piece4"  pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="0" y="0" z="9" />
@@ -999,7 +999,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece5">
+    <NODE id="piece5"  pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="0" y="0" z="12" />
@@ -1008,7 +1008,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece6">
+    <NODE id="piece6"  pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="0" y="0" z="15" />
@@ -1017,7 +1017,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece7">
+    <NODE id="piece7"  pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="0" y="0" z="18" />
@@ -1026,7 +1026,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece8">
+    <NODE id="piece8"  pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="0" y="0" z="21" />
@@ -1035,7 +1035,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece9">
+    <NODE id="piece9"  pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="0" y="0" z="24" />
@@ -1044,7 +1044,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece10">
+    <NODE id="piece10" pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="0" y="0" z="27" />
@@ -1053,7 +1053,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece11">
+    <NODE id="piece11" pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="2.65" y="0" z="1.5" />
@@ -1062,7 +1062,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece12">
+    <NODE id="piece12" pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="2.65" y="0" z="4.5" />
@@ -1071,7 +1071,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece13">
+    <NODE id="piece13" pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="2.65" y="0" z="7.5" />
@@ -1080,7 +1080,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece14">
+    <NODE id="piece14" pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="2.65" y="0" z="10.5" />
@@ -1089,7 +1089,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece15">
+    <NODE id="piece15" pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="2.65" y="0" z="13.5" />
@@ -1098,7 +1098,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece16">
+    <NODE id="piece16" pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="2.65" y="0" z="16.5" />
@@ -1107,7 +1107,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece17">
+    <NODE id="piece17" pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="2.65" y="0" z="19.5" />
@@ -1116,7 +1116,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece18">
+    <NODE id="piece18" pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="2.65" y="0" z="22.5" />
@@ -1125,7 +1125,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece19">
+    <NODE id="piece19" pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="2.65" y="0" z="25.5" />
@@ -1134,7 +1134,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece20">
+    <NODE id="piece20" pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="5.3" y="0" z="0" />
@@ -1143,7 +1143,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece21">
+    <NODE id="piece21" pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="5.3" y="0" z="3" />
@@ -1152,7 +1152,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piece22">
+    <NODE id="piece22" pickable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <TRANSLATION x="5.3" y="0" z="6" />

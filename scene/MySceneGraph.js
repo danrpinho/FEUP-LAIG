@@ -16,6 +16,9 @@ var NODES_INDEX = 6;
 function MySceneGraph(filename, scene) {
     this.loadedOk = null;
 
+    this.pickCount = 1;
+
+
     // Establish bidirectional references between scene and graph.
     this.scene = scene;
     scene.graph = this;
@@ -1305,6 +1308,13 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
             } else
                 this.nodes[nodeID].selectable = false;
 
+            if (this.reader.hasAttribute(children[i], 'pickable')) {
+                var pickable = this.reader.getString(children[i], 'pickable');
+                this.nodes[nodeID].pickable = pickable;
+                if (pickable) this.selectableNodes.push(nodeID);
+            } else
+                this.nodes[nodeID].pickable = false;
+
             // Gathers child nodes.
             var nodeSpecs = children[i].children;
             var specsNames = [];
@@ -1545,6 +1555,7 @@ MySceneGraph.prototype.displayScene = function () {
     // material and texture stack creation, along with introducing root elements
     this.textStack = [];
     this.materStack = [];
+    this.pickCount = 1;
 
     //default values for root (its "parent")
     this.materStack.push(this.defaultMaterialID);
@@ -1566,6 +1577,11 @@ MySceneGraph.prototype.processNode = function (node) {
     if (this.scene.currentSelectable == node.nodeID) {
 
         this.scene.setActiveShader(this.scene.shader);
+    }
+
+    if(node.pickable){
+        this.scene.registerForPick(this.pickCount, node);
+        this.pickCount++;
     }
 
 

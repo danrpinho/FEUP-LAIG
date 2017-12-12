@@ -11,6 +11,7 @@ function XMLscene(interface) {
 
     this.interface = interface;
     this.mainTime = 0;
+    this.pickCount = 1;
     this.lightValues = {};
 
     this.gameDifficulty="Random (Easy)";
@@ -21,7 +22,7 @@ function XMLscene(interface) {
     this.score=[0,0];
 
     this.currentSelectable = "none";
-    this.shaderColor = [0, 0, 255];
+    this.shaderColor = [255, 215, 0];
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -116,6 +117,10 @@ XMLscene.prototype.onGraphLoaded = function () {
  * Displays the scene.
  */
 XMLscene.prototype.display = function () {
+    this.logPicking();
+	this.clearPickRegistration();
+
+
     // ---- BEGIN Background, camera and axis setup
 
     // Clear image and depth buffer everytime we update the scene
@@ -178,4 +183,21 @@ XMLscene.prototype.update = function (time) {
         selBlue: this.shaderColor[2] / 255,
         timeFactor: this.mainTime
     });
+}
+
+XMLscene.prototype.logPicking = function ()
+{
+	if (this.pickMode == false) {
+		if (this.pickResults != null && this.pickResults.length > 0) {
+			for (var i=0; i< this.pickResults.length; i++) {
+				var obj = this.pickResults[i][0];
+				if (obj)
+				{
+					var customId = this.pickResults[i][1];
+					console.log("Picked object: " + obj + ", with pick id " + customId);
+				}
+			}
+			this.pickResults.splice(0,this.pickResults.length);
+		}
+	}
 }
