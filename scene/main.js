@@ -16,7 +16,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
              'MyTriangle.js', 'MyQuad.js', 'MyCylinder.js',
              'MySemiSphere.js','MySphere.js','MyCylinderSurface.js',
              'MyCircle.js','MyPatch.js', 'Animation.js', 'BezierAnimation.js',
-             'CircularAnimation.js', 'ComboAnimation.js', 'LinearAnimation.js',
+             'CircularAnimation.js', 'ComboAnimation.js', 'LinearAnimation.js', 'Board.js','BoardCell.js',
 
     main = function () {
         // Standard application, scene and interface setup

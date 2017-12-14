@@ -6,7 +6,7 @@
  *@param slices - slices the sphere is divided in
  *@param stacks - stacks the sphere is divided in
  */
-function MySemiSphere(scene, radius, slices, stacks, tex) {
+function MySemiSphere(scene, radius, slices, stacks, tex, interior=0) {
 
 	CGFobject.call(this, scene);
 
@@ -14,7 +14,8 @@ function MySemiSphere(scene, radius, slices, stacks, tex) {
 	this.stacks = stacks;
 	this.radius = radius;
 	this.tex = tex;
-
+	this.interior=interior;
+	this.signal=1-2*interior;
 	this.initBuffers();
 };
 
@@ -54,11 +55,24 @@ MySemiSphere.prototype.initBuffers = function () {
 			var c = (j + 1) * (this.slices + 1) + i;
 			var d = (j + 1) * (this.slices + 1) + (i + 1) % (this.slices + 1);
 			this.indices.push(d);
-			this.indices.push(a);
-			this.indices.push(b);
+			if(this.interior === 0){
+				this.indices.push(a);
+				this.indices.push(b);
+			}
+			else{
+				this.indices.push(b);
+				this.indices.push(a);
+			}
+
 			this.indices.push(c);
-			this.indices.push(a);
-			this.indices.push(d);
+			if(this.interior === 0){
+				this.indices.push(a);
+				this.indices.push(d);
+			}
+			else{
+				this.indices.push(d);
+				this.indices.push(a);
+			}
 		}
 	}
 
