@@ -7,7 +7,7 @@ function MyGraphLeaf(graph, node) {
     this.graph = graph;
 
     //gets item from the xml block
-    var type = this.graph.reader.getItem(node, 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
+    var type = this.graph.reader.getItem(node, 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch', 'board']);
 
     //checks if the leaf has a valid type
     if (type != null)
@@ -64,6 +64,13 @@ function MyGraphLeaf(graph, node) {
                 this.parseCPLine(children[i], controlvertexes);
             }
             this.obj = new MyPatch(this.graph.scene, udiv, vdiv, controlvertexes);
+            break;
+         case 'board':
+            var sphereRadius = parseFloat(argArray[0]);
+            var cylinderRadius = parseFloat(argArray[1]);
+            var spaceBetweenSpheres = parseFloat(argArray[2]);
+            var sphereHeight = parseFloat(argArray[3]);
+            this.obj=new Board(this.graph.scene, sphereRadius, cylinderRadius, spaceBetweenSpheres, sphereHeight);
             break;
         default:
             this.graph.warn("Unknown leaf type <" + type + ">");

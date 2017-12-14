@@ -26,6 +26,7 @@ BoardCell.prototype.constructor = BoardCell;
 BoardCell.prototype.initBuffers = function (){
 	this.vertices=[];
 	this.normals=[];
+	this.texCoords=[];
 
 	//FOUR VERTICES OF THE SQUARE
 	this.vertices.push(this.right, this.top, 0);
@@ -213,7 +214,10 @@ BoardCell.prototype.initBuffers = function (){
 		this.indices.push(0, i, i+1);
 	}
 		
-
+	for(var i=0; i< this.vertices.length; i++){
+		this.texCoords.push(this.vertices[0], this.vertices[1]);
+	}
+	
 	this.initGLBuffers();
 
 
@@ -221,10 +225,7 @@ BoardCell.prototype.initBuffers = function (){
 }
 
 
-/**
-*display
-*@brief - displays this object
-*/
+
 
 
 /**

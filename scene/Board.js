@@ -28,9 +28,6 @@ function Board(scene, sphereRadius, cylinderRadius,  spaceBetweenSpheres, sphere
 	this.cylinderHeight = spaceBetweenSpheres + 2*sphereRadius - 2*Math.sqrt(sphereRadius*sphereRadius-cylinderRadius*cylinderRadius);
 	this.cylinder = new MyCylinderSurface(scene, 80, 1, this.cylinderRadius, this.cylinderRadius, this.cylinderHeight, 1);
 
-	this.appearance=new CGFappearance(scene);
-	this.appearance.loadTexture("./scenes/images/tela.jpg");
-
 
 };
 
@@ -121,7 +118,6 @@ Board.prototype.display = function () {
 
 			this.scene.rotate(Math.PI, 1, 0, 0);
 			//this.scene.scale(1, 1, 1);
-			this.appearance.apply();
 			this.scene.scale(1,1,this.sphereHeight/this.sphereRadius);
 			this.semiSphere.display();
 			this.scene.popMatrix();

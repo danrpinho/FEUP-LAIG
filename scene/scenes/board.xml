@@ -1,0 +1,244 @@
+<SCENE>
+
+    <INITIALS>
+        <frustum near="0.1" far="500"/>
+        <translation x="-2" y="0" z="-2" />
+        <rotation axis="x" angle="0" />
+        <rotation axis="y" angle="0" />
+        <rotation axis="z" angle="0" />
+        <scale sx="0.5" sy="0.5" sz="0.5" />
+        <reference length="5" />
+    </INITIALS>
+
+    <ILLUMINATION>
+        <ILLUMINATION>
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <background r="0" g="0" b="0" a="1" />
+        </ILLUMINATION>
+    </ILLUMINATION>
+
+    <LIGHTS>
+        <!-- Far left stage light, it's blue -->
+        <LIGHT id="stage_farLeft">
+            <enable value ="1" />
+            <position  x="2" y="7" z="5.5" w="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="0.5" g="0.5" b="1.0" a="1.0" />
+            <specular r="0.5" g="0.5" b="1.0" a="1.0" />
+        </LIGHT>
+
+        <!-- Middle left stage light, it's white -->
+	    <LIGHT id="stage_middleLeft">
+            <enable value ="1" />
+             <position  x="4" y="7" z="5.5" w="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </LIGHT>
+
+        <!-- Middle right stage light, it's green -->
+	    <LIGHT id="stage_middleRight">
+            <enable value ="1" />
+             <position  x="6" y="7" z="5.5" w="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="0.5" g="1.0" b="0.5" a="1.0" />
+            <specular r="0.5" g="1.0" b="0.5" a="1.0" />
+        </LIGHT>
+
+        <!-- Far right stage light, it's red -->
+        <LIGHT id="stage_farRight">
+            <enable value ="1" />
+            <position  x="8" y="7" z="5.5" w="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="1.0" g="0.5" b="0.5" a="1.0" />
+            <specular r="1.0" g="0.5" b="0.5" a="1.0" />
+        </LIGHT>
+
+        <!-- The following four lights are dimmer wall lights -->
+        <LIGHT id="wall_leftFront">
+            <enable value ="0" />
+             <position  x="0.15" y="5" z="8" w="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="0.3" g="0.3" b="0.3" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+        </LIGHT>
+
+        <LIGHT id="wall_leftBack">
+            <enable value ="0" />
+             <position  x="0.15" y="5" z="13" w="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="0.3" g="0.3" b="0.3" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+        </LIGHT>
+
+        <LIGHT id="wall_rightFront">
+            <enable value ="0" />
+             <position  x="9.85" y="5" z="8" w="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="0.3" g="0.3" b="0.3" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+        </LIGHT>
+
+        <LIGHT id="wall_rightBack">
+            <enable value ="0" />
+             <position  x="9.85" y="5" z="13" w="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="0.3" g="0.3" b="0.3" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+        </LIGHT>
+    </LIGHTS>
+
+    <TEXTURES>
+        <!-- Dark wood texture -->
+        <TEXTURE id="darkwood">
+            <file path="images/darkwood.jpg" />
+            <amplif_factor s="1" t="1" />
+        </TEXTURE>
+
+        <!-- Light wood texture -->
+        <TEXTURE id="lightwood">
+            <file path="images/stage.jpg" />
+            <amplif_factor s="0.5" t="0.5" />
+        </TEXTURE>
+
+        <!-- Curtain texture -->
+        <TEXTURE id="curtain">
+            <file path="images/curtain.jpg" />
+            <amplif_factor s="1" t="1" />
+        </TEXTURE>
+
+        <!-- Dark wood texture, for the floor -->
+        <TEXTURE id="darkfloor">
+            <file path="images/darkfloor.png" />
+            <amplif_factor s="1" t="1" />
+        </TEXTURE>
+
+        <!-- Dark cement texture -->
+        <TEXTURE id="cement">
+            <file path="images/cement.jpg" />
+            <amplif_factor s="1" t="1" />
+        </TEXTURE>
+
+        <!-- Red felt texture -->
+        <TEXTURE id="rug">
+            <file path="images/rug.jpg" />
+            <amplif_factor s="1" t="1" />
+        </TEXTURE>
+
+        <!-- Metallic texture -->
+        <TEXTURE id="metal">
+            <file path="images/metal.jpg" />
+            <amplif_factor s="1" t="1" />
+        </TEXTURE>
+
+        <!-- Red fabric texture -->
+        <TEXTURE id="chair">
+            <file path="images/redfabric.jpg" />
+            <amplif_factor s="1" t="1" />
+        </TEXTURE>
+
+        <!-- Marble-like texture -->
+        <TEXTURE id="lamp">
+            <file path="images/lamp.jpg" />
+            <amplif_factor s="1" t="1" />
+        </TEXTURE>
+
+        <!-- Drawing for the stage screen -->
+        <TEXTURE id="pintura">
+             <file path="images/tela.jpg"/>
+             <amplif_factor s="1" t="1" />
+        </TEXTURE>
+    </TEXTURES>
+
+    <MATERIALS>
+        <!--Default material-->
+        <MATERIAL id="defaultMaterial">
+            <shininess value="1" />
+            <specular r="0.0" g="0.0" b="0.0" a="1" />
+            <diffuse r="0.4" g="0.4" b="0.4" a="1" />
+            <ambient r="0.4" g="0.4" b="0.4" a="1" />
+            <emission r="0.0" g="0.0" b="0.0" a="1" />
+        </MATERIAL>
+
+        <!-- Red diffuse material -->
+        <MATERIAL id="Red_diffuse">
+            <shininess value="1" />
+            <specular r="0.3" g="0.0" b="0.0" a="1" />
+            <diffuse r="1.0" g="0.1" b="0.1" a="1" />
+            <ambient r="0.3" g="0.2" b="0.2" a="1" />
+            <emission r="0.0" g="0.0" b="0.0" a="1" />
+        </MATERIAL>
+
+        <!-- Grey specular material -->
+        <MATERIAL id="Grey_specular">
+            <shininess value="1" />
+            <specular r="0.7" g="0.7" b="0.7" a="1" />
+            <diffuse r="0.2" g="0.2" b="0.2" a="1" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1" />
+            <emission r="0.0" g="0.0" b="0.0" a="1" />
+        </MATERIAL>
+
+        <!-- Wooden material (reddish-brownish) -->
+        <MATERIAL id="WoodenM">
+            <shininess value="1" />
+            <specular r="0.1" g="0.1" b="0.1" a="1" />
+            <diffuse r="0.6" g="0.55" b="0.5" a="1" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1" />
+            <emission r="0.0" g="0.0" b="0.0" a="1" />
+        </MATERIAL>
+       <!-- <MATERIAL id="WoodenM">
+            <shininess value="0.001" />
+            <specular r="0.0" g="0.0" b="0.0" a="1" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1" />
+            <emission r="0.0" g="0.0" b="0.0" a="1" />
+        </MATERIAL>-->
+
+        <!-- Blue specular material -->
+        <MATERIAL id="BlueShiny">
+            <shininess value="1" />
+            <specular r="0.1" g="0.1" b="0.3" a="1" />
+            <diffuse r="0.4" g="0.7" b="1" a="1" />
+            <ambient r="0.2" g="0.2" b="0.4" a="1" />
+            <emission r="0.0" g="0.0" b="0.0" a="1" />
+        </MATERIAL>
+
+        <!-- Dark and specular material -->
+        <MATERIAL id="DarkSpecular">
+            <shininess value="1" />
+            <specular r="0.3" g="0.3" b="0.3" a="1" />
+            <diffuse r="0.1" g="0.1" b="0.1" a="1" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1" />
+            <emission r="0.0" g="0.0" b="0.0" a="1" />
+        </MATERIAL>
+    </MATERIALS>
+
+    <ANIMATIONS>
+       
+ 	</ANIMATIONS>
+    		
+
+    <NODES>
+        <ROOT id="root"/>
+
+        <NODE id="root">
+            <MATERIAL id="defaultMaterial" />
+            <TEXTURE id="clear" />
+
+            <DESCENDANTS>
+                <NODEREF id="board" />        
+            </DESCENDANTS>
+        </NODE>
+
+
+        <!-- STAGE AND STAIRS -->
+        <NODE id="board">
+            <MATERIAL id="WoodenM" />
+            <TEXTURE id="pintura" />
+             <!--<TEXTURE id="clear" />-->
+            <DESCENDANTS>
+                <LEAF type="board" args="2 1 4 2" />
+            </DESCENDANTS>
+        </NODE>
+
+</SCENE>
