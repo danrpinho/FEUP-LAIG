@@ -384,12 +384,23 @@
         <TEXTURE id="clear" />
 
         <DESCENDANTS>
+            <NODEREF id="fullboard"/>
             <NODEREF id="base" />
             <NODEREF id="p1box" />
             <NODEREF id="p2box" />
 		</DESCENDANTS>
 
     </NODE>
+
+    <NODE id="fullboard">
+            <MATERIAL id="null"/>
+            <TEXTURE id="null" />
+            <TRANSLATION x="13" y="4.5" z="3.5" />
+            <ROTATION axis="x" angle="-90" />
+            <DESCENDANTS>
+                <LEAF type="board" args="1.5 1 1 1" />
+            </DESCENDANTS>
+        </NODE>
 
     <NODE id="base">
         <MATERIAL id="null" />
@@ -410,7 +421,11 @@
         <SCALE sx="30" sy="3.5" sz="31" />
 
         <DESCENDANTS>
-            <NODEREF id="cube" />
+            <NODEREF id="cubeFace1" />
+            <NODEREF id="cubeFace2" />
+            <NODEREF id="cubeFace3" />
+            <NODEREF id="cubeFace4" />
+            <NODEREF id="cubeFace6" />
 		</DESCENDANTS>
 
     </NODE>
@@ -1362,7 +1377,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         <DESCENDANTS>
-            <LEAF type="sphere" args="1.5 20 20" />
+            <LEAF type="sphere" args="1.5 50 50" />
 		</DESCENDANTS>
     </NODE>
 

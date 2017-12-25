@@ -58,6 +58,7 @@ MyInterface.prototype.addSelectablesGroup = function (nodes, color) {
 MyInterface.prototype.addGameOptions = function(difficulty, gametype, playStack, time){
     var optionsGroup = this.gui.addFolder("Game Settings");
     optionsGroup.open();
+    //optionsGroup.add(this.scene, "toggle").name("Toggle top-down view");
     optionsGroup.add(this.scene, "gameDifficulty", difficulty).name("Game difficulty");
     optionsGroup.add(this.scene, "gametype", gametype).name("Game type");
     //optionsGroup.add(this.scene, "undo").name("Undo");

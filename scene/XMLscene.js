@@ -17,7 +17,13 @@ function XMLscene(interface) {
     this.difficulties=["Random (Easy)","Basic logic (Medium)","Too overpowered (Hard)"];
     this.gametypes=["Player vs Player", "Player vs CPU", "CPU vs CPU"];
     this.gametype="Player vs CPU";
-    this.playStack = [];
+    this.playStack = [  [[0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0]]   ];
     this.score=[0,0];
 
     this.currentSelectable = "none";
