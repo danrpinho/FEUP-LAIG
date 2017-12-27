@@ -232,7 +232,17 @@
             <NODEREF id="p1pieces"/>
             <NODEREF id="p2pieces"/>
             <NODEREF id="scoreboard"/>
+            <NODEREF id="floor"/>
         </DESCENDANTS>
+    </NODE>
+
+    <NODE id="floor">
+        <MATERIAL id="null" />
+        <TEXTURE id="rocks" />
+        <ROTATION axis="x" angle="90" />
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="-70 -60 120 70" />
+		</DESCENDANTS>
     </NODE>
 
     <NODE id="scoreboard">
@@ -393,14 +403,14 @@
     </NODE>
 
     <NODE id="fullboard">
-            <MATERIAL id="null"/>
-            <TEXTURE id="null" />
-            <TRANSLATION x="13" y="4.5" z="3.5" />
-            <ROTATION axis="x" angle="-90" />
-            <DESCENDANTS>
-                <LEAF type="board" args="1.5 1 1 1" />
-            </DESCENDANTS>
-        </NODE>
+        <MATERIAL id="null"/>
+        <TEXTURE id="null" />
+        <TRANSLATION x="12.5" y="4.5" z="3" />
+        <ROTATION axis="x" angle="-90" />
+        <DESCENDANTS>
+            <LEAF type="board" args="1.577 1 1 1" />
+        </DESCENDANTS>
+    </NODE>
 
     <NODE id="base">
         <MATERIAL id="null" />
@@ -409,8 +419,30 @@
         <TRANSLATION x="10" y="0" z="0" />
 
         <DESCENDANTS>
+            <NODEREF id="boardFront" />
+            <NODEREF id="boardBack" />
             <NODEREF id="boardBase" />
             <NODEREF id="grid" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="boardFront">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="0" y="2.5" z="30.5" />
+        <SCALE sx="30" sy="1" sz="0.5" />
+        <DESCENDANTS>
+            <NODEREF id="cubeFace5" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="boardBack">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="0" y="2.5" z="0" />
+        <SCALE sx="30" sy="1" sz="0.5" />
+        <DESCENDANTS>
+            <NODEREF id="cubeFace5" />
 		</DESCENDANTS>
     </NODE>
 
