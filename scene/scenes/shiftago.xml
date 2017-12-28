@@ -80,52 +80,52 @@
     </TEXTURE>
 
      <!-- Score -->
-    <TEXTURE id="score0">
+    <TEXTURE id="score0" number="0">
         <file path="images/0.png" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <TEXTURE id="score1">
+    <TEXTURE id="score1" number="1">
         <file path="images/1.png" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <TEXTURE id="score2">
+    <TEXTURE id="score2" number="2">
         <file path="images/2.png" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <TEXTURE id="score3">
+    <TEXTURE id="score3" number="3">
         <file path="images/3.png" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <TEXTURE id="score4">
+    <TEXTURE id="score4" number="4">
         <file path="images/4.png" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <TEXTURE id="score5">
+    <TEXTURE id="score5" number="5">
         <file path="images/5.png" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <TEXTURE id="score6">
+    <TEXTURE id="score6" number="6">
         <file path="images/6.png" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <TEXTURE id="score7">
+    <TEXTURE id="score7" number="7">
         <file path="images/7.png" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <TEXTURE id="score8">
+    <TEXTURE id="score8" number="8">
         <file path="images/8.png" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <TEXTURE id="score9">
+    <TEXTURE id="score9" number="9">
         <file path="images/9.png" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>

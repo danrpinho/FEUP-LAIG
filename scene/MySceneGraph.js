@@ -24,6 +24,7 @@ function MySceneGraph(filename, scene) {
     scene.graph = this;
 
     this.nodes = [];
+    this.numbers = [];
     this.selectableNodes = ['none'];
     this.idRoot = null;                    // The id of the root element.
 
@@ -881,6 +882,11 @@ MySceneGraph.prototype.parseTextures = function (texturesNode) {
             if (this.textures[textureID] != null)
                 return "texture ID must unique (conflict with ID = " + textureID + ")";
 
+            var textureNumber = -1;
+            if (this.reader.hasAttribute(eachTexture[i], 'number')) {
+                textureNumber = this.reader.getInteger(eachTexture[i], 'number');
+            }
+
             var texSpecs = eachTexture[i].children;
             var filepath = null;
             var amplifFactorS = null;
@@ -924,6 +930,10 @@ MySceneGraph.prototype.parseTextures = function (texturesNode) {
                 return "t amplification factor undefined for texture with ID = " + textureID;
 
             var texture = new CGFtexture(this.scene, "./scenes/" + filepath);
+
+            if(textureNumber != -1){
+                this.numbers[textureNumber] = [texture, amplifFactorS, amplifFactorT];
+            }
 
             this.textures[textureID] = [texture, amplifFactorS, amplifFactorT];
             oneTextureDefined = true;
