@@ -130,9 +130,19 @@
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <!-- Rocks -->
-    <TEXTURE id="rocks">
+    <!-- Floors -->
+    <TEXTURE id="sand" floor="beach">
         <file path="images/rocks.jpg" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="woodfloor" floor="wood">
+        <file path="images/wood.jpg" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="plastic" floor="plastic">
+        <file path="images/carbon.jpg" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
@@ -238,10 +248,13 @@
 
     <NODE id="floor">
         <MATERIAL id="null" />
-        <TEXTURE id="rocks" />
+        <TEXTURE id="woodfloor" />
+        <SCALE sx="25" sy="1" sz="25"/>
         <ROTATION axis="x" angle="90" />
+
         <DESCENDANTS>
-            <LEAF type="rectangle" args="-70 -60 120 70" />
+            <!--<LEAF type="rectangle" args="-70 -60 120 70" />-->
+            <LEAF type="rectangle" args="-2.33 -2 4 2.33" />
 		</DESCENDANTS>
     </NODE>
 

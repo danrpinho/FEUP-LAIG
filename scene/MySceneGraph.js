@@ -15,16 +15,17 @@ var NODES_INDEX = 6;
  */
 function MySceneGraph(filename, scene) {
     this.loadedOk = null;
-
     this.pickCount = 1;
-
 
     // Establish bidirectional references between scene and graph.
     this.scene = scene;
     scene.graph = this;
 
     this.nodes = [];
-    this.numbers = [];
+    this.textNumbers = [];
+    this.textBoards = [];
+    this.textFloors = [];
+    this.ambients = ['beach', 'wood', 'plastic'];
     this.selectableNodes = ['none'];
     this.idRoot = null;                    // The id of the root element.
 
@@ -883,9 +884,18 @@ MySceneGraph.prototype.parseTextures = function (texturesNode) {
                 return "texture ID must unique (conflict with ID = " + textureID + ")";
 
             var textureNumber = -1;
+            var textureFloor = null;
+            var textureBoard = null;
             if (this.reader.hasAttribute(eachTexture[i], 'number')) {
                 textureNumber = this.reader.getInteger(eachTexture[i], 'number');
             }
+            if (this.reader.hasAttribute(eachTexture[i], 'floor')) {
+                textureFloor = this.reader.getInteger(eachTexture[i], 'floor');
+            }
+            if (this.reader.hasAttribute(eachTexture[i], 'board')) {
+                textureBoard = this.reader.getInteger(eachTexture[i], 'board');
+            }
+
 
             var texSpecs = eachTexture[i].children;
             var filepath = null;
@@ -931,8 +941,16 @@ MySceneGraph.prototype.parseTextures = function (texturesNode) {
 
             var texture = new CGFtexture(this.scene, "./scenes/" + filepath);
 
+            if(textureFloor != null){
+                this.textFloors[textureFloor] = [texture, amplifFactorS, amplifFactorT];
+            }
+
+            if(textureBoard != null){
+                this.textBoards[textureBoard] = [texture, amplifFactorS, amplifFactorT];
+            }
+
             if(textureNumber != -1){
-                this.numbers[textureNumber] = [texture, amplifFactorS, amplifFactorT];
+                this.textNumbers[textureNumber] = [texture, amplifFactorS, amplifFactorT];
             }
 
             this.textures[textureID] = [texture, amplifFactorS, amplifFactorT];
