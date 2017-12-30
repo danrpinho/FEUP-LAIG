@@ -1,6 +1,8 @@
 var DEGREE_TO_RAD = Math.PI / 180;
 var UPDATE_SCENE = 0.1;
 var RELATIVE_ANIMATION = 1;
+var INITIAL_TIMER = 50;
+
 
 /**
  * XMLscene class, representing the scene that is to be rendered.
@@ -10,8 +12,10 @@ function XMLscene(interface) {
     CGFscene.call(this);
 
     this.interface = interface;
+    this.activeGame = false;
     this.mainTime = 0;
     this.lightValues = {};
+    this.topDown = false;
 
     this.gameDifficulty="Easy";
     this.difficulties=["Easy", "Medium", "Hard"];
@@ -25,7 +29,7 @@ function XMLscene(interface) {
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0]], 22, 22]   ];
     this.score=[0,0];
-    this.moveTimer = 45;
+    this.moveTimer = INITIAL_TIMER;
 
     this.currentSelectable = "none";
     this.currentAmbient="wood";
@@ -123,21 +127,40 @@ XMLscene.prototype.onGraphLoaded = function () {
     }
 
     function toggle(){
-        console.log("TOGGLE STUFF")
-        this.interface.activeCamera.orbit(CGFcameraAxisID.Y, Math.PI/2);
-        this.interface.activeCamera.pan([2,0,1]);
-        this.interface.activeCamera.orbit(CGFcameraAxisID.Y, -Math.PI/2);
-        this.interface.activeCamera.orbit(CGFcameraAxisID.X, Math.PI/180*50);
+        if (!this.topDown){
+            this.interface.activeCamera.orbit(CGFcameraAxisID.Y, Math.PI/2);
+            this.interface.activeCamera.pan([2,0,1]);
+            this.interface.activeCamera.orbit(CGFcameraAxisID.Y, -Math.PI/2);
+            this.interface.activeCamera.orbit(CGFcameraAxisID.X, Math.PI/180*50);
+            this.topDown = true;
+            //@TODO substituir por uma funcao que anima isto
+        } else {
+            this.interface.activeCamera.orbit(CGFcameraAxisID.X, -Math.PI/180*50);
+            this.interface.activeCamera.orbit(CGFcameraAxisID.Y, -Math.PI/2);
+            this.interface.activeCamera.pan([2,0,1]);
+            this.interface.activeCamera.orbit(CGFcameraAxisID.Y, Math.PI/2);
+            this.topDown = false;
+        }
+    }
+
+    function startGame(){
+        if (!this.activeGame){
+            this.activeGame = true;
+            //TODO enable picking;
+        }
     }
 
     let funcUndo = undo.bind(this);
     let funcToggle = toggle.bind(this);
+    let funcStart = startGame.bind(this);
 
     // Adds lights group.
     this.interface.addLightsGroup(this.graph.lights);
     this.interface.addSelectablesGroup(this.graph.selectableNodes, this.shaderColor);
     this.interface.addGameOptions(this.difficulties, this.gametypes, this.playStack, this.mainTime, this.graph.ambients,
-        funcUndo, funcToggle);
+        funcUndo, funcToggle, funcStart);
+
+    this.moveTimer = INITIAL_TIMER;
 }
 
 /**
@@ -204,6 +227,12 @@ XMLscene.prototype.display = function () {
 
 XMLscene.prototype.update = function (time) {
     this.mainTime = this.mainTime + UPDATE_SCENE;
+    //console.log(this.moveTimer);
+    if (this.activeGame) {
+        while (this.moveTimer > 0) {
+            this.moveTimer = this.moveTimer - UPDATE_SCENE/1000;
+        }
+    }
     this.shader.setUniformsValues({
         selRed: this.shaderColor[0] / 255,
         selGreen: this.shaderColor[1] / 255,

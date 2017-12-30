@@ -1528,10 +1528,7 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
     }
 
     console.log("Parsed nodes");
-    console.log(this.textures);
-    console.log(this.textFloors);
     return null;
-
 }
 
 /*
@@ -1643,13 +1640,14 @@ MySceneGraph.prototype.processNode = function (node) {
                 currentTexture = this.textures[node.textureID];
         }
     } else {
+        var intTimer = Math.ceil(this.scene.moveTimer);
         switch(node.dynamicTexture){
             case "board": currentTexture = this.textBoards[this.scene.currentAmbient]; break;
             case "floor": currentTexture = this.textFloors[this.scene.currentAmbient]; break;
             case "p1score": currentTexture = this.textNumbers[this.scene.score[0]]; break;
             case "p2score": currentTexture = this.textNumbers[this.scene.score[1]]; break;
-            case "timer0": currentTexture = this.textNumbers[this.scene.moveTimer % 10]; break;
-            case "timer1": currentTexture = this.textNumbers[Math.floor(this.scene.moveTimer/10)]; break;
+            case "timer0": currentTexture = this.textNumbers[intTimer % 10]; break;
+            case "timer1": currentTexture = this.textNumbers[Math.floor(intTimer/10)]; break;
         }
     }
 
