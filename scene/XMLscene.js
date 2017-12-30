@@ -14,7 +14,7 @@ function XMLscene(interface) {
     this.lightValues = {};
 
     this.gameDifficulty="Easy";
-    this.difficulties=["Easy","Medium","Hard"];
+    this.difficulties=["Easy", "Medium", "Hard"];
     this.gametypes=["Player vs Player", "Player vs CPU", "CPU vs CPU"];
     this.gametype="Player vs CPU";
     this.playStack = [ [[[0,0,0,0,0,0,0],
@@ -25,9 +25,21 @@ function XMLscene(interface) {
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0]], 22, 22]   ];
     this.score=[0,0];
+    this.moveTimer = 45;
 
-    this.funcUndo = { undo:function(){ console.log("UNDO STUFF") }}
-    this.funcToggle = { toggle:function(){ console.log("TOGGLE STUFF") }}
+    this.funcUndo = {undo:function(){
+        if (this.playStack.length == 1){
+            console.log("Can't undo initial state!")
+        } else {
+            console.log("UNDO STUFF")
+            this.playStack.pop();
+        }
+    }}
+
+    this.funcToggle = {toggle:function(){
+        console.log("TOGGLE STUFF")
+
+    }}
 
     this.currentSelectable = "none";
     this.currentAmbient="wood";

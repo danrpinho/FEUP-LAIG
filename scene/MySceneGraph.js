@@ -890,10 +890,10 @@ MySceneGraph.prototype.parseTextures = function (texturesNode) {
                 textureNumber = this.reader.getInteger(eachTexture[i], 'number');
             }
             if (this.reader.hasAttribute(eachTexture[i], 'floor')) {
-                textureFloor = this.reader.getInteger(eachTexture[i], 'floor');
+                textureFloor = this.reader.getString(eachTexture[i], 'floor');
             }
             if (this.reader.hasAttribute(eachTexture[i], 'board')) {
-                textureBoard = this.reader.getInteger(eachTexture[i], 'board');
+                textureBoard = this.reader.getString(eachTexture[i], 'board');
             }
 
 
@@ -1343,6 +1343,13 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
             } else
                 this.nodes[nodeID].pickable = false;
 
+            if (this.reader.hasAttribute(children[i], 'dynamictexture')) {
+                var dynamicTexture = this.reader.getString(children[i], 'dynamictexture');
+                this.nodes[nodeID].dynamicTexture = dynamicTexture;
+            } else
+                this.nodes[nodeID].dynamicTexture = "constant";
+
+
             // Gathers child nodes.
             var nodeSpecs = children[i].children;
             var specsNames = [];
@@ -1521,7 +1528,10 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
     }
 
     console.log("Parsed nodes");
+    console.log(this.textures);
+    console.log(this.textFloors);
     return null;
+
 }
 
 /*
@@ -1623,12 +1633,25 @@ MySceneGraph.prototype.processNode = function (node) {
 
     //texture handling
     var currentTexture = this.textStack[this.textStack.length - 1]; //parent texture
-    if (node.textureID != "null") {
-        if (node.textureID == "clear")
-            currentTexture = null;
-        else
-            currentTexture = this.textures[node.textureID];
+    if (node.dynamicTexture == "constant") {
+        if (node.textureID != "null") {
+            if (node.textureID == "clear")
+                currentTexture = null;
+            else
+                currentTexture = this.textures[node.textureID];
+        }
+    } else {
+        switch(node.dynamicTexture){
+            case "board": currentTexture = this.textBoards[this.scene.currentAmbient]; break;
+            case "floor": currentTexture = this.textFloors[this.scene.currentAmbient]; break;
+            case "p1score": currentTexture = this.textNumbers[this.scene.score[0]]; break;
+            case "p2score": currentTexture = this.textNumbers[this.scene.score[1]]; break;
+            case "timer0": currentTexture = this.textNumbers[this.scene.moveTimer % 10]; break;
+            case "timer1": currentTexture = this.textNumbers[Math.floor(this.scene.moveTimer/10)]; break;
+        }
     }
+
+
     this.textStack.push(currentTexture);
 
     this.applyAnimations(node.animations);
