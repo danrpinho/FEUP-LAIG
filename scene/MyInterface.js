@@ -55,13 +55,16 @@ MyInterface.prototype.addSelectablesGroup = function (nodes, color) {
     shadersGroup.addColor(this.scene, "shaderColor", color).name("Shader Color");
 }
 
-MyInterface.prototype.addGameOptions = function(difficulty, gametype, playStack, time, ambients){
+MyInterface.prototype.addGameOptions = function(difficulty, gametype, playStack, time, ambients, undo, toggle){
     var optionsGroup = this.gui.addFolder("Game Settings");
     optionsGroup.open();
 
-    optionsGroup.add(this.scene.funcToggle,'toggle').name("Toggle view");
+    let objUndo = {funcUndo:undo};
+    let objToggle = {funcToggle:toggle};
+
+    optionsGroup.add(objToggle, "funcToggle").name("Toggle view");
     optionsGroup.add(this.scene, "currentAmbient", ambients).name("Game ambient");
     optionsGroup.add(this.scene, "gameDifficulty", difficulty).name("Game difficulty");
     optionsGroup.add(this.scene, "gametype", gametype).name("Game type");
-    optionsGroup.add(this.scene.funcUndo,'undo').name("Undo");
+    optionsGroup.add(objUndo, "funcUndo").name("Undo");
 }

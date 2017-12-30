@@ -27,20 +27,6 @@ function XMLscene(interface) {
     this.score=[0,0];
     this.moveTimer = 45;
 
-    this.funcUndo = {undo:function(){
-        if (this.playStack.length == 1){
-            console.log("Can't undo initial state!")
-        } else {
-            console.log("UNDO STUFF")
-            this.playStack.pop();
-        }
-    }}
-
-    this.funcToggle = {toggle:function(){
-        console.log("TOGGLE STUFF")
-
-    }}
-
     this.currentSelectable = "none";
     this.currentAmbient="wood";
     this.shaderColor = [255, 215, 0];
@@ -127,10 +113,31 @@ XMLscene.prototype.onGraphLoaded = function () {
 
     this.initLights();
 
+    function undo(){
+        if (this.playStack.length == 1){
+            console.log("Can't undo initial state!")
+        } else {
+            console.log("UNDO STUFF")
+            this.playStack.pop();
+        }
+    }
+
+    function toggle(){
+        console.log("TOGGLE STUFF")
+        this.interface.activeCamera.orbit(CGFcameraAxisID.Y, Math.PI/2);
+        this.interface.activeCamera.pan([2,0,1]);
+        this.interface.activeCamera.orbit(CGFcameraAxisID.Y, -Math.PI/2);
+        this.interface.activeCamera.orbit(CGFcameraAxisID.X, Math.PI/180*50);
+    }
+
+    let funcUndo = undo.bind(this);
+    let funcToggle = toggle.bind(this);
+
     // Adds lights group.
     this.interface.addLightsGroup(this.graph.lights);
     this.interface.addSelectablesGroup(this.graph.selectableNodes, this.shaderColor);
-    this.interface.addGameOptions(this.difficulties, this.gametypes, this.playStack, this.mainTime, this.graph.ambients);
+    this.interface.addGameOptions(this.difficulties, this.gametypes, this.playStack, this.mainTime, this.graph.ambients,
+        funcUndo, funcToggle);
 }
 
 /**

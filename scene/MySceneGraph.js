@@ -1620,6 +1620,8 @@ MySceneGraph.prototype.processNode = function (node) {
     if(node.pickable){
         this.scene.registerForPick(this.pickCount, node);
         this.pickCount++;
+    } else {
+        this.scene.registerForPick(0, node);
     }
 
 
