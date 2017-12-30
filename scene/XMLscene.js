@@ -14,6 +14,7 @@ function XMLscene(interface) {
     this.interface = interface;
     this.activeGame = false;
     this.mainTime = 0;
+    this.startTime = 0;
     this.lightValues = {};
     this.topDown = false;
 
@@ -146,6 +147,7 @@ XMLscene.prototype.onGraphLoaded = function () {
     function startGame(){
         if (!this.activeGame){
             this.activeGame = true;
+            this.startTime =  this.mainTime;
             //TODO enable picking;
         }
     }
@@ -227,11 +229,8 @@ XMLscene.prototype.display = function () {
 
 XMLscene.prototype.update = function (time) {
     this.mainTime = this.mainTime + UPDATE_SCENE;
-    //console.log(this.moveTimer);
     if (this.activeGame) {
-        while (this.moveTimer > 0) {
-            this.moveTimer = this.moveTimer - UPDATE_SCENE/1000;
-        }
+        this.moveTimer = 50 - (this.mainTime - this.startTime);
     }
     this.shader.setUniformsValues({
         selRed: this.shaderColor[0] / 255,
@@ -249,8 +248,9 @@ XMLscene.prototype.logPicking = function ()
 				var obj = this.pickResults[i][0];
 				if (obj)
 				{
-					var customId = this.pickResults[i][1];
-					console.log("Picked object: " + obj + ", with pick id " + customId);
+                    var customId = this.pickResults[i][1];
+                    if (customId > 0)
+					    console.log("Picked object: " + obj + ", with pick id " + customId);
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);
