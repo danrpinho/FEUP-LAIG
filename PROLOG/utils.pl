@@ -1,5 +1,3 @@
-:-use_module(library(lists)).
-
 %---------------------- SUBLIST ----------------------%
 %Verifies if a list L1 is a member of a sublist L
 sublist_start([],_L):- ! .

@@ -1,10 +1,6 @@
 /*
 Move is represented by [edge , row]
 */
-
-:-use_module(library(lists)).
-:- use_module(library(random)).
-
 %---------------------- VALID_MOVE ----------------------%
 %Gives the NewBoard for each Move. In case the move is not possible NewBoard is instantiated to 0
 valid_move(Board, Player,  ['left', N], NewBoard) :-

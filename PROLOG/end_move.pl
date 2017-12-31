@@ -2,7 +2,7 @@
 
 %initial predicate to check if player won
 check_for_win(Pieces, Player, Board):-
-	Pieces =< 17, check_for_win(Player, Board), display_board(Board).
+	Pieces =< 17, check_for_win(Player, Board).
 
 %checking lines columns and diagonals
 check_for_win(Player, Board):- check_lines(Player,Board).
