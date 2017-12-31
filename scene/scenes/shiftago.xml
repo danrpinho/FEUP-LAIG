@@ -79,6 +79,16 @@
         <amplif_factor s="0.5" t="0.5" />
     </TEXTURE>
 
+    <TEXTURE id="straw">
+        <file path="images/straw.jpg" />
+        <amplif_factor s="0.5" t="0.5" />
+    </TEXTURE>
+
+    <TEXTURE id="sky">
+        <file path="images/sky.jpg" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
      <!-- Score -->
     <TEXTURE id="score0" number="0">
         <file path="images/0.png" />
@@ -214,21 +224,14 @@
         <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
-    <MATERIAL id="redBox">
-        <shininess value="1" />
-        <specular r="0.0" g="0.0" b="0.0" a="1" />
-        <diffuse r="0.9" g="0.2" b="0.2" a="1" />
-        <ambient r="0.6" g="0.2" b="0.2" a="1" />
+    <MATERIAL id="green">
+        <shininess value="100" />
+        <specular r="0.25" g="1.0" b="0.3" a="1" />
+        <diffuse r="0.15" g="1.0" b="0.25" a="1" />
+        <ambient r="0.0" g="0.5" b="0.0" a="1" />
         <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
-    <MATERIAL id="blueBox">
-        <shininess value="1" />
-        <specular r="0.0" g="0.0" b="0.0" a="1" />
-        <diffuse r="0.2" g="0.2" b="0.9" a="1" />
-        <ambient r="0.2" g="0.2" b="0.6" a="1" />
-        <emission r="0.0" g="0.0" b="0.0" a="1" />
-    </MATERIAL>
 
     <!-- A default material -->
     <MATERIAL id="defaultMaterial">
@@ -274,7 +277,7 @@
 
         <DESCENDANTS>
             <!--<LEAF type="rectangle" args="-70 -60 120 70" />-->
-            <LEAF type="rectangle" args="-2.33 -2 4 2.33" />
+            <LEAF type="rectangle" args="-3 -3 5 4.24" />
 		</DESCENDANTS>
     </NODE>
 
@@ -1349,6 +1352,13 @@
 
         <DESCENDANTS>
             <NODEREF id="floor" />
+            <NODEREF id="can1" />
+            <NODEREF id="can3" />
+            <NODEREF id="can2" />
+            <NODEREF id="wall1"/>
+            <NODEREF id="wall2"/>
+            <NODEREF id="wall3"/>
+            <NODEREF id="wall4"/>
 		</DESCENDANTS>
     </NODE>
 
@@ -1361,6 +1371,136 @@
 		</DESCENDANTS>
     </NODE>
 
+    <!-- CAN AND WALLS (BEACH AMBIENT) -->
+    <NODE id="can1">
+        <MATERIAL id="red" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="-4" y="0" z="0" />
+        <ROTATION axis="y" angle="-10" />
+
+        <DESCENDANTS>
+            <NODEREF id="can" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="can2">
+        <MATERIAL id="blue" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="55" y="0" z="20" />
+        <ROTATION axis="y" angle="30" />
+
+        <DESCENDANTS>
+            <NODEREF id="can" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="can3">
+        <MATERIAL id="green" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="15" y="0" z="-4" />
+        <ROTATION axis="y" angle="120" />
+
+        <DESCENDANTS>
+            <NODEREF id="can" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="can">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="canCylinder" />
+            <NODEREF id="straw" />
+            <NODEREF id="canTop" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="canCylinder">
+        <MATERIAL id="null" />
+        <TEXTURE id="clear" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="cylinder" args="5 1.5 1.5 20 20 0 1" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="canTop">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="clear" />
+        <TRANSLATION x="0" y="5" z="0" />
+        <SCALE sx="1" sy="0.125" sz="1" />
+        <DESCENDANTS>
+            <LEAF type="sphere" args="1.5 50 50" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="straw">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="straw" />
+        <TRANSLATION x="0" y="4" z="0" />
+
+        <ROTATION axis="z" angle="-10" />
+        <ROTATION axis="x" angle="-80" />
+        <DESCENDANTS>
+            <LEAF type="cylinder" args="6 0.25 0.25 20 20 0 1" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="wall1">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="-75" y="0" z="-75" />
+        <DESCENDANTS>
+            <NODEREF id="wall" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="wall2">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="125" y="0" z="-75" />
+        <ROTATION axis="y" angle="-90" />
+        <DESCENDANTS>
+            <NODEREF id="wall" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="wall3">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="125" y="0" z="106" />
+        <ROTATION axis="y" angle="180" />
+        <DESCENDANTS>
+            <NODEREF id="wall" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="wall4">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="-75" y="0" z="106" />
+        <ROTATION axis="y" angle="90" />
+        <DESCENDANTS>
+            <NODEREF id="wall" />
+		</DESCENDANTS>
+    </NODE>
+
+
+    <NODE id="wall">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="sky" />
+        <SCALE sx="200" sy="50" sz="1" />
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 1 1 0" />
+		</DESCENDANTS>
+    </NODE>
+
+    <!-- TABLE (WOOD AMBIENT) -->
     <NODE id="table">
         <MATERIAL id="null" />
         <TEXTURE id="woodfloor" />
