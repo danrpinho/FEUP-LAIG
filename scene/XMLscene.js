@@ -3,6 +3,11 @@ var UPDATE_SCENE = 0.1;
 var RELATIVE_ANIMATION = 1;
 var PrologMsgReceive = '';
 var INITIAL_TIMER = 50;
+var CAMERA_TILT = 5;
+var CAMERA_PAN = 10;
+var CAMERA_TILT_INCREMENT = Math.PI/180*10;
+var CAMERA_PAN_INCREMENT_POS = [0.2,0,1];
+var CAMERA_PAN_INCREMENT_NEG = [-0.2,0,1];
 
 var CPU_MOVE_TIME = 1;//Time that it takes the CPU to make a move
 
@@ -141,7 +146,10 @@ XMLscene.prototype.onGraphLoaded = function () {
     }
 
     function toggle(){
-        if (!this.topDown){
+        this.movingCamera = true;
+        this.cameraPanCounter = 0;
+        this.cameraTiltCounter = 0;
+        /*if (!this.topDown){
             this.interface.activeCamera.orbit(CGFcameraAxisID.Y, Math.PI/2);
             this.interface.activeCamera.pan([2,0,1]);
             this.interface.activeCamera.orbit(CGFcameraAxisID.Y, -Math.PI/2);
@@ -154,7 +162,7 @@ XMLscene.prototype.onGraphLoaded = function () {
             this.interface.activeCamera.pan([2,0,1]);
             this.interface.activeCamera.orbit(CGFcameraAxisID.Y, Math.PI/2);
             this.topDown = false;
-        }
+        }*/
     }
 
     function startGame(){
@@ -286,6 +294,37 @@ XMLscene.prototype.update = function (time) {
     	this.waitForCPU = -1;
     	this.makeRequest(1);
     }
+
+    if (this.movingCamera){
+        if(!this.topDown){  //going top down
+            if (this.cameraPanCounter < CAMERA_PAN){
+                this.interface.activeCamera.orbit(CGFcameraAxisID.Y, Math.PI/2);
+                this.interface.activeCamera.pan(CAMERA_PAN_INCREMENT_POS);
+                this.interface.activeCamera.orbit(CGFcameraAxisID.Y, -Math.PI/2);
+                this.cameraPanCounter = this.cameraPanCounter + 1;
+            } else if (this.cameraTiltCounter < CAMERA_TILT){
+                this.interface.activeCamera.orbit(CGFcameraAxisID.X, CAMERA_TILT_INCREMENT);
+                this.cameraTiltCounter = this.cameraTiltCounter + 1;
+            } else if (this.cameraPanCounter == CAMERA_PAN && this.cameraTiltCounter == CAMERA_TILT){
+                this.topDown = true;
+                this.movingCamera = false;
+            }
+        } else {        //going not-top down
+            if (this.cameraTiltCounter < CAMERA_TILT) {
+                this.interface.activeCamera.orbit(CGFcameraAxisID.X, -CAMERA_TILT_INCREMENT);
+                this.cameraTiltCounter = this.cameraTiltCounter + 1;
+            } else if (this.cameraPanCounter < CAMERA_PAN) {
+                this.interface.activeCamera.orbit(CGFcameraAxisID.Y, Math.PI / 2);
+                this.interface.activeCamera.pan(CAMERA_PAN_INCREMENT_NEG);
+                this.interface.activeCamera.orbit(CGFcameraAxisID.Y, -Math.PI / 2);
+                this.cameraPanCounter = this.cameraPanCounter + 1;
+            } else if (this.cameraPanCounter == CAMERA_PAN && this.cameraTiltCounter == CAMERA_TILT) {
+                this.topDown = false;
+                this.movingCamera = false;
+            }
+        }
+    }
+
 }
 
 XMLscene.prototype.logPicking = function ()
