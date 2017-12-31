@@ -34,7 +34,6 @@ function XMLscene(interface) {
     this.difficulties=["Easy", "Medium", "Hard"];
     this.gametypes=["Player vs Player", "Player vs CPU", "CPU vs CPU"];
     this.gametype="Player vs CPU";
-    this.ol_gametype=this.gametype;
     this.playStack = [ [[[0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
@@ -49,9 +48,11 @@ function XMLscene(interface) {
     this.currentPlayer = 1;
 
     this.currentlyPicked = null;
+    this.objectPicked = null;
     this.currentSelectable = "none";
     this.currentAmbient="wood";
     this.shaderColor = [255, 215, 0];
+    this.Animations = [];
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -348,6 +349,7 @@ XMLscene.prototype.logPicking = function ()
 		if (this.pickResults != null && this.pickResults.length > 0) {
 			for (var i=0; i< this.pickResults.length; i++) {
 				var obj = this.pickResults[i][0];
+				console.log(obj);
 				if (obj)
 				{
 					var customId = this.pickResults[i][1];
@@ -360,14 +362,14 @@ XMLscene.prototype.logPicking = function ()
                             (this.currentPlayer == 2 && customId >= 51 && customId <= 72 && this.gametype === 'Player vs Player')) {
                             console.log("Player " + this.currentPlayer + " picked piece " + ((customId - 29) % 22 + 1));
                             this.currentlyPicked = customId;
+                            this.objectPicked = obj;
                         }
                     } else if ((Move = this.convertIDtoMove(customId)) !== -1 && this.waitForProlog === 0) {
                         console.log("Player " + this.currentPlayer + " placed the piece in [" + Move[0] + ", " +
                             Move[1] + "].");
                         
                       	this.makeRequest(0, Move); 
-
-                        this.currentlyPicked = null;
+                        
                        
                     }
                     else
@@ -540,10 +542,10 @@ XMLscene.prototype.nextStage = function(response){
 	}
 
 	this.currentPlayer =nextPlayer;
+	
+	this.Animation(Move);
 
-
-
-	//TODO : Animations
+	
 }
 
 
@@ -554,4 +556,13 @@ XMLscene.prototype.nextStage = function(response){
 */
 XMLscene.prototype.incrementScore = function (player) {
     this.score[player-1]++;
+}
+
+XMLscene.prototype.Animation = function (Move){
+	
+	if(Move !== -1){
+		//TODO : Animations
+	}
+	this.currentlyPicked = null;
+	this.objectPicked = null;
 }
