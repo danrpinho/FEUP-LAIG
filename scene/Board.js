@@ -2,6 +2,10 @@
  * Board
  *@brief - constructor of object MyBoard
  *@param scene - scene this object belongs to
+ *@param sphereRadius - radius of each sphere of the Board
+ *@param cylinderRadius - radius of each cylinder of the Board
+ *@param spaceBetweenSpheres - distance between two speres of the Board
+ *@param sphereHeight - height of each sphere of the Board
  */
 function Board(scene, sphereRadius, cylinderRadius,  spaceBetweenSpheres, sphereHeight) {
 	CGFobject.call(this, scene);
@@ -39,49 +43,61 @@ Board.prototype.constructor = Board;
 *@brief - displays this object
 */
 Board.prototype.display = function () {
+
+	//Displays cell in the Top Left Corner
 	this.cellCornerTopLeft.display();
+
+	//Displays Cells in the Top Frontier
 	for(var i=1; i<=5; i++){
 		this.scene.pushMatrix();
 		this.scene.translate(i*(this.spaceBetweenSpheres+2*this.sphereRadius), 0, 0);
 		this.cellFrontierTop.display();
 		this.scene.popMatrix();
 	}
+
+	//Displays cell in the Top Right Corner
 	this.scene.pushMatrix();
 	this.scene.translate(6*(this.spaceBetweenSpheres+2*this.sphereRadius), 0, 0);
 	this.cellCornerTopRight.display();
 	this.scene.popMatrix();
-
+	
+	//Displays Cells in the Left Frontier
 	for(var i=1; i<=5; i++){
 		this.scene.pushMatrix();
 		this.scene.translate(0, -i*(this.spaceBetweenSpheres+2*this.sphereRadius), 0);
 		this.cellFrontierLeft.display();
 		this.scene.popMatrix();
 	}
-
+	
+	//Displays cell in the Bottom Left Corner
 	this.scene.pushMatrix();
 	this.scene.translate(0, -6*(this.spaceBetweenSpheres+2*this.sphereRadius), 0);
 	this.cellCornerBottomLeft.display();
 	this.scene.popMatrix();
-
+	
+	//Displays Cells in the Bottom Frontier
 	for(var i=1; i<=5; i++){
 		this.scene.pushMatrix();
 		this.scene.translate(i*(this.spaceBetweenSpheres+2*this.sphereRadius), -6*(this.spaceBetweenSpheres+2*this.sphereRadius), 0);
 		this.cellFrontierBottom.display();
 		this.scene.popMatrix();
 	}
-
+	
+	//Displays cell in the Bottom Right Corner
 	this.scene.pushMatrix();
 	this.scene.translate(6*(this.spaceBetweenSpheres+2*this.sphereRadius), -6*(this.spaceBetweenSpheres+2*this.sphereRadius), 0);
 	this.cellCornerBottomRight.display();
 	this.scene.popMatrix();
-
+	
+	//Displays Cells in the Rigth Frontier
 	for(var i=1; i<=5; i++){
 		this.scene.pushMatrix();
 		this.scene.translate(6*(this.spaceBetweenSpheres+2*this.sphereRadius), -i*(this.spaceBetweenSpheres+2*this.sphereRadius), 0);
 		this.cellFrontierRight.display();
 		this.scene.popMatrix();
 	}
-
+	
+	//Displays Interior Cells
 	for(var i=1; i<=5; i++){
 		for(var j=1; j<=5; j++){
 			this.scene.pushMatrix();
@@ -97,27 +113,29 @@ Board.prototype.display = function () {
 			this.scene.pushMatrix();
 			this.scene.translate(i*(this.spaceBetweenSpheres+2*this.sphereRadius), -j*(this.spaceBetweenSpheres+2*this.sphereRadius), 0);
 			
+			//Displays the cylinder
 			if(i!=6){
-			this.scene.pushMatrix();
-			this.scene.rotate(Math.PI/2, 0,1,0);
-			this.scene.translate(0,0,Math.sqrt(this.sphereRadius*this.sphereRadius-this.cylinderRadius*this.cylinderRadius));
-			this.scene.rotate(3*Math.PI/2, 0, 0, 1);
-			this.scene.scale(-1, cylinderScale*this.sphereHeight/this.sphereRadius, 1);
-			this.cylinder.display();
-			this.scene.popMatrix();
+				this.scene.pushMatrix();
+				this.scene.rotate(Math.PI/2, 0,1,0);
+				this.scene.translate(0,0,Math.sqrt(this.sphereRadius*this.sphereRadius-this.cylinderRadius*this.cylinderRadius));
+				this.scene.rotate(3*Math.PI/2, 0, 0, 1);
+				this.scene.scale(-1, cylinderScale*this.sphereHeight/this.sphereRadius, 1);
+				this.cylinder.display();
+				this.scene.popMatrix();
 			}
+
+			//Displays the sphere
 			if(j!= 6){
-			this.scene.pushMatrix();
-			this.scene.rotate(Math.PI/2, 1,0,0);
-			this.scene.translate(0,0,Math.sqrt(this.sphereRadius*this.sphereRadius-this.cylinderRadius*this.cylinderRadius));
-			this.scene.rotate(2*Math.PI/2, 0, 0, 1);
-			this.scene.scale(-1, cylinderScale*this.sphereHeight/this.sphereRadius, 1);
-			this.cylinder.display();
-			this.scene.popMatrix();
+				this.scene.pushMatrix();
+				this.scene.rotate(Math.PI/2, 1,0,0);
+				this.scene.translate(0,0,Math.sqrt(this.sphereRadius*this.sphereRadius-this.cylinderRadius*this.cylinderRadius));
+				this.scene.rotate(2*Math.PI/2, 0, 0, 1);
+				this.scene.scale(-1, cylinderScale*this.sphereHeight/this.sphereRadius, 1);
+				this.cylinder.display();
+				this.scene.popMatrix();
 			}
 
 			this.scene.rotate(Math.PI, 1, 0, 0);
-			//this.scene.scale(1, 1, 1);
 			this.scene.scale(1,1,this.sphereHeight/this.sphereRadius);
 			this.semiSphere.display();
 			this.scene.popMatrix();

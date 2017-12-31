@@ -1,7 +1,13 @@
 /**
- * BoardCell
- *@brief - constructor of object MyBoardCell
+ *BoardCell
+ *@brief - constructor of object MyBoardCell that is an individual cell of the larger Board
  *@param scene - scene this object belongs to
+ *@param sphereRadius - radius of each sphere of the Board
+ *@param cylinderRadius - radius of each cylinder of the Board
+ *@param topCylinderLength - height of the cylinder in the top side
+ *@param bottomCylinderLength - height of the cylinder in the bottom side
+ *@param leftCylinderLength - height of the cylinder in the left side
+ *@param rightCylinderLength - height of the cylinder in the right side
  */
 function BoardCell(scene, sphereRadius, cylinderRadius, topCylinderLength, bottomCylinderLength, leftCylinderLength, rightCylinderLength) {
 	CGFobject.call(this, scene);
@@ -23,12 +29,16 @@ function BoardCell(scene, sphereRadius, cylinderRadius, topCylinderLength, botto
 BoardCell.prototype = Object.create(CGFobject.prototype);
 BoardCell.prototype.constructor = BoardCell;
 
+/**
+* initBuffers
+*@brief - initializes the buffers
+*/
 BoardCell.prototype.initBuffers = function (){
 	this.vertices=[];
 	this.normals=[];
 	this.texCoords=[];
 
-	//FOUR VERTICES OF THE SQUARE
+	//CREATES THE FOUR VERTICES OF THE SQUARE
 	this.vertices.push(this.right, this.top, 0);
 	this.normals.push(0, 0, 1);
 
@@ -41,7 +51,7 @@ BoardCell.prototype.initBuffers = function (){
 	this.vertices.push(-this.left, this.top, 0);
 	this.normals.push(0, 0, 1);
 	
-	//EIGHT VERTICES THAT BELONG TO BOTH THE CYLINDER AND THE FRONTIER OF THE SQUARE
+	//CREATES THE EIGHT VERTICES THAT BELONG TO BOTH THE CYLINDER AND THE FRONTIER OF THE SQUARE
 	this.vertices.push(this.right, this.cylinderRadius, 0);
 	this.normals.push(0, 0, 1);
 
@@ -107,8 +117,8 @@ BoardCell.prototype.initBuffers = function (){
 		this.vertices[35] = 0;
 	}
 
-	//VERTICES IN THE SPHERE
-	var slices=1000;
+	//CREATES THE VERTICES OF THE SPHERE
+	var slices=1000; //slices of the sphere
 	var teta=2*Math.PI/slices;
 	var startcnt=0;
 	var endcnt = 0;
@@ -184,6 +194,8 @@ BoardCell.prototype.initBuffers = function (){
 		}
 	}
 	
+
+	//ADDS THE INDICES OF THE OBJECT
 	this.indices=[];
 
 	this.indices.push(5, this.start[0], 1);
