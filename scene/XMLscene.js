@@ -4,10 +4,10 @@ var RELATIVE_ANIMATION = 1;
 var PrologMsgReceive = '';
 var INITIAL_TIMER = 50;
 var CAMERA_TILT = 5;
-var CAMERA_PAN = 10;
+var CAMERA_PAN = 20;
 var CAMERA_TILT_INCREMENT = Math.PI/180*10;
-var CAMERA_PAN_INCREMENT_POS = [0.2,0,1];
-var CAMERA_PAN_INCREMENT_NEG = [-0.2,0,1];
+var CAMERA_PAN_INCREMENT_POS = [0.1,0,1];
+var CAMERA_PAN_INCREMENT_NEG = [-0.1,0,1];
 
 var CPU_MOVE_TIME = 1;//Time that it takes the CPU to make a move
 
