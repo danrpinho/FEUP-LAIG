@@ -91,21 +91,6 @@ handle_request(Request, MyReply, '200 OK') :- catch(parse_input(Request, MyReply
 handle_request(syntax_error, 'Syntax Error', '400 Bad Request') :- !.
 handle_request(_, 'Bad Request', '400 Bad Request').
 
-/*varneg(X):-	\+ var(X).
-
-varList(List):- \+ (maplist(varneg, List)).
-
-concat([], ''):- ! .
-
-concat([Elem | List], Result):-
-	varList(List), \+ var(Result), !,
-	atom_concat(Elem, Result2, Result),
-	concat(List, Result2).
-
-
-concat([Elem | List], Result):-
-	concat(List, Result2),
-	atom_concat(Elem, Result2, Result).*/
 
 abolish_predicates:-
 	abolish(game_mode/1),

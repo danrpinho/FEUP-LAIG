@@ -33,24 +33,6 @@ remove_last_zero(Line, NLine) :-
 	reverse(_NLine2, NLine).
 
 
-%------------------- Obtaining player move ------------------%
-%asks the player for their move (board edge and line/column)
-get_move(Edge, Row):-
-    repeat,
-        once(get_edge(Edge)), once(get_row(Row)).
-
-%gets the edge
-get_edge(Edge):-
-    write('Choose a board edge to insert the piece (up, down, left, right): '), nl,
-    read(Edge), member(Edge,['up', 'down', 'left', 'right']).
-
-get_edge(Edge):-
-    write('Invalid edge; Try again.'), nl,
-    get_edge(Edge).
-
-%gets the row
-get_row(Row):-
-    get_integer('Choose a row: ', 1, 7,Row).
 
 
 %---------------- Insert piece on board edge ----------------%
