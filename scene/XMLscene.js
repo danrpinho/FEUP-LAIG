@@ -163,6 +163,13 @@ XMLscene.prototype.onGraphLoaded = function () {
             this.startTime =  this.mainTime;
             PrologMsgReceive = '';
             this.waitForCPU = -1;
+             this.playStack = [ [[[0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0]], 22, 22, 1]   ];
             //TODO enable picking;
         }
     }
@@ -359,7 +366,9 @@ XMLscene.prototype.convertIDtoMove=function(ID){
 
 }
 
-
+/*
+Sends Request
+*/
 XMLscene.prototype.getPrologRequest = function(requestString, onSuccess, onError, port){
 			var requestPort = port || 8081
 			var request = new XMLHttpRequest();
@@ -371,7 +380,10 @@ XMLscene.prototype.getPrologRequest = function(requestString, onSuccess, onError
 			request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 			request.send();
 }
-		
+
+/*
+Composes the message that is going to be sent to PROLOG
+*/		
 XMLscene.prototype.makeRequest = function(cpu, Move)
 {			
 			this.waitForProlog = 1;
@@ -415,11 +427,12 @@ XMLscene.prototype.makeRequest = function(cpu, Move)
 			this.getPrologRequest(requestString, handleReply);
 }
 			
-//Handle the Reply
+//Handles the Reply
 function handleReply(data){
 		PrologMsgReceive = data.target.response;
 }
 
+//After having received a response from PROLOG this function prepares the stack and other paramethers for the next State
 XMLscene.prototype.nextMove = function(response){
 	var res_sub = response.replace(/[\[\]']+/g, '');
 	var array=res_sub.split(',');
@@ -473,6 +486,8 @@ XMLscene.prototype.nextMove = function(response){
 		else if(this.gametype === 'Player vs CPU' && nextPlayer === 2)
 			this.waitForCPU = 0;
 	}
+
+	//TODO : Animations
 }	
 	
 
