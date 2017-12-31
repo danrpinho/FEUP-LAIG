@@ -31,7 +31,9 @@ function XMLscene(interface) {
                          [0,0,0,0,0,0,0]], 22, 22]   ];
     this.score=[0,0];
     this.moveTimer = INITIAL_TIMER;
+    this.currentPlayer = 1;
 
+    this.currentlyPicked = null;
     this.currentSelectable = "none";
     this.currentAmbient="wood";
     this.shaderColor = [255, 215, 0];
@@ -246,14 +248,41 @@ XMLscene.prototype.logPicking = function ()
 		if (this.pickResults != null && this.pickResults.length > 0) {
 			for (var i=0; i< this.pickResults.length; i++) {
 				var obj = this.pickResults[i][0];
-				if (obj)
-				{
+                if (obj) {
                     var customId = this.pickResults[i][1];
-                    if (customId > 0)
-					    console.log("Picked object: " + obj + ", with pick id " + customId);
+                    if (this.currentlyPicked == null) {
+                        if ((this.currentPlayer == 1 && customId >= 29 && customId <= 50) ||
+                            (this.currentPlayer == 2 && customId >= 51 && customId <= 72)) {
+                            console.log("Player " + this.currentPlayer + " picked piece " + ((customId - 29) % 22 + 1));
+                            this.currentlyPicked = customId;
+                        }
+                    } else if (customId >= 1 && customId <= 28) {
+                        var side = Math.floor((customId - 1) / 7);
+                        switch (side) {
+                            case 0: side = "up"; break;
+                            case 1: side = "down"; break;
+                            case 2: side = "left"; break;
+                            case 3: side = "right"; break;
+                        }
+                        console.log("Player " + this.currentPlayer + " placed the piece in [" + side + ", " +
+                            ((customId - 1) % 7 +1) + "].");
+
+                        this.currentlyPicked = null;
+                        this.togglePlayer();
+                    }
+
+                   /* if (customId > 0)
+					    console.log("Picked object: " + obj + ", with pick id " + customId);*/
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);
 		}
 	}
+}
+
+XMLscene.prototype.togglePlayer = function () {
+    if (this.currentPlayer % 2)
+        this.currentPlayer++;
+    else
+        this.currentPlayer--;
 }
