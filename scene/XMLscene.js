@@ -2,7 +2,7 @@ var DEGREE_TO_RAD = Math.PI / 180; // Conversion between degrees and radians
 var UPDATE_SCENE = 0.1; // Time in seconds that it takes for an update
 var RELATIVE_ANIMATION = 1; // If set to 1, then the Animations in this program are made relative
 var PrologMsgReceive = ''; // Message received by PROLOG
-var INITIAL_TIMER = 10; // Maximum time allowed for the player to make a Move
+var INITIAL_TIMER = 99; // Maximum time allowed for the player to make a Move
 var CPU_MOVE_TIME = 1; // Time that it takes the CPU to make a move
 var CAMERA_TILT = 5;
 var CAMERA_PAN = 20;
@@ -55,6 +55,7 @@ function XMLscene(interface) {
 
     this.Animations = [];
     this.pickableIDtoNode=[];
+    this.animationsIDcounter;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -545,7 +546,7 @@ XMLscene.prototype.nextStage = function(response){
 
 	this.currentPlayer =nextPlayer;
 	
-	this.Animation(Move);
+	this.Animation(MoveEdge, MoveRow);
 
 	
 }
@@ -560,17 +561,19 @@ XMLscene.prototype.incrementScore = function (player) {
     this.score[player-1]++;
 }
 
-XMLscene.prototype.Animation = function (Move){
+XMLscene.prototype.Animation = function (MoveEdge, MoveRow){
 	
-	if(Move !== -1){
+	if(MoveEdge !== -1 && MoveRow !== -1){
 		var controlPoints = [
 								[0, 0, 0],
-								[1,2,1],
-								[1,2,1],
-								[1,1,1]
+								[1,1,1],
+								[2,2,2],
+								[3,3,3]
 							]
-		var animation = BezierAnimation(this, 4, controlPoints, this.mainTime);
-		this.objectPicked.an
+		var newAnimation = new BezierAnimation(this, 4, controlPoints, this.mainTime);
+		this.objectPicked.addAnimation(newAnimation);
+		/*this.graph.animations[this.animationsIDcounter]=newAnimation;
+		this.animationsIDcounter ++;*/
 	}
 	this.currentlyPicked = null;
 	this.objectPicked = null;
