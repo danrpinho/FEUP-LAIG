@@ -141,6 +141,7 @@ XMLscene.prototype.onGraphLoaded = function () {
         } else {
             console.log("UNDO THE DO THE TO-DO!")
             this.playStack.pop();
+            this.currentPlayer = this.playStack[this.playStack.length-1][3];
             PrologMsgReceive = '';
             this.waitForCPU = -1;
             this.moveTimer = INITIAL_TIMER;
@@ -180,6 +181,7 @@ XMLscene.prototype.onGraphLoaded = function () {
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0]], 22, 22, 1]   ];
+             this.currentPlayer = 1;            
              this.moveTimer = INITIAL_TIMER;   
             //TODO enable picking;
         }
@@ -286,9 +288,8 @@ XMLscene.prototype.update = function (time) {
     	this.waitForProlog = 0;
     }
 
-    var currentPlayer = this.playStack[this.playStack.length-1][3];
     if(this.moveTimer < 0 && this.activeGame){
-    	var winnerPlayer = 1+ currentPlayer%2;
+    	var winnerPlayer = 1+ this.currentPlayer%2;
     	this.incrementScore(winnerPlayer);
     	this.activeGame = false;
     }
@@ -296,9 +297,9 @@ XMLscene.prototype.update = function (time) {
     	this.waitForCPU = CPU_MOVE_TIME;
     else if(this.gametype === 'Player vs Player')
     	this.waitForCPU = -1;
-    else if(this.gametype === 'Player vs CPU' && currentPlayer === 2 && this.waitForCPU === -1)
+    else if(this.gametype === 'Player vs CPU' && this.currentPlayer === 2 && this.waitForCPU === -1)
     	this.waitForCPU = CPU_MOVE_TIME;
-    else if(this.gametype === 'Player vs CPU' && currentPlayer === 1)
+    else if(this.gametype === 'Player vs CPU' && this.currentPlayer === 1)
     	this.waitForCPU = -1;
 
     if(this.waitForCPU >= 0)
@@ -350,51 +351,28 @@ XMLscene.prototype.logPicking = function ()
 				if (obj)
 				{
 					var customId = this.pickResults[i][1];
-					console.log("Picked object: " + obj + ", with pick id " + customId);
-					var currentPlayer = this.playStack[this.playStack.length-1][3];
-					var Move;
-					if(this.activeGame){
-						if((Move = this.convertIDtoMove(customId)) !== -1 && this.waitForProlog === 0){
-							if(this.gametype === 'Player vs Player'){
-								this.makeRequest(0, Move);
-							}
-							else if(this.gametype === 'Player vs CPU' && currentPlayer === 1){
-								this.makeRequest(0, Move);
-							}
-							else{
-								console.log('Error: It is not your turn');
-							}
-							}
-							else{
-							console.log('Error: Non-valid ID');
-						}
-					}
-               /* if (obj) {
-                    var customId = this.pickResults[i][1];
-                    if (this.currentlyPicked == null) {
-                        if ((this.currentPlayer == 1 && customId >= 29 && customId <= 50) ||
-                            (this.currentPlayer == 2 && customId >= 51 && customId <= 72)) {
+					if (customId > 0)
+					    console.log("Picked object: " + obj + ", with pick id " + customId);								
+                	if (this.activeGame) {
+                    var Move;                     
+                    if (this.currentlyPicked == null && this.waitForProlog === 0) {
+                        if ((this.currentPlayer == 1 && customId >= 29 && customId <= 50 && this.gametype !== 'CPU vs CPU') ||
+                            (this.currentPlayer == 2 && customId >= 51 && customId <= 72 && this.gametype === 'Player vs Player')) {
                             console.log("Player " + this.currentPlayer + " picked piece " + ((customId - 29) % 22 + 1));
                             this.currentlyPicked = customId;
                         }
-                    } else if (customId >= 1 && customId <= 28) {
-                        var side = Math.floor((customId - 1) / 7);
-                        switch (side) {
-                            case 0: side = "up"; break;
-                            case 1: side = "down"; break;
-                            case 2: side = "left"; break;
-                            case 3: side = "right"; break;
-                        }
-                        console.log("Player " + this.currentPlayer + " placed the piece in [" + side + ", " +
-                            ((customId - 1) % 7 +1) + "].");
+                    } else if ((Move = this.convertIDtoMove(customId)) !== -1 && this.waitForProlog === 0) {
+                        console.log("Player " + this.currentPlayer + " placed the piece in [" + Move[0] + ", " +
+                            Move[1] + "].");
+                        
+                      	this.makeRequest(0, Move); 
 
                         this.currentlyPicked = null;
-                        this.togglePlayer();
+                       
                     }
-
-                    if (customId > 0)
-					    console.log("Picked object: " + obj + ", with pick id " + customId);
-                }*/
+                    else
+                    	console.log('Error: The object you picked is not valid');                   
+                	}
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);
@@ -568,14 +546,6 @@ XMLscene.prototype.nextStage = function(response){
 	//TODO : Animations
 }
 
-
-/*XMLscene.prototype.togglePlayer = function () {
-    if (this.currentPlayer % 2)
-        this.currentPlayer++;
-    else
-        this.currentPlayer--;
-}
-*/
 
 /**
 *incrementScore
