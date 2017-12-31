@@ -1,8 +1,10 @@
 var DEGREE_TO_RAD = Math.PI / 180;
 var UPDATE_SCENE = 0.1;
 var RELATIVE_ANIMATION = 1;
-var PrologMessage = '';
+var PrologMsgReceive = '';
 var INITIAL_TIMER = 50;
+
+var CPU_MOVE_TIME = 1;//Time that it takes the CPU to make a move
 
 
 /**
@@ -18,23 +20,24 @@ function XMLscene(interface) {
     this.startTime = 0;
     this.lightValues = {};
 	this.waitForProlog=0;
-    this.topDown = false;
+    this.topDown = false;   
+    this.waitForCPU = -1;
 
 
     this.gameDifficulty="Easy";
     this.difficulties=["Easy", "Medium", "Hard"];
     this.gametypes=["Player vs Player", "Player vs CPU", "CPU vs CPU"];
     this.gametype="Player vs CPU";
+    this.ol_gametype=this.gametype;
     this.playStack = [ [[[0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
-                         [0,0,0,0,0,0,0]], 22, 22, 1]   ];
+                         [0,0,0,0,0,0,0]], 22, 22, 1]   ];//each member of the stack contains the following element [Board, CurrentPiecesPlayer1, CurrentPiecesPlayer2, nextPlayer]
     
-    console.log(this.playStack); 
-    console.log(this.playStack.length);   
+     
     this.score=[0,0];
     this.moveTimer = INITIAL_TIMER;
     this.currentPlayer = 1;
@@ -132,6 +135,8 @@ XMLscene.prototype.onGraphLoaded = function () {
         } else {
             console.log("UNDO STUFF")
             this.playStack.pop();
+            PrologMsgReceive = '';
+            this.waitForCPU = -1;
         }
     }
 
@@ -156,6 +161,8 @@ XMLscene.prototype.onGraphLoaded = function () {
         if (!this.activeGame){
             this.activeGame = true;
             this.startTime =  this.mainTime;
+            PrologMsgReceive = '';
+            this.waitForCPU = -1;
             //TODO enable picking;
         }
     }
@@ -236,7 +243,7 @@ XMLscene.prototype.display = function () {
 }
 
 XMLscene.prototype.update = function (time) {
-    this.mainTime = this.mainTime + UPDATE_SCENE;
+    this.mainTime += UPDATE_SCENE;    
     if (this.activeGame) {
         this.moveTimer = 50 - (this.mainTime - this.startTime);
     }
@@ -247,12 +254,30 @@ XMLscene.prototype.update = function (time) {
         timeFactor: this.mainTime
     });
     if(this.waitForProlog === 0){
-    	PrologMessage = '';
+    	PrologMsgReceive = '';
     }
-    else if(PrologMessage !== '') {
-    	this.nextMove(PrologMessage);
-    	PrologMessage='';
+    else if(PrologMsgReceive !== '') {
+    	this.nextMove(PrologMsgReceive);
+    	PrologMsgReceive='';
     	this.waitForProlog = 0;
+    }
+
+    var currentPlayer = this.playStack[this.playStack.length-1][3];
+    if(this.gametype === 'CPU vs CPU' && this.waitForCPU === -1)
+    	this.waitForCPU = CPU_MOVE_TIME;
+    else if(this.gametype === 'Player vs Player')
+    	this.waitForCPU = -1;
+    else if(this.gametype === 'Player vs CPU' && currentPlayer === 2 && this.waitForCPU === -1)
+    	this.waitForCPU = CPU_MOVE_TIME;	
+    else if(this.gametype === 'Player vs CPU' && currentPlayer === 1)
+    	this.waitForCPU = -1;		
+
+    if(this.waitForCPU >= 0)
+    	this.waitForCPU += UPDATE_SCENE; 
+
+    if(this.waitForCPU>=CPU_MOVE_TIME && this.activeGame){
+    	this.waitForCPU = -1;
+    	this.makeRequest(1);
     }
 }
 
@@ -268,20 +293,21 @@ XMLscene.prototype.logPicking = function ()
 					console.log("Picked object: " + obj + ", with pick id " + customId);
 					var currentPlayer = this.playStack[this.playStack.length-1][3];
 					var Move;
-					console.log(this.waitForProlog);
-					if((Move = this.convertIDtoMove(customId)) !== -1 && this.waitForProlog === 0){						
-						if(this.gametype === 'Player vs Player'){
-							this.makeRequest(0, Move);
+					if(this.activeGame){
+						if((Move = this.convertIDtoMove(customId)) !== -1 && this.waitForProlog === 0){						
+							if(this.gametype === 'Player vs Player'){
+								this.makeRequest(0, Move);
+							}
+							else if(this.gametype === 'Player vs CPU' && currentPlayer === 1){
+								this.makeRequest(0, Move);
+							}
+							else{
+								console.log('Error: It is not your turn');
+							}
+							}
+							else{
+							console.log('Error: Non-valid ID');
 						}
-						else if(this.gametype === 'Player vs CPU' && currentPlayer === 1){
-							this.makeRequest(0, Move);
-						}
-						else{
-							console.log('Error: It is not your turn');
-						}
-					}
-					else{
-						console.log('Error: Non-valid ID');
 					}
                /* if (obj) {
                     var customId = this.pickResults[i][1];
@@ -391,7 +417,7 @@ XMLscene.prototype.makeRequest = function(cpu, Move)
 			
 //Handle the Reply
 function handleReply(data){
-		PrologMessage = data.target.response;
+		PrologMsgReceive = data.target.response;
 }
 
 XMLscene.prototype.nextMove = function(response){
@@ -432,17 +458,27 @@ XMLscene.prototype.nextMove = function(response){
 		}
 		this.playStack.push(nextStack);
 	}
-	else if(description === 'GameOver')
+	else if(description === 'GameOver'){
 		Winner = parseInt(array[2]);
+		console.log('GameOver. The Winner is Player '+nextPlayer);
+		console.log(newBoard);
+		this.activeGame = 0;
+
+	}
 
 	console.log(nextStack);	
-
+	if(description !== 'GameOver'){
+		if(this.gametype === 'CPU vs CPU')
+			this.waitForCPU = 0;
+		else if(this.gametype === 'Player vs CPU' && nextPlayer === 2)
+			this.waitForCPU = 0;
+	}
 }	
 	
 
-XMLscene.prototype.togglePlayer = function () {
+/*XMLscene.prototype.togglePlayer = function () {
     if (this.currentPlayer % 2)
         this.currentPlayer++;
     else
         this.currentPlayer--;
-}
+}*/
