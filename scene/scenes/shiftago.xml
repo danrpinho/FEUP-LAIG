@@ -282,7 +282,7 @@
             <NODEREF id="p2pieces"/>
             <NODEREF id="scoreboard"/>
             <NODEREF id="decor"/>
-            <NODEREF id="testball"/>
+            <!--<NODEREF id="testball"/>-->
 
         </DESCENDANTS>
     </NODE>
