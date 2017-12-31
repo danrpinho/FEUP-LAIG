@@ -25,6 +25,8 @@ function MySceneGraph(filename, scene) {
     this.textNumbers = [];
     this.textBoards = [];
     this.textFloors = [];
+    this.textPlayers = [];
+
     this.ambients = ['beach', 'wood', 'plastic'];
     this.selectableNodes = ['none'];
     this.idRoot = null;                    // The id of the root element.
@@ -886,6 +888,7 @@ MySceneGraph.prototype.parseTextures = function (texturesNode) {
             var textureNumber = -1;
             var textureFloor = null;
             var textureBoard = null;
+            var texturePlayer = null;
             if (this.reader.hasAttribute(eachTexture[i], 'number')) {
                 textureNumber = this.reader.getInteger(eachTexture[i], 'number');
             }
@@ -894,6 +897,9 @@ MySceneGraph.prototype.parseTextures = function (texturesNode) {
             }
             if (this.reader.hasAttribute(eachTexture[i], 'board')) {
                 textureBoard = this.reader.getString(eachTexture[i], 'board');
+            }
+            if (this.reader.hasAttribute(eachTexture[i], 'player')) {
+                texturePlayer = this.reader.getInteger(eachTexture[i], 'player');
             }
 
 
@@ -947,6 +953,10 @@ MySceneGraph.prototype.parseTextures = function (texturesNode) {
 
             if(textureBoard != null){
                 this.textBoards[textureBoard] = [texture, amplifFactorS, amplifFactorT];
+            }
+
+            if(texturePlayer != null){
+                this.textPlayers[texturePlayer] = [texture, amplifFactorS, amplifFactorT];
             }
 
             if(textureNumber != -1){
@@ -1660,6 +1670,7 @@ MySceneGraph.prototype.processNode = function (node) {
                 case "p2score": currentTexture = this.textNumbers[this.scene.score[1]]; break;
                 case "timer0": currentTexture = this.textNumbers[intTimer % 10]; break;
                 case "timer1": currentTexture = this.textNumbers[Math.floor(intTimer / 10)]; break;
+                case "currentPlayer": currentTexture = this.textPlayers[this.scene.currentPlayer]; break;
             }
         }
 
