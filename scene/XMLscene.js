@@ -1,15 +1,16 @@
-var DEGREE_TO_RAD = Math.PI / 180;
-var UPDATE_SCENE = 0.1;
-var RELATIVE_ANIMATION = 1;
-var PrologMsgReceive = '';
-var INITIAL_TIMER = 10;
+var DEGREE_TO_RAD = Math.PI / 180; // Conversion between degrees and radians
+var UPDATE_SCENE = 0.1; // Time in seconds that it takes for an update
+var RELATIVE_ANIMATION = 1; // If set to 1, then the Animations in this program are made relative
+var PrologMsgReceive = ''; // Message received by PROLOG
+var INITIAL_TIMER = 10; // Maximum time allowed for the player to make a Move
+var CPU_MOVE_TIME = 1; // Time that it takes the CPU to make a move
 var CAMERA_TILT = 5;
 var CAMERA_PAN = 20;
 var CAMERA_TILT_INCREMENT = Math.PI/180*10;
 var CAMERA_PAN_INCREMENT_POS = [0.1,0,1];
 var CAMERA_PAN_INCREMENT_NEG = [-0.1,0,1];
 
-var CPU_MOVE_TIME = 1;//Time that it takes the CPU to make a move
+
 
 
 /**
@@ -198,8 +199,9 @@ XMLscene.prototype.onGraphLoaded = function () {
 }
 
 /**
- * Displays the scene.
- */
+*display
+*@brief - displays the scene
+*/
 XMLscene.prototype.display = function () {
     this.logPicking();
 	this.clearPickRegistration();
@@ -259,6 +261,11 @@ XMLscene.prototype.display = function () {
 
 }
 
+/**
+*update
+*@brief - updates the scene
+*@param time - time of the scene
+*/
 XMLscene.prototype.update = function (time) {
     this.mainTime += UPDATE_SCENE;
     if (this.activeGame) {
@@ -274,7 +281,7 @@ XMLscene.prototype.update = function (time) {
     	PrologMsgReceive = '';
     }
     else if(PrologMsgReceive !== '') {
-    	this.nextMove(PrologMsgReceive);
+    	this.nextStage(PrologMsgReceive);
     	PrologMsgReceive='';
     	this.waitForProlog = 0;
     }
@@ -395,7 +402,11 @@ XMLscene.prototype.logPicking = function ()
 	}
 }
 
-
+/**
+*convertIDtoMove
+*@brief - converts an ID of a pickable object to the corresponding Move
+*@param ID - ID of the pickable object 
+*/
 XMLscene.prototype.convertIDtoMove=function(ID){
 	if(ID < 0)
 		return -1;
@@ -412,8 +423,11 @@ XMLscene.prototype.convertIDtoMove=function(ID){
 
 }
 
-/*
-Sends Request
+/**
+*makeRequest
+*@brief - Sends a message to Prolog
+*@param requestString -Message that is going to be sent to PROLOG
+*@param Move - Move in the form [Edge, Row] that the user intends to make 
 */
 XMLscene.prototype.getPrologRequest = function(requestString, onSuccess, onError, port){
 			var requestPort = port || 8081
@@ -427,8 +441,11 @@ XMLscene.prototype.getPrologRequest = function(requestString, onSuccess, onError
 			request.send();
 }
 
-/*
-Composes the message that is going to be sent to PROLOG
+/**
+*makeRequest
+*@brief - Makes a Request to Prolog with the paramethers of a Move that the user intends to make
+*@param cpu - 1 if this move corresponds to a cpu move, false otherwise
+*@param Move - Move in the form [Edge, Row] that the user intends to make 
 */
 XMLscene.prototype.makeRequest = function(cpu, Move)
 {
@@ -473,13 +490,22 @@ XMLscene.prototype.makeRequest = function(cpu, Move)
 			this.getPrologRequest(requestString, handleReply);
 }
 
-//Handles the Reply
+/**
+*handleReply
+*@brief - Updates the variable PrologMsgReceive after receiving a message from PROLOG
+*@param data - data received by PROLOG
+*/
 function handleReply(data){
 		PrologMsgReceive = data.target.response;
 }
 
-//After having received a response from PROLOG this function prepares the stack and other paramethers for the next State
-XMLscene.prototype.nextMove = function(response){
+
+/**
+*nextStage
+*@brief - Prepares the next stage of the game after receiving a function from PROLOG
+*@param response - string that is the response given by PROLOG
+*/
+XMLscene.prototype.nextStage = function(response){
 	var res_sub = response.replace(/[\[\]']+/g, '');
 	var array=res_sub.split(',');
 	var description = array[0];
@@ -551,6 +577,11 @@ XMLscene.prototype.nextMove = function(response){
 }
 */
 
+/**
+*incrementScore
+*@brief - increments the score of the player passed as paramether
+*@param player - player whose score we intend to increment
+*/
 XMLscene.prototype.incrementScore = function (player) {
     this.score[player-1]++;
 }
