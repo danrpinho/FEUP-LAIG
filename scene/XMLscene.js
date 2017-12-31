@@ -124,7 +124,7 @@ XMLscene.prototype.onGraphLoaded = function () {
         if (this.playStack.length == 1){
             console.log("Can't undo initial state!")
         } else {
-            console.log("UNDO STUFF")
+            console.log("UNDO THE DO THE TO-DO!")
             this.playStack.pop();
         }
     }
@@ -285,4 +285,8 @@ XMLscene.prototype.togglePlayer = function () {
         this.currentPlayer++;
     else
         this.currentPlayer--;
+}
+
+XMLscene.prototype.incrementScore = function (player) {
+    this.score[player-1]++;
 }
