@@ -2,7 +2,7 @@ var DEGREE_TO_RAD = Math.PI / 180;
 var UPDATE_SCENE = 0.1;
 var RELATIVE_ANIMATION = 1;
 var PrologMsgReceive = '';
-var INITIAL_TIMER = 50;
+var INITIAL_TIMER = 10;
 var CAMERA_TILT = 5;
 var CAMERA_PAN = 20;
 var CAMERA_TILT_INCREMENT = Math.PI/180*10;
@@ -142,6 +142,7 @@ XMLscene.prototype.onGraphLoaded = function () {
             this.playStack.pop();
             PrologMsgReceive = '';
             this.waitForCPU = -1;
+            this.moveTimer = INITIAL_TIMER;
         }
     }
 
@@ -171,13 +172,14 @@ XMLscene.prototype.onGraphLoaded = function () {
             this.startTime =  this.mainTime;
             PrologMsgReceive = '';
             this.waitForCPU = -1;
-             this.playStack = [ [[[0,0,0,0,0,0,0],
+            this.playStack = [ [[[0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0]], 22, 22, 1]   ];
+             this.moveTimer = INITIAL_TIMER;   
             //TODO enable picking;
         }
     }
@@ -260,7 +262,7 @@ XMLscene.prototype.display = function () {
 XMLscene.prototype.update = function (time) {
     this.mainTime += UPDATE_SCENE;
     if (this.activeGame) {
-        this.moveTimer = 50 - (this.mainTime - this.startTime);
+        this.moveTimer -= UPDATE_SCENE;
     }
     this.shader.setUniformsValues({
         selRed: this.shaderColor[0] / 255,
@@ -278,6 +280,11 @@ XMLscene.prototype.update = function (time) {
     }
 
     var currentPlayer = this.playStack[this.playStack.length-1][3];
+    if(this.moveTimer < 0 && this.activeGame){
+    	var winnerPlayer = 1+ currentPlayer%2;
+    	this.incrementScore(winnerPlayer);
+    	this.activeGame = false;
+    }
     if(this.gametype === 'CPU vs CPU' && this.waitForCPU === -1)
     	this.waitForCPU = CPU_MOVE_TIME;
     else if(this.gametype === 'Player vs Player')
@@ -290,7 +297,7 @@ XMLscene.prototype.update = function (time) {
     if(this.waitForCPU >= 0)
     	this.waitForCPU += UPDATE_SCENE;
 
-    if(this.waitForCPU>=CPU_MOVE_TIME && this.activeGame){
+    if(this.waitForCPU>=CPU_MOVE_TIME && this.activeGame && this.waitForProlog === 0){
     	this.waitForCPU = -1;
     	this.makeRequest(1);
     }
@@ -509,12 +516,14 @@ XMLscene.prototype.nextMove = function(response){
 			console.log('Error: Wrong Player Number');
 		}
 		this.playStack.push(nextStack);
+		this.moveTimer = INITIAL_TIMER;
 	}
 	else if(description === 'GameOver'){
 		Winner = parseInt(array[2]);
 		console.log('GameOver. The Winner is Player '+nextPlayer);
 		console.log(newBoard);
 		this.activeGame = 0;
+		this.incrementScore(nextPlayer);
 
 	}
 
@@ -525,6 +534,10 @@ XMLscene.prototype.nextMove = function(response){
 		else if(this.gametype === 'Player vs CPU' && nextPlayer === 2)
 			this.waitForCPU = 0;
 	}
+
+	this.currentPlayer =nextPlayer;
+
+
 
 	//TODO : Animations
 }

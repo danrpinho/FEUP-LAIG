@@ -124,7 +124,7 @@ cpu_play(Board, CurrentPlayer, CurrentPieces, MyReply):-
 	
 	
 winner(NewCurrentPieces, CurrentPlayer, NewBoard, Winner):-
-	(nl,write(NewBoard),nl,check_for_win(NewCurrentPieces, CurrentPlayer, NewBoard), !,
+	(check_for_win(NewCurrentPieces, CurrentPlayer, NewBoard), !,
 	Winner = CurrentPlayer) ;
 	(NewCurrentPieces = 0, switch_player(CurrentPlayer, NewPlayer), 
 	Winner = NewPlayer).
