@@ -52,7 +52,9 @@ function XMLscene(interface) {
     this.currentSelectable = "none";
     this.currentAmbient="wood";
     this.shaderColor = [255, 215, 0];
+
     this.Animations = [];
+    this.pickableIDtoNode=[];
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -561,7 +563,14 @@ XMLscene.prototype.incrementScore = function (player) {
 XMLscene.prototype.Animation = function (Move){
 	
 	if(Move !== -1){
-		//TODO : Animations
+		var controlPoints = [
+								[0, 0, 0],
+								[1,2,1],
+								[1,2,1],
+								[1,1,1]
+							]
+		var animation = BezierAnimation(this, 4, controlPoints, this.mainTime);
+		this.objectPicked.an
 	}
 	this.currentlyPicked = null;
 	this.objectPicked = null;

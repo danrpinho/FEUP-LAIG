@@ -1298,7 +1298,6 @@ MySceneGraph.prototype.parseAnimations = function (animationsNode) {
  * Parses the <NODES> block.
  */
 MySceneGraph.prototype.parseNodes = function (nodesNode) {
-
     // Traverses nodes.
     var children = nodesNode.children;
 
@@ -1339,6 +1338,8 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
             if (this.reader.hasAttribute(children[i], 'pickable')) {
                 var pickable = this.reader.getString(children[i], 'pickable');
                 this.nodes[nodeID].pickable = pickable;
+                this.scene.pickableIDtoNode[this.pickCount] = this.nodes[nodeID];
+                this.pickCount ++;
             } else
                 this.nodes[nodeID].pickable = false;
 
