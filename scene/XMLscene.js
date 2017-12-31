@@ -41,6 +41,14 @@ function XMLscene(interface) {
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0]], 22, 22, 1]   ];//each member of the stack contains the following element [Board, CurrentPiecesPlayer1, CurrentPiecesPlayer2, nextPlayer]
+    
+    this.BoardStack =  [ [[0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0]]   ];                    
 
 
     this.score=[0,0];
@@ -564,6 +572,7 @@ XMLscene.prototype.incrementScore = function (player) {
 XMLscene.prototype.Animation = function (MoveEdge, MoveRow){
 	
 	if(MoveEdge !== -1 && MoveRow !== -1){
+
 		var controlPoints = [
 								[0, 0, 0],
 								[1,1,1],
@@ -572,9 +581,69 @@ XMLscene.prototype.Animation = function (MoveEdge, MoveRow){
 							]
 		var newAnimation = new BezierAnimation(this, 4, controlPoints, this.mainTime);
 		this.objectPicked.addAnimation(newAnimation);
+
 		/*this.graph.animations[this.animationsIDcounter]=newAnimation;
 		this.animationsIDcounter ++;*/
 	}
 	this.currentlyPicked = null;
 	this.objectPicked = null;
+}
+
+XMLscene.prototype.LinearAnimation = function(MoveEdge, MoveRow){
+	var Board = this.BoardStack[this.BoardStack.length-1];
+	var newBoard = Board;
+	var piecesToBeMoved = [];
+	var newAnimation;
+
+	if(MoveEdge === 'left'){
+		var Line = Board[MoveRow-1];		
+		var i =0;
+		while(Line[i] !== 0 && i<7){
+			piecesToBeMoved.push(Line[i]);
+			i++;
+		}
+		var controlPoints = [
+								[0,0,0],
+								[4.15,0,0]
+		]
+		newAnimation = new LinearAnimation(this, 4, controlPoints, this.mainTime);
+	}
+	else if(MoveEdge === 'right'){
+		var Line = Board[MoveRow-1];		
+		var i =6;
+		while(Line[i] !== 0 && i>=0){
+			piecesToBeMoved.push(Line[i]);
+			newBoard[MoveRow]=
+			i--;
+		}
+		var controlPoints = [
+								[0,0,0],
+								[-4.15,0,0]
+		]
+		newAnimation = new LinearAnimation(this, 4, controlPoints, this.mainTime);
+	}
+	else if(MoveEdge === 'up'){		
+		var i = 0;
+		while(Board[i][MoveRow-1] !== 0 && i<7){
+			piecesToBeMoved.push(Board[MoveRow-1][i]);
+			i++;
+		}
+		var controlPoints = [
+								[0,0,0],
+								[0,0,-4.15]
+		]
+		newAnimation = new LinearAnimation(this, 4, controlPoints, this.mainTime);
+	}
+	else if(MoveEdge === 'down'){		
+		var i = 7;
+		while(Board[MoveRow-1][i] !== 0 && i>=0){
+			piecesToBeMoved.push(Board[MoveRow-1][i]);
+			i--;
+		}
+		var controlPoints = [
+								[0,0,0],
+								[0,0,4.15]
+		]
+		newAnimation = new LinearAnimation(this, 4, controlPoints, this.mainTime);
+	}
 }
