@@ -1348,6 +1348,12 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
             } else
                 this.nodes[nodeID].dynamicTexture = "constant";
 
+            if (this.reader.hasAttribute(children[i], 'scenery')) {
+                var scenery = this.reader.getString(children[i], 'scenery');
+                this.nodes[nodeID].scenery = scenery;
+            } else
+                this.nodes[nodeID].scenery = null;
+
 
             // Gathers child nodes.
             var nodeSpecs = children[i].children;
@@ -1604,96 +1610,96 @@ MySceneGraph.prototype.displayScene = function () {
  * Processes the nodes recursively.
  */
 MySceneGraph.prototype.processNode = function (node) {
-    this.scene.pushMatrix();
-    this.scene.multMatrix(node.transformMatrix);
+    if (node.scenery == null || node.scenery == this.scene.currentAmbient) {
+        this.scene.pushMatrix();
+        this.scene.multMatrix(node.transformMatrix);
 
+        if (this.scene.currentSelectable == node.nodeID) {
 
+            this.scene.setActiveShader(this.scene.shader);
+        }
 
-    if (this.scene.currentSelectable == node.nodeID) {
-
-        this.scene.setActiveShader(this.scene.shader);
-    }
-
-    if (node.pickable) {
-        this.scene.registerForPick(this.pickCount, node);
-        this.pickCount++;
-        this.pickStack.push(true);
-    } else {
-        if (this.pickStack[this.pickStack.length - 1]) {
+        if (node.pickable) {
+            this.scene.registerForPick(this.pickCount, node);
+            this.pickCount++;
             this.pickStack.push(true);
         } else {
-            this.scene.registerForPick(0, node);
-            this.pickStack.push(false);
-        }
-    }
-
-
-    //material handling
-    var currentMaterial;
-    if (node.materialID == 'null')         //checks for parent
-        currentMaterial = this.materStack[this.materStack.length - 1];
-    else
-        currentMaterial = this.materials[node.materialID];
-    this.materStack.push(currentMaterial);
-
-    //texture handling
-    var currentTexture = this.textStack[this.textStack.length - 1]; //parent texture
-    if (node.dynamicTexture == "constant") {
-        if (node.textureID != "null") {
-            if (node.textureID == "clear")
-                currentTexture = null;
-            else
-                currentTexture = this.textures[node.textureID];
-        }
-    } else {
-        var intTimer = Math.ceil(this.scene.moveTimer);
-        switch(node.dynamicTexture){
-            case "board": currentTexture = this.textBoards[this.scene.currentAmbient]; break;
-            case "floor": currentTexture = this.textFloors[this.scene.currentAmbient]; break;
-            case "p1score": currentTexture = this.textNumbers[this.scene.score[0]]; break;
-            case "p2score": currentTexture = this.textNumbers[this.scene.score[1]]; break;
-            case "timer0": currentTexture = this.textNumbers[intTimer % 10]; break;
-            case "timer1": currentTexture = this.textNumbers[Math.floor(intTimer/10)]; break;
-        }
-    }
-
-
-    this.textStack.push(currentTexture);
-
-    this.applyAnimations(node.animations);
-
-    //recursive call for child intermediate nodes
-    for (var i = 0; i < node.children.length; i++) {
-        this.processNode(this.nodes[node.children[i]]);
-    }
-
-    //leaf handling
-    for (var i = 0; i < node.leaves.length; i++) {
-        //material and texture application
-        currentMaterial.apply();
-        if (currentTexture != null) {
-            currentTexture[0].bind();
-            node.leaves[i].obj.amplifFactors(currentTexture[1], currentTexture[2]);
+            if (this.pickStack[this.pickStack.length - 1]) {
+                this.pickStack.push(true);
+            } else {
+                this.scene.registerForPick(0, node);
+                this.pickStack.push(false);
+            }
         }
 
-        //TODO mostrar select
 
-        //displaying primitives
-        node.leaves[i].obj.display();
+        //material handling
+        var currentMaterial;
+        if (node.materialID == 'null')         //checks for parent
+            currentMaterial = this.materStack[this.materStack.length - 1];
+        else
+            currentMaterial = this.materials[node.materialID];
+        this.materStack.push(currentMaterial);
 
+        //texture handling
+        var currentTexture = this.textStack[this.textStack.length - 1]; //parent texture
+        if (node.dynamicTexture == "constant") {
+            if (node.textureID != "null") {
+                if (node.textureID == "clear")
+                    currentTexture = null;
+                else
+                    currentTexture = this.textures[node.textureID];
+            }
+        } else {
+            var intTimer = Math.ceil(this.scene.moveTimer);
+            switch (node.dynamicTexture) {
+                case "board": currentTexture = this.textBoards[this.scene.currentAmbient]; break;
+                case "floor": currentTexture = this.textFloors[this.scene.currentAmbient]; break;
+                case "p1score": currentTexture = this.textNumbers[this.scene.score[0]]; break;
+                case "p2score": currentTexture = this.textNumbers[this.scene.score[1]]; break;
+                case "timer0": currentTexture = this.textNumbers[intTimer % 10]; break;
+                case "timer1": currentTexture = this.textNumbers[Math.floor(intTimer / 10)]; break;
+            }
+        }
+
+
+        this.textStack.push(currentTexture);
+
+        this.applyAnimations(node.animations);
+
+        //recursive call for child intermediate nodes
+        for (var i = 0; i < node.children.length; i++) {
+            this.processNode(this.nodes[node.children[i]]);
+        }
+
+        //leaf handling
+        for (var i = 0; i < node.leaves.length; i++) {
+            //material and texture application
+            currentMaterial.apply();
+            if (currentTexture != null) {
+                currentTexture[0].bind();
+                node.leaves[i].obj.amplifFactors(currentTexture[1], currentTexture[2]);
+            }
+
+            //TODO mostrar select
+
+            //displaying primitives
+            node.leaves[i].obj.display();
+
+        }
+
+
+        if (this.scene.currentSelectable == node.nodeID) {
+            this.scene.setActiveShader(this.scene.defaultShader);
+        }
+
+
+        //depois de percorrer os filhos todos, tratamento das pilhas
+        this.pickStack.pop();
+        this.textStack.pop();
+        this.materStack.pop();
+        this.scene.popMatrix();
     }
-
-
-    if (this.scene.currentSelectable == node.nodeID) {
-        this.scene.setActiveShader(this.scene.defaultShader);
-    }
-
-
-    //depois de percorrer os filhos todos, tratamento das pilhas
-    this.pickStack.pop();
-    this.textStack.pop();
-    this.materStack.pop();
-    this.scene.popMatrix();
 }
 
 MySceneGraph.prototype.applyAnimations = function (animations) {

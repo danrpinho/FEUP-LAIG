@@ -262,7 +262,7 @@
             <NODEREF id="p1pieces"/>
             <NODEREF id="p2pieces"/>
             <NODEREF id="scoreboard"/>
-            <NODEREF id="floor"/>
+            <NODEREF id="decor"/>
         </DESCENDANTS>
     </NODE>
 
@@ -1321,6 +1321,122 @@
                 <LEAF type="rectangle" args="0 1 1 0" />
             </DESCENDANTS>
         </NODE>
+
+        <!-- DECORATIONS -->
+    <NODE id="decor">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="sceneryWood" />
+            <NODEREF id="sceneryBeach" />
+            <NODEREF id="sceneryPlastic" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="sceneryWood" scenery="wood">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="table" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="sceneryBeach" scenery="beach">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="floor" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="sceneryPlastic" scenery="plastic">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="floor" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="table">
+        <MATERIAL id="null" />
+        <TEXTURE id="woodfloor" />
+
+        <TRANSLATION x="-5" y="-2.5" z="-5" />
+
+        <DESCENDANTS>
+            <NODEREF id="leg1" />
+            <NODEREF id="leg2" />
+            <NODEREF id="leg3" />
+            <NODEREF id="leg4" />
+            <NODEREF id="tabletop" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="leg1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="leg" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="leg2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="55" y="0" z="0" />
+
+        <DESCENDANTS>
+            <NODEREF id="leg" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="leg3">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="0" y="0" z="36" />
+
+        <DESCENDANTS>
+            <NODEREF id="leg" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="leg4">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="55" y="0" z="36" />
+
+        <DESCENDANTS>
+            <NODEREF id="leg" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="leg">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="2.5" y="0" z="2.5" />
+        <ROTATION axis="x" angle="90" />
+
+        <DESCENDANTS>
+            <LEAF type="cylinder" args="25 1.5 1.5 20 20 1 1" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="tabletop">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <SCALE sx="60" sy="2.5" sz="41" />
+
+        <DESCENDANTS>
+            <NODEREF id="cube" />
+		</DESCENDANTS>
+    </NODE>
+
 </NODES>
 
 </SCENE>
