@@ -1,5 +1,7 @@
 :-use_module(library(lists)).
 :-use_module(library(apply)).
+:-use_module(library(sockets)).
+:-use_module(library(codesio)).
 :-include('user_interface.pl').
 :-include('utils.pl').
 :-include('make_move.pl').
@@ -110,18 +112,18 @@ abolish_predicates:-
 	abolish(cpu_level/1),
 	abolish(cpu_player/1).
 
-parse_input( shiftago(player, CurrentPlayer, _Difficulty, Board, CurrentPieces, Edge, Row), MyReply):-
+parse_input( shiftago(player,CurrentPlayer,Board,CurrentPieces,Edge,Row), MyReply):-
 	asserta(cpu_level(0)),
 	player_play(Board, Edge, Row, CurrentPlayer, CurrentPieces, MyReply).
 
-parse_input( shiftago(cpu, CurrentPlayer, Difficulty, Board, CurrentPieces), MyReply):-
+parse_input( shiftago(cpu,CurrentPlayer,Difficulty,Board,CurrentPieces), MyReply):-
 	asserta(cpu_level(Difficulty)),
 	cpu_play(Board, CurrentPlayer, CurrentPieces, MyReply).	
 	
 player_play(Board, Edge, Row, CurrentPlayer, CurrentPieces, MyReply):-	
 	insert_piece(Board, Edge, Row, CurrentPlayer, NewBoard, CurrentPieces, NewCurrentPieces), !,(
-	(winner(NewCurrentPieces, CurrentPlayer, NewBoard, Winner), MyReply = ['GameOver',CurrentPlayer, Winner] ); 
-	(switch_player(CurrentPlayer, NewPlayer), MyReply = ['Valid',NewPlayer, NewCurrentPieces, NewBoard])
+	(winner(NewCurrentPieces, CurrentPlayer, NewBoard, Winner), MyReply = ['GameOver',CurrentPlayer, Winner, [Edge , Row], NewBoard] ); 
+	(switch_player(CurrentPlayer, NewPlayer), MyReply = ['Valid',NewPlayer, NewCurrentPieces, [Edge , Row], NewBoard])
 	).
 
 player_play(_Board, _Edge, _Row, CurrentPlayer, _CurrentPieces, MyReply):-	
@@ -129,8 +131,8 @@ player_play(_Board, _Edge, _Row, CurrentPlayer, _CurrentPieces, MyReply):-
 
 cpu_play(Board, CurrentPlayer, CurrentPieces, MyReply):-
 	cpu_move(Board, CurrentPlayer, Move, NewBoard, CurrentPieces, NewCurrentPieces),(
-	(winner(NewCurrentPieces, CurrentPlayer, NewBoard, Winner), MyReply = ['GameOver',CurrentPlayer, Winner] ); 
-	(switch_player(CurrentPlayer, NewPlayer), MyReply = ['Valid',NewPlayer, NewCurrentPieces, NewBoard, Move])
+	(winner(NewCurrentPieces, CurrentPlayer, NewBoard, Winner), MyReply = ['GameOver',CurrentPlayer, Winner, Move, NewBoard] ); 
+	(switch_player(CurrentPlayer, NewPlayer), MyReply = ['Valid',NewPlayer, NewCurrentPieces, Move, NewBoard])
 	).
 
 
