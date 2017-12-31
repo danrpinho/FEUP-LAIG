@@ -2,6 +2,8 @@ var DEGREE_TO_RAD = Math.PI / 180;
 var UPDATE_SCENE = 0.1;
 var RELATIVE_ANIMATION = 1;
 var PrologMessage = '';
+var INITIAL_TIMER = 50;
+
 
 /**
  * XMLscene class, representing the scene that is to be rendered.
@@ -11,10 +13,14 @@ function XMLscene(interface) {
     CGFscene.call(this);
 
     this.interface = interface;
+    this.activeGame = false;
     this.mainTime = 0;
+    this.startTime = 0;
     this.lightValues = {};
-	
 	this.waitForProlog=0;
+    this.topDown = false;
+
+
     this.gameDifficulty="Easy";
     this.difficulties=["Easy", "Medium", "Hard"];
     this.gametypes=["Player vs Player", "Player vs CPU", "CPU vs CPU"];
@@ -30,22 +36,10 @@ function XMLscene(interface) {
     console.log(this.playStack); 
     console.log(this.playStack.length);   
     this.score=[0,0];
-    this.moveTimer = 45;
+    this.moveTimer = INITIAL_TIMER;
+    this.currentPlayer = 1;
 
-    this.funcUndo = {undo:function(){
-        if (this.playStack.length == 1){
-            console.log("Can't undo initial state!")
-        } else {
-            console.log("UNDO STUFF")
-            this.playStack.pop();
-        }
-    }}
-
-    this.funcToggle = {toggle:function(){
-        console.log("TOGGLE STUFF")
-
-    }}
-
+    this.currentlyPicked = null;
     this.currentSelectable = "none";
     this.currentAmbient="wood";
     this.shaderColor = [255, 215, 0];
@@ -132,10 +126,51 @@ XMLscene.prototype.onGraphLoaded = function () {
 
     this.initLights();
 
+    function undo(){
+        if (this.playStack.length == 1){
+            console.log("Can't undo initial state!")
+        } else {
+            console.log("UNDO STUFF")
+            this.playStack.pop();
+        }
+    }
+
+    function toggle(){
+        if (!this.topDown){
+            this.interface.activeCamera.orbit(CGFcameraAxisID.Y, Math.PI/2);
+            this.interface.activeCamera.pan([2,0,1]);
+            this.interface.activeCamera.orbit(CGFcameraAxisID.Y, -Math.PI/2);
+            this.interface.activeCamera.orbit(CGFcameraAxisID.X, Math.PI/180*50);
+            this.topDown = true;
+            //@TODO substituir por uma funcao que anima isto
+        } else {
+            this.interface.activeCamera.orbit(CGFcameraAxisID.X, -Math.PI/180*50);
+            this.interface.activeCamera.orbit(CGFcameraAxisID.Y, -Math.PI/2);
+            this.interface.activeCamera.pan([2,0,1]);
+            this.interface.activeCamera.orbit(CGFcameraAxisID.Y, Math.PI/2);
+            this.topDown = false;
+        }
+    }
+
+    function startGame(){
+        if (!this.activeGame){
+            this.activeGame = true;
+            this.startTime =  this.mainTime;
+            //TODO enable picking;
+        }
+    }
+
+    let funcUndo = undo.bind(this);
+    let funcToggle = toggle.bind(this);
+    let funcStart = startGame.bind(this);
+
     // Adds lights group.
     this.interface.addLightsGroup(this.graph.lights);
     this.interface.addSelectablesGroup(this.graph.selectableNodes, this.shaderColor);
-    this.interface.addGameOptions(this.difficulties, this.gametypes, this.playStack, this.mainTime, this.graph.ambients);
+    this.interface.addGameOptions(this.difficulties, this.gametypes, this.playStack, this.mainTime, this.graph.ambients,
+        funcUndo, funcToggle, funcStart);
+
+    this.moveTimer = INITIAL_TIMER;
 }
 
 /**
@@ -202,6 +237,9 @@ XMLscene.prototype.display = function () {
 
 XMLscene.prototype.update = function (time) {
     this.mainTime = this.mainTime + UPDATE_SCENE;
+    if (this.activeGame) {
+        this.moveTimer = 50 - (this.mainTime - this.startTime);
+    }
     this.shader.setUniformsValues({
         selRed: this.shaderColor[0] / 255,
         selGreen: this.shaderColor[1] / 255,
@@ -245,12 +283,39 @@ XMLscene.prototype.logPicking = function ()
 					else{
 						console.log('Error: Non-valid ID');
 					}
+               /* if (obj) {
+                    var customId = this.pickResults[i][1];
+                    if (this.currentlyPicked == null) {
+                        if ((this.currentPlayer == 1 && customId >= 29 && customId <= 50) ||
+                            (this.currentPlayer == 2 && customId >= 51 && customId <= 72)) {
+                            console.log("Player " + this.currentPlayer + " picked piece " + ((customId - 29) % 22 + 1));
+                            this.currentlyPicked = customId;
+                        }
+                    } else if (customId >= 1 && customId <= 28) {
+                        var side = Math.floor((customId - 1) / 7);
+                        switch (side) {
+                            case 0: side = "up"; break;
+                            case 1: side = "down"; break;
+                            case 2: side = "left"; break;
+                            case 3: side = "right"; break;
+                        }
+                        console.log("Player " + this.currentPlayer + " placed the piece in [" + side + ", " +
+                            ((customId - 1) % 7 +1) + "].");
+
+                        this.currentlyPicked = null;
+                        this.togglePlayer();
+                    }
+
+                    if (customId > 0)
+					    console.log("Picked object: " + obj + ", with pick id " + customId);
+                }*/	    
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);
 		}
 	}
 }
+
 
 XMLscene.prototype.convertIDtoMove=function(ID){
 	if(ID < 0)
@@ -324,19 +389,14 @@ XMLscene.prototype.makeRequest = function(cpu, Move)
 			this.getPrologRequest(requestString, handleReply);
 }
 			
-			//Handle the Reply
+//Handle the Reply
 function handleReply(data){
-		console.log('handleReply');
 		PrologMessage = data.target.response;
-		console.log(this);
 }
 
 XMLscene.prototype.nextMove = function(response){
-	console.log('nextMove');
-	console.log(response);
 	var res_sub = response.replace(/[\[\]']+/g, '');
 	var array=res_sub.split(',');
-	console.log(array);
 	var description = array[0];
 	var nextPlayer = parseInt(array[1]);
 	var newCurrentPieces = -1;
@@ -357,10 +417,7 @@ XMLscene.prototype.nextMove = function(response){
 				newBoard[newBoard.length-1].push(parseInt(array[5+7*i+j]));			
 		}
 	}
-	console.log(nextPlayer);
-	console.log(newBoard);
 	if(description === 'Valid'){
-		console.log('insideValid');
 		newCurrentPieces = parseInt(array[2]);
 		if(nextPlayer === 1){
 			nextStack = [newBoard, currentStack[1],newCurrentPieces, nextPlayer];
@@ -380,6 +437,12 @@ XMLscene.prototype.nextMove = function(response){
 
 	console.log(nextStack);	
 
+}	
 	
-	
+
+XMLscene.prototype.togglePlayer = function () {
+    if (this.currentPlayer % 2)
+        this.currentPlayer++;
+    else
+        this.currentPlayer--;
 }

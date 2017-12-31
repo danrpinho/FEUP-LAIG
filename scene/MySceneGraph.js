@@ -1339,7 +1339,6 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
             if (this.reader.hasAttribute(children[i], 'pickable')) {
                 var pickable = this.reader.getString(children[i], 'pickable');
                 this.nodes[nodeID].pickable = pickable;
-                if (pickable) this.selectableNodes.push(nodeID);
             } else
                 this.nodes[nodeID].pickable = false;
 
@@ -1528,10 +1527,7 @@ MySceneGraph.prototype.parseNodes = function (nodesNode) {
     }
 
     console.log("Parsed nodes");
-    console.log(this.textures);
-    console.log(this.textFloors);
     return null;
-
 }
 
 /*
@@ -1593,6 +1589,7 @@ MySceneGraph.prototype.displayScene = function () {
     // material and texture stack creation, along with introducing root elements
     this.textStack = [];
     this.materStack = [];
+    this.pickStack = [false];
     this.pickCount = 1;
 
     //default values for root (its "parent")
@@ -1617,9 +1614,17 @@ MySceneGraph.prototype.processNode = function (node) {
         this.scene.setActiveShader(this.scene.shader);
     }
 
-    if(node.pickable){
+    if (node.pickable) {
         this.scene.registerForPick(this.pickCount, node);
         this.pickCount++;
+        this.pickStack.push(true);
+    } else {
+        if (this.pickStack[this.pickStack.length - 1]) {
+            this.pickStack.push(true);
+        } else {
+            this.scene.registerForPick(0, node);
+            this.pickStack.push(false);
+        }
     }
 
 
@@ -1641,13 +1646,14 @@ MySceneGraph.prototype.processNode = function (node) {
                 currentTexture = this.textures[node.textureID];
         }
     } else {
+        var intTimer = Math.ceil(this.scene.moveTimer);
         switch(node.dynamicTexture){
             case "board": currentTexture = this.textBoards[this.scene.currentAmbient]; break;
             case "floor": currentTexture = this.textFloors[this.scene.currentAmbient]; break;
             case "p1score": currentTexture = this.textNumbers[this.scene.score[0]]; break;
             case "p2score": currentTexture = this.textNumbers[this.scene.score[1]]; break;
-            case "timer0": currentTexture = this.textNumbers[this.scene.moveTimer % 10]; break;
-            case "timer1": currentTexture = this.textNumbers[Math.floor(this.scene.moveTimer/10)]; break;
+            case "timer0": currentTexture = this.textNumbers[intTimer % 10]; break;
+            case "timer1": currentTexture = this.textNumbers[Math.floor(intTimer/10)]; break;
         }
     }
 
@@ -1684,6 +1690,7 @@ MySceneGraph.prototype.processNode = function (node) {
 
 
     //depois de percorrer os filhos todos, tratamento das pilhas
+    this.pickStack.pop();
     this.textStack.pop();
     this.materStack.pop();
     this.scene.popMatrix();

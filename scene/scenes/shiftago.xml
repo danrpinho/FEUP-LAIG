@@ -132,7 +132,7 @@
 
     <!-- Floors -->
     <TEXTURE id="sand" floor="beach">
-        <file path="images/rocks.jpg" />
+        <file path="images/sand.jpg" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
@@ -158,7 +158,7 @@
     </TEXTURE>
 
     <TEXTURE id="darkboard" board="plastic">
-        <file path="images/darkfloor.jpg" />
+        <file path="images/darkfloor.png" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
@@ -497,7 +497,7 @@
 
     <NODE id="grid">
         <MATERIAL id="null" />
-        <TEXTURE id="null" />
+        <TEXTURE id="clear" />
 
         <TRANSLATION x="0" y="3.5" z="0.5" />
 
