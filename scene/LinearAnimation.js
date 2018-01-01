@@ -40,10 +40,11 @@ LinearAnimation.prototype.constructor = LinearAnimation;
 */
 LinearAnimation.prototype.transform = function (time, currentAnimation = 1) {
     if (time >= this.startTime) {
+        var time2 = time-this.startTime;
         var sumTimes = 0;
         var i = 0;
         var timeExceeded = 0;
-        while (sumTimes < time) {
+        while (sumTimes < time2) {
             if (i >= this.times.length) {
                 timeExceeded = 1;
                 break;
@@ -63,7 +64,7 @@ LinearAnimation.prototype.transform = function (time, currentAnimation = 1) {
         else if (i < 0) {
             this.scene.translate(this.controlPoints[0][0], this.controlPoints[0][1], this.controlPoints[0][2]);
         } else {
-            var relativeTime = -sumTimes + this.times[i] + time;
+            var relativeTime = -sumTimes + this.times[i] + time2;
             this.scene.translate(this.controlPoints[i][0], this.controlPoints[i][1], this.controlPoints[i][2]);
 
             var ratio = (relativeTime / this.times[i]);
