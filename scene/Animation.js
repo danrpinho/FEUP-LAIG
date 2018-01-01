@@ -9,7 +9,7 @@ function Animation(scene, startTime = 0) {
     }
     this.scene = scene;
     this.startTime = startTime;
-    this.relativeAnimation = 0;
+    this.relativeAnimation = 1;
 }
 
 Animation.prototype.constructor = Animation;
@@ -20,7 +20,7 @@ Animation.prototype.constructor = Animation;
 *@param newOrientation - new Orientation of the object
 */
 Animation.prototype.orientation = function (newOrientation) {
-    this.scene.rotate(Math.PI / 2, 0, 1, 0);
+    /*this.scene.rotate(Math.PI / 2, 0, 1, 0);
 
 
     //Now we are going to calculate slope which is the orientation in the xz plane
@@ -37,7 +37,7 @@ Animation.prototype.orientation = function (newOrientation) {
             slope = Math.PI + slope;
         }
     }
-    this.scene.rotate(-slope, 0, 1, 0);
+    this.scene.rotate(-slope, 0, 1, 0);*/
 }
 
 /**

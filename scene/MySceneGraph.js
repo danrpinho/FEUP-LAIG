@@ -1715,7 +1715,7 @@ MySceneGraph.prototype.processNode = function (node) {
 }
 
 MySceneGraph.prototype.applyAnimations = function (animations) {
-    var sumTimes = 0; //sum of the Times of the Animations
+    /*var sumTimes = 0; //sum of the Times of the Animations
     for (var i = 0; i < animations.length; i++) {
         var sumTimes2 = sumTimes + animations[i].totalTime;
         if (sumTimes2 > this.scene.mainTime || (i == (animations.length - 1))) {
@@ -1726,6 +1726,9 @@ MySceneGraph.prototype.applyAnimations = function (animations) {
         }
         sumTimes += animations[i].totalTime;
 
-    }
+    }*/
+     for (var i = 0; i < animations.length; i++)       
+            animations[i].transform(this.scene.mainTime, 1);
+       
 
 }
