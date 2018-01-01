@@ -561,7 +561,7 @@ XMLscene.prototype.nextStage = function(response){
 
 	this.currentPlayer =nextPlayer;
 	
-	this.Animation(MoveEdge, MoveRow);
+	this.Animation(MoveEdge, MoveRow,this.currentlyPicked);
 
 	
 }
@@ -576,31 +576,77 @@ XMLscene.prototype.incrementScore = function (player) {
     this.score[player-1]++;
 }
 
-XMLscene.prototype.Animation = function (MoveEdge, MoveRow){
+XMLscene.prototype.Animation = function (MoveEdge, MoveRow, ballID){
 	
 	if(MoveEdge !== -1 && MoveRow !== -1){
+		
+		var ballCoordinates=this.ballCoordinates(ballID);
+		var cellCoordinates=this.cellCoordinates(MoveEdge, MoveRow);
+		var delta;
+		if(ballID<=50) 
+			delta=[cellCoordinates[0] - ballCoordinates[0], cellCoordinates[1] - ballCoordinates[1], cellCoordinates[2] - ballCoordinates[2]];
+		else
+			delta=[ballCoordinates[0]-cellCoordinates[0], cellCoordinates[1]-ballCoordinates[1], ballCoordinates[2]-cellCoordinates[2]];
 
-		/*var controlPoints = [
-								[0, 0, 0],
-								[2,2,0],
-								[4,4,0],
-								[6,6,0]
-							]
-		var newAnimation = new BezierAnimation(this, 4, controlPoints, this.mainTime);*/
+
 		var controlPoints = [
+								[0, 0, 0],
+								[delta/3.0,20,delta/3.0],
+								[2*delta/3.0,20,2*delta/3.0],
+								delta
+							]
+		var newAnimation = new BezierAnimation(this, 0.1, controlPoints, this.mainTime);
+		/*var controlPoints = [
 								[0, 0, 0],
 								[6,6,0]
 							];
-		var newAnimation = new LinearAnimation(this, 4, controlPoints, this.mainTime);
+		var newAnimation = new LinearAnimation(this, 4, controlPoints, this.mainTime);*/
 	
 		this.objectPicked.addAnimation(newAnimation);
-		this.LinearAnimation(MoveEdge, MoveRow, this.currentlyPicked);
+		this.LinearAnimation(MoveEdge, MoveRow, ballID);
 
 		/*this.graph.animations[this.animationsIDcounter]=newAnimation;
 		this.animationsIDcounter ++;*/
 	}
 	this.currentlyPicked = null;
 	this.objectPicked = null;
+}
+
+XMLscene.prototype.ballCoordinates = function(ballID){
+	if(ballID < 29 || ballID > 72)
+		return -1;
+
+	
+	var tempID = JSON.parse(JSON.stringify(ballID));;
+
+	if(ballID>= 51)
+		tempID = ballID - 22;
+
+	var delta;
+	if(tempID<=38)
+		delta=[0,0,3*(tempID-29)];
+	else if(tempID<=47)
+		delta=[2.65,0,1.5+3*(tempID-39)]
+	else
+		delta=[5.3, 0,3*(tempID-48)]
+	
+	if(ballID <= 50)
+		return [2.5+delta[0],1.5+delta[1],2+delta[2]];
+	else
+		return [47.7-delta[0],1.5+delta[1],29-delta[2]];	
+}
+
+XMLscene.prototype.cellCoordinates = function(MoveEdge, MoveRow){
+	if(MoveEdge == 'left')
+		return [8.35+1*4.15,4.5,-1.15+MoveRow*4.15];
+	else if(MoveEdge == 'right')
+		return [8.35+7*4.15,4.5,-1.15+MoveRow*4.15];	
+	else if(MoveEdge == 'up')
+		return [8.35+MoveRow*4.15,4.5,-1.15+1*4.15];	
+	else if(MoveEdge == 'down')
+		return [8.35+MoveRow*4.15,4.5,-1.15+7*4.15];
+	else
+		return -1;				
 }
 
 XMLscene.prototype.LinearAnimation = function(MoveEdge, MoveRow, ballID){
@@ -612,19 +658,12 @@ XMLscene.prototype.LinearAnimation = function(MoveEdge, MoveRow, ballID){
 	}
 
 	var piecesToBeMoved = [];
-	var newAnimation;
 
-	var lengthMult;
-	if(ballID<=50)
-		lengthMult=1;
-	else
-		lengthMult=-1;
-			
+	var controlPoint;			
 	if(MoveEdge === 'left'){
 		var Line = Board[MoveRow-1];		
 		var i =0;
 		newBoard[MoveRow-1][i]=ballID;
-		//newBoard[0][0]=50;
 		while(Line[i] !== 0 && i<7){
 			piecesToBeMoved.push(Line[i]);
 			if(i !== 0)
@@ -634,11 +673,9 @@ XMLscene.prototype.LinearAnimation = function(MoveEdge, MoveRow, ballID){
 		if(i>0)
 			newBoard[MoveRow-1][i]=Line[i-1];
 		
-		var controlPoints = [
-								[0,0,0],
-								[lengthMult*4.15,0,0]
-		]
-		newAnimation = new LinearAnimation(this, AnimationSpeed, controlPoints, this.mainTime);
+		controlPoint = [4.15,0,0];
+		
+
 	}
 	else if(MoveEdge === 'right'){
 		var Line = Board[MoveRow-1];		
@@ -652,11 +689,7 @@ XMLscene.prototype.LinearAnimation = function(MoveEdge, MoveRow, ballID){
 		}
 		if(i<6)
 			newBoard[MoveRow-1][i]=Line[i+1];
-		var controlPoints = [
-								[0,0,0],
-								[-lengthMult*4.15,0,0]
-		]
-		newAnimation = new LinearAnimation(this, AnimationSpeed, controlPoints, this.mainTime);
+		controlPoint = [-4.15,0,0];
 	}
 	else if(MoveEdge === 'up'){		
 		var i = 0;
@@ -670,11 +703,7 @@ XMLscene.prototype.LinearAnimation = function(MoveEdge, MoveRow, ballID){
 		if(i>0)
 			newBoard[i][MoveRow-1]=Board[i-1][MoveRow-1];
 		
-		var controlPoints = [
-								[0,0,0],
-								[0,0,-lengthMult*4.15]
-		]
-		newAnimation = new LinearAnimation(this, AnimationSpeed, controlPoints, this.mainTime);
+		controlPoint= [0,0,4.15];
 	}
 	else if(MoveEdge === 'down'){		
 		var i = 6;
@@ -689,18 +718,24 @@ XMLscene.prototype.LinearAnimation = function(MoveEdge, MoveRow, ballID){
 		if(i<6)
 			newBoard[i][MoveRow-1]=Board[i+1][MoveRow-1];
 		
-		var controlPoints = [
-								[0,0,0],
-								[0,0,lengthMult*4.15]
-		]
-		newAnimation = new LinearAnimation(this, AnimationSpeed, controlPoints, this.mainTime);
+		controlPoint = 	[0,0,-4.15];
 	}
 
 	this.BoardStack.push(newBoard);
+	
+
 	for(var i=0; i<piecesToBeMoved.length;i++){
-		console.log(this.pickableIDtoNode[piecesToBeMoved[i]]);
+		//console.log(this.pickableIDtoNode[piecesToBeMoved[i]]);
+		var controlPoint2;
+		if(piecesToBeMoved[i]<=50)
+			controlPoint2 = [controlPoint[0],controlPoint[1],controlPoint[2]];
+		else
+			controlPoint2 = [-controlPoint[0],controlPoint[1],-controlPoint[2]];
+		
+		 	
+		var newAnimation = new LinearAnimation(this, AnimationSpeed, [[0,0,0],controlPoint2], this.mainTime);
 		this.pickableIDtoNode[piecesToBeMoved[i]].addAnimation(newAnimation);
 	}
 	//console.log(piecesToBeMoved);
-	console.log(newBoard);
+	//console.log(newBoard);
 }
