@@ -270,17 +270,18 @@
             <NODEREF id="p2pieces"/>
             <NODEREF id="scoreboard"/>
             <NODEREF id="decor"/>
+            <!--<NODEREF id="testball"/>-->
         </DESCENDANTS>
     </NODE>
 
-    <!-- <NODE id="testball"> -->
-    <!--    <MATERIAL id="null" /> -->
-    <!--    <TEXTURE id="null" /> -->
-    <!--    <TRANSLATION x="16.65" y="4.5" z="7.15" /> -->
-    <!--    <DESCENDANTS> -->
-    <!--        <LEAF type="sphere" args="1.5 25 25" /> -->
-	<!--	</DESCENDANTS> -->
-    <!-- </NODE> -->
+    <!--<NODE id="testball"> 
+       <MATERIAL id="null" /> 
+       <TEXTURE id="null" /> 
+      <TRANSLATION x="16.65" y="4.5" z="3" /> 
+       <DESCENDANTS> 
+           <LEAF type="sphere" args="1.5 25 25" /> 
+		</DESCENDANTS> 
+     </NODE>--> 
 
     <NODE id="floor" dynamictexture="floor">
         <MATERIAL id="null" />

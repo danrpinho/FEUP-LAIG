@@ -2,7 +2,7 @@ var DEGREE_TO_RAD = Math.PI / 180; // Conversion between degrees and radians
 var UPDATE_SCENE = 0.1; // Time in seconds that it takes for an update
 var RELATIVE_ANIMATION = 1; // If set to 1, then the Animations in this program are made relative
 var PrologMsgReceive = ''; // Message received by PROLOG
-var INITIAL_TIMER = 99; // Maximum time allowed for the player to make a Move
+var INITIAL_TIMER = 45; // Maximum time allowed for the player to make a Move
 var CPU_MOVE_TIME = 1; // Time that it takes the CPU to make a move
 var CAMERA_TILT = 5;
 var CAMERA_PAN = 20;
@@ -42,13 +42,13 @@ function XMLscene(interface) {
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0]], 22, 22, 1]   ];//each member of the stack contains the following element [Board, CurrentPiecesPlayer1, CurrentPiecesPlayer2, nextPlayer]
 
-    this.BoardStack =  [ [[0,0,0,0,0,0,0],
+    this.boardStack =  [ [[[0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
-                         [0,0,0,0,0,0,0]]   ];
+                         [0,0,0,0,0,0,0]], [], [] ]  ];
 
 
     this.score=[0,0];
@@ -56,7 +56,6 @@ function XMLscene(interface) {
     this.currentPlayer = 1;
 
     this.currentlyPicked = null;
-    this.objectPicked = null;
     this.currentSelectable = "none";
     this.currentAmbient="wood";
     this.shaderColor = [255, 215, 0];
@@ -146,16 +145,24 @@ XMLscene.prototype.onGraphLoaded = function () {
 
     this.initLights();
 
-    function undo(){
-        if (this.playStack.length == 1){
-            console.log("Can't undo initial state!")
-        } else {
-            console.log("UNDO THE DO THE TO-DO!")
-            this.playStack.pop();
-            this.currentPlayer = this.playStack[this.playStack.length-1][3];
-            PrologMsgReceive = '';
-            this.waitForCPU = -1;
-            this.moveTimer = INITIAL_TIMER;
+    function undo(){//It's not possible to undo after a game is over
+    	if(this.activeGame){
+        	if (this.playStack.length == 1){
+            	console.log("Can't undo initial state!")
+        	} else {
+            	console.log("UNDO THE DO THE TO-DO!")
+           		this.playStack.pop();
+            	this.currentPlayer = this.playStack[this.playStack.length-1][3];
+            	PrologMsgReceive = '';
+            	this.waitForCPU = -1;
+            	this.moveTimer = INITIAL_TIMER;
+
+            	var lastPiecesMoved = this.boardStack[this.boardStack.length-1][1];
+            	this.boardStack.pop();
+            	for(var i=0;i<lastPiecesMoved.length;i++){
+            		this.pickableIDtoNode[lastPiecesMoved[i]].undoAnimation();
+            	}
+        	}
         }
     }
 
@@ -194,6 +201,19 @@ XMLscene.prototype.onGraphLoaded = function () {
                          [0,0,0,0,0,0,0]], 22, 22, 1]   ];
              this.currentPlayer = 1;
              this.moveTimer = INITIAL_TIMER;
+             
+             this.boardStack =  [ [[[0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0],
+                         [0,0,0,0,0,0,0]],[], [] ]  ];
+             for(var i=1;i<this.pickableIDtoNode.length;i++){
+             	this.pickableIDtoNode[i].clearAnimations();
+             }
+             this.currentlyPicked = null;            
+
             //TODO enable picking;
         }
     }
@@ -372,10 +392,10 @@ XMLscene.prototype.logPicking = function ()
 				{
 					var customId = this.pickResults[i][1];
 					if (customId > 0)
-					    console.log("Picked object: " + obj + ", with pick id " + customId);
+					    //console.log("Picked object: " + obj + ", with pick id " + customId);
 
 					var validSelected = true;
-					var currentBoard=this.BoardStack[this.BoardStack.length-1];
+					var currentBoard=this.boardStack[this.boardStack.length-1][0];
 					for(var j=0;j<currentBoard.length;j++){
 						for(var k = 0;k<7;k++){
 							if(currentBoard[j][k] == customId)
@@ -389,7 +409,6 @@ XMLscene.prototype.logPicking = function ()
                             (this.currentPlayer == 2 && customId >= 51 && customId <= 72 && this.gametype === 'Player vs Player')) {
                             console.log("Player " + this.currentPlayer + " picked piece " + customId);
                             this.currentlyPicked = customId;
-                            this.objectPicked = obj;
                         }
                     } else if ((Move = this.convertIDtoMove(customId)) !== -1 && this.waitForProlog === 0) {
                         console.log("Player " + this.currentPlayer + " placed the piece in [" + Move[0] + ", " +
@@ -554,13 +573,11 @@ XMLscene.prototype.nextStage = function(response){
 	else if(description === 'GameOver'){
 		Winner = parseInt(array[2]);
 		console.log('GameOver. The Winner is Player '+nextPlayer);
-		console.log(newBoard);
 		this.activeGame = 0;
 		this.incrementScore(nextPlayer);
 
 	}
 
-	console.log(nextStack);
 	if(description !== 'GameOver'){
 		if(this.gametype === 'CPU vs CPU')
 			this.waitForCPU = 0;
@@ -568,9 +585,42 @@ XMLscene.prototype.nextStage = function(response){
 			this.waitForCPU = 0;
 	}
 
-	this.currentPlayer =nextPlayer;
+	if(description != 'Invalid'){
+		if(this.currentlyPicked != null)
+			this.Animation(MoveEdge, MoveRow,this.currentlyPicked);
+		else{
+			var ballID=0;
+			var selectedPieces = [];
+			var size = 73;
+			while(size != 0){
+				selectedPieces.push(0);
+				size--;
+			}
+		
+			var board =this.boardStack[this.boardStack.length-1][0];
+			for(var i=0;i<7;i++){
+				for(var j=0;j<7;j++){
+					selectedPieces[board[i][j]]=1;
+				}
+			}
+			if(this.currentPlayer == 1){
+				for(var i=50; i>=29 && ballID == 0;i--)
+					if(selectedPieces[i] == 0)
+						ballID = i;
+									
+			}
+			else{
+				for(var i=72; i>= 51 && ballID == 0; i--)
+					if(selectedPieces[i] == 0)
+						ballID = i;
 
-	this.Animation(MoveEdge, MoveRow);
+			}	
+			this.Animation(MoveEdge, MoveRow, ballID);
+		}	
+	}
+	this.currentPlayer =nextPlayer;
+	this.currentlyPicked = null;
+
 
 
 }
@@ -585,55 +635,88 @@ XMLscene.prototype.incrementScore = function (player) {
     this.score[player-1]++;
 }
 
-XMLscene.prototype.Animation = function (MoveEdge, MoveRow){
+
+XMLscene.prototype.Animation = function (MoveEdge, MoveRow, ballID){
+	
 
 	if(MoveEdge !== -1 && MoveRow !== -1){
+		
+		var ballCoordinates=this.ballCoordinates(ballID);
+		var cellCoordinates=this.cellCoordinates(MoveEdge, MoveRow);
+		var delta;
+		if(ballID<=50) 
+			delta=[cellCoordinates[0] - ballCoordinates[0], cellCoordinates[1] - ballCoordinates[1], cellCoordinates[2] - ballCoordinates[2]];
+		else
+			delta=[ballCoordinates[0]-cellCoordinates[0], cellCoordinates[1]-ballCoordinates[1], ballCoordinates[2]-cellCoordinates[2]];
 
-		/*var controlPoints = [
-								[0, 0, 0],
-								[2,2,0],
-								[4,4,0],
-								[6,6,0]
-							]
-		var newAnimation = new BezierAnimation(this, 4, controlPoints, this.mainTime);*/
+
 		var controlPoints = [
 								[0, 0, 0],
-								[6,6,0]
-							];
-		var newAnimation = new LinearAnimation(this, 4, controlPoints, this.mainTime);
-
-		this.objectPicked.addAnimation(newAnimation);
-		this.LinearAnimation(MoveEdge, MoveRow, this.currentlyPicked);
-
-		/*this.graph.animations[this.animationsIDcounter]=newAnimation;
-		this.animationsIDcounter ++;*/
+								[delta[0]/3.0,15,delta[2]/3.0],
+								[2*delta[0]/3.0,15,2*delta[2]/3.0],
+								delta
+							]
+		var newAnimation = new BezierAnimation(this, 70, controlPoints, this.mainTime);
+		this.pickableIDtoNode[ballID].addAnimation(newAnimation);
+		this.LinearAnimation(MoveEdge, MoveRow, ballID);
 	}
-	this.currentlyPicked = null;
-	this.objectPicked = null;
+	
+}
+
+XMLscene.prototype.ballCoordinates = function(ballID){
+	if(ballID < 29 || ballID > 72)
+		return -1;
+
+	
+	var tempID = JSON.parse(JSON.stringify(ballID));;
+
+	if(ballID>= 51)
+		tempID = ballID - 22;
+
+	var delta;
+	if(tempID<=38)
+		delta=[0,0,3*(tempID-29)];
+	else if(tempID<=47)
+		delta=[2.65,0,1.5+3*(tempID-39)]
+	else
+		delta=[5.3, 0,3*(tempID-48)]
+	
+	if(ballID <= 50)
+		return [2.5+delta[0],1.5+delta[1],2+delta[2]];
+	else
+		return [47.7-delta[0],1.5+delta[1],29-delta[2]];	
+}
+
+XMLscene.prototype.cellCoordinates = function(MoveEdge, MoveRow){
+	if(MoveEdge == 'left')
+		return [8.35+1*4.15,4.5,-1.15+MoveRow*4.15];
+	else if(MoveEdge == 'right')
+		return [8.35+7*4.15,4.5,-1.15+MoveRow*4.15];	
+	else if(MoveEdge == 'up')
+		return [8.35+MoveRow*4.15,4.5,-1.15+1*4.15];	
+	else if(MoveEdge == 'down')
+		return [8.35+MoveRow*4.15,4.5,-1.15+7*4.15];
+	else
+		return -1;				
 }
 
 XMLscene.prototype.LinearAnimation = function(MoveEdge, MoveRow, ballID){
-	var AnimationSpeed = 4;
-	var Board = this.BoardStack[this.BoardStack.length-1];
+	var AnimationSpeed = 10;
+	var board = this.boardStack[this.boardStack.length-1][0];
 	var newBoard = [];
 	for(var i=0; i<7;i++){
-		newBoard[i]=Board[i].slice();
+		newBoard[i]=board[i].slice();
 	}
 
 	var piecesToBeMoved = [];
-	var newAnimation;
 
-	var lengthMult;
-	if(ballID<=50)
-		lengthMult=1;
-	else
-		lengthMult=-1;
+
+	var controlPoint;			
 
 	if(MoveEdge === 'left'){
-		var Line = Board[MoveRow-1];
+		var Line = board[MoveRow-1];
 		var i =0;
 		newBoard[MoveRow-1][i]=ballID;
-		//newBoard[0][0]=50;
 		while(Line[i] !== 0 && i<7){
 			piecesToBeMoved.push(Line[i]);
 			if(i !== 0)
@@ -643,14 +726,14 @@ XMLscene.prototype.LinearAnimation = function(MoveEdge, MoveRow, ballID){
 		if(i>0)
 			newBoard[MoveRow-1][i]=Line[i-1];
 
-		var controlPoints = [
-								[0,0,0],
-								[lengthMult*4.15,0,0]
-		]
-		newAnimation = new LinearAnimation(this, AnimationSpeed, controlPoints, this.mainTime);
+		
+		controlPoint = [4.15,0,0];
+		
+
+
 	}
 	else if(MoveEdge === 'right'){
-		var Line = Board[MoveRow-1];
+		var Line = board[MoveRow-1];
 		var i =6;
 		newBoard[MoveRow-1][i]=ballID;
 		while(Line[i] !== 0 && i>=0){
@@ -661,55 +744,60 @@ XMLscene.prototype.LinearAnimation = function(MoveEdge, MoveRow, ballID){
 		}
 		if(i<6)
 			newBoard[MoveRow-1][i]=Line[i+1];
-		var controlPoints = [
-								[0,0,0],
-								[-lengthMult*4.15,0,0]
-		]
-		newAnimation = new LinearAnimation(this, AnimationSpeed, controlPoints, this.mainTime);
+		controlPoint = [-4.15,0,0];
 	}
 	else if(MoveEdge === 'up'){
 		var i = 0;
 		newBoard[i][MoveRow-1]=ballID;
-		while(Board[i][MoveRow-1] !== 0 && i<7){
-			piecesToBeMoved.push(Board[i][MoveRow-1]);
+		while(board[i][MoveRow-1] !== 0 && i<7){
+			piecesToBeMoved.push(board[i][MoveRow-1]);
 			if(i !== 0)
-				newBoard[i][MoveRow-1]=Board[i-1][MoveRow-1];
+				newBoard[i][MoveRow-1]=board[i-1][MoveRow-1];
 			i++;
 		}
 		if(i>0)
-			newBoard[i][MoveRow-1]=Board[i-1][MoveRow-1];
+			newBoard[i][MoveRow-1]=board[i-1][MoveRow-1];
 
-		var controlPoints = [
-								[0,0,0],
-								[0,0,-lengthMult*4.15]
-		]
-		newAnimation = new LinearAnimation(this, AnimationSpeed, controlPoints, this.mainTime);
+		
+		controlPoint= [0,0,4.15];
+
 	}
 	else if(MoveEdge === 'down'){
 		var i = 6;
 		newBoard[i][MoveRow-1]=ballID;
-		while(Board[i][MoveRow-1] !== 0 && i>=0){
-			piecesToBeMoved.push(Board[i][MoveRow-1]);
+		while(board[i][MoveRow-1] !== 0 && i>=0){
+			piecesToBeMoved.push(board[i][MoveRow-1]);
 			if(i !== 6)
-				newBoard[i][MoveRow-1]=Board[i+1][MoveRow-1];
+				newBoard[i][MoveRow-1]=board[i+1][MoveRow-1];
 			i--;
 		}
 
 		if(i<6)
-			newBoard[i][MoveRow-1]=Board[i+1][MoveRow-1];
+			newBoard[i][MoveRow-1]=board[i+1][MoveRow-1];
 
-		var controlPoints = [
-								[0,0,0],
-								[0,0,lengthMult*4.15]
-		]
-		newAnimation = new LinearAnimation(this, AnimationSpeed, controlPoints, this.mainTime);
+		
+		controlPoint = 	[0,0,-4.15];
+
 	}
+	
+	var animationPieces = [];
+	animationPieces.push(ballID);
 
-	this.BoardStack.push(newBoard);
+	for(var i=0;i<piecesToBeMoved.length;i++)
+		animationPieces.push(piecesToBeMoved[i]);
+
+	this.boardStack.push([newBoard, animationPieces]);
+	
+
 	for(var i=0; i<piecesToBeMoved.length;i++){
-		console.log(this.pickableIDtoNode[piecesToBeMoved[i]]);
+		var controlPoint2;
+		if(piecesToBeMoved[i]<=50)
+			controlPoint2 = [controlPoint[0],controlPoint[1],controlPoint[2]];
+		else
+			controlPoint2 = [-controlPoint[0],controlPoint[1],-controlPoint[2]];
+		
+		 	
+		var newAnimation = new LinearAnimation(this, AnimationSpeed, [[0,0,0],controlPoint2], this.mainTime);
 		this.pickableIDtoNode[piecesToBeMoved[i]].addAnimation(newAnimation);
 	}
-	//console.log(piecesToBeMoved);
-	console.log(newBoard);
 }

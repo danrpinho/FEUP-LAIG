@@ -36,12 +36,25 @@ MyGraphNode.prototype.addChild = function (nodeID) {
 }
 
 /**
- * Adds the reference (ID) of another node to this node's children array.
+ * Adds an Animation to this node.
  */
-MyGraphNode.prototype.addAnimation = function (nodeID) {
-    this.animations.push(nodeID);
+MyGraphNode.prototype.addAnimation = function (animation) {
+    this.animations.push(animation);
 }
 
+/**
+* Deletes the last animation
+*/
+MyGraphNode.prototype.undoAnimation = function(){
+    this.animations.pop();
+}
+
+/**
+* Clears Animations
+*/
+MyGraphNode.prototype.clearAnimations = function() {
+    this.animations = [];
+}
 
 /**
  * Adds a leaf to this node's leaves array.
