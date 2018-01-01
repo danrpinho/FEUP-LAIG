@@ -636,7 +636,8 @@ XMLscene.prototype.nextStage = function(response){
 *@param player - player whose score we intend to increment
 */
 XMLscene.prototype.incrementScore = function (player) {
-    this.score[player-1]++;
+	if(this.score[player-1]<9)
+    	this.score[player-1]++;
 }
 
 /**
