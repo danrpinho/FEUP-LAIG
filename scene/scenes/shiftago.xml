@@ -73,12 +73,6 @@
 
 <!-- Textures -->
 <TEXTURES>
-	<!-- Board textures -->
-    <TEXTURE id="boardT">
-        <file path="images/plastic.jpg" />
-        <amplif_factor s="0.5" t="0.5" />
-    </TEXTURE>
-
     <TEXTURE id="straw">
         <file path="images/straw.jpg" />
         <amplif_factor s="0.5" t="0.5" />
@@ -183,7 +177,6 @@
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <!-- REPLACEABLE TEXTURES -->
     <TEXTURE id="playerTexture">
         <file path="images/pintura.jpg" />
         <amplif_factor s="1" t="1" />
@@ -196,11 +189,6 @@
 
     <TEXTURE id="floorTexture">
         <file path="images/pintura.jpg" />
-        <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
-    <TEXTURE id="banco">
-        <file path="images/bank.jpg" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
