@@ -41,14 +41,14 @@ function XMLscene(interface) {
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0]], 22, 22, 1]   ];//each member of the stack contains the following element [Board, CurrentPiecesPlayer1, CurrentPiecesPlayer2, nextPlayer]
-    
+
     this.BoardStack =  [ [[0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
-                         [0,0,0,0,0,0,0]]   ];                    
+                         [0,0,0,0,0,0,0]]   ];
 
 
     this.score=[0,0];
@@ -192,21 +192,30 @@ XMLscene.prototype.onGraphLoaded = function () {
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0]], 22, 22, 1]   ];
-             this.currentPlayer = 1;            
-             this.moveTimer = INITIAL_TIMER;   
+             this.currentPlayer = 1;
+             this.moveTimer = INITIAL_TIMER;
             //TODO enable picking;
+        }
+    }
+
+    function movie(){
+        if (!this.activeGame && !this.movieOngoing && this.Animations.length > 0){
+            this.movieOngoing = true;
+            this.mainTime = this.startTime;
+            //percorrer this.Animations
         }
     }
 
     let funcUndo = undo.bind(this);
     let funcToggle = toggle.bind(this);
     let funcStart = startGame.bind(this);
+    let funcMovie = movie.bind(this);
 
     // Adds lights group.
     this.interface.addLightsGroup(this.graph.lights);
     this.interface.addSelectablesGroup(this.graph.selectableNodes, this.shaderColor);
     this.interface.addGameOptions(this.difficulties, this.gametypes, this.playStack, this.mainTime, this.graph.ambients,
-        funcUndo, funcToggle, funcStart);
+        funcUndo, funcToggle, funcStart, funcMovie);
 
     this.moveTimer = INITIAL_TIMER;
 }
@@ -364,7 +373,7 @@ XMLscene.prototype.logPicking = function ()
 					var customId = this.pickResults[i][1];
 					if (customId > 0)
 					    console.log("Picked object: " + obj + ", with pick id " + customId);
-					
+
 					var validSelected = true;
 					var currentBoard=this.BoardStack[this.BoardStack.length-1];
 					for(var j=0;j<currentBoard.length;j++){
@@ -372,9 +381,9 @@ XMLscene.prototype.logPicking = function ()
 							if(currentBoard[j][k] == customId)
 								validSelected=false;
 						}
-					} 								
-                	if (this.activeGame && validSelected) {      
-                    var Move;                     
+					}
+                	if (this.activeGame && validSelected) {
+                    var Move;
                     if (this.currentlyPicked == null && this.waitForProlog === 0) {
                         if ((this.currentPlayer == 1 && customId >= 29 && customId <= 50 && this.gametype !== 'CPU vs CPU') ||
                             (this.currentPlayer == 2 && customId >= 51 && customId <= 72 && this.gametype === 'Player vs Player')) {
@@ -385,13 +394,13 @@ XMLscene.prototype.logPicking = function ()
                     } else if ((Move = this.convertIDtoMove(customId)) !== -1 && this.waitForProlog === 0) {
                         console.log("Player " + this.currentPlayer + " placed the piece in [" + Move[0] + ", " +
                             Move[1] + "].");
-                        
-                      	this.makeRequest(0, Move); 
-                        
-                       
+
+                      	this.makeRequest(0, Move);
+
+
                     }
                     else
-                    	console.log('Error: The object you picked is not valid');                   
+                    	console.log('Error: The object you picked is not valid');
                 	}
 				}
 			}
@@ -403,7 +412,7 @@ XMLscene.prototype.logPicking = function ()
 /**
 *convertIDtoMove
 *@brief - converts an ID of a pickable object to the corresponding Move
-*@param ID - ID of the pickable object 
+*@param ID - ID of the pickable object
 */
 XMLscene.prototype.convertIDtoMove=function(ID){
 	if(ID <= 0)
@@ -425,7 +434,7 @@ XMLscene.prototype.convertIDtoMove=function(ID){
 *makeRequest
 *@brief - Sends a message to Prolog
 *@param requestString -Message that is going to be sent to PROLOG
-*@param Move - Move in the form [Edge, Row] that the user intends to make 
+*@param Move - Move in the form [Edge, Row] that the user intends to make
 */
 XMLscene.prototype.getPrologRequest = function(requestString, onSuccess, onError, port){
 			var requestPort = port || 8081
@@ -443,7 +452,7 @@ XMLscene.prototype.getPrologRequest = function(requestString, onSuccess, onError
 *makeRequest
 *@brief - Makes a Request to Prolog with the paramethers of a Move that the user intends to make
 *@param cpu - 1 if this move corresponds to a cpu move, false otherwise
-*@param Move - Move in the form [Edge, Row] that the user intends to make 
+*@param Move - Move in the form [Edge, Row] that the user intends to make
 */
 XMLscene.prototype.makeRequest = function(cpu, Move)
 {
@@ -563,7 +572,8 @@ XMLscene.prototype.nextStage = function(response){
 	
 	this.Animation(MoveEdge, MoveRow,this.currentlyPicked);
 
-	
+
+
 }
 
 
@@ -576,8 +586,10 @@ XMLscene.prototype.incrementScore = function (player) {
     this.score[player-1]++;
 }
 
+
 XMLscene.prototype.Animation = function (MoveEdge, MoveRow, ballID){
 	
+
 	if(MoveEdge !== -1 && MoveRow !== -1){
 		
 		var ballCoordinates=this.ballCoordinates(ballID);
@@ -600,8 +612,10 @@ XMLscene.prototype.Animation = function (MoveEdge, MoveRow, ballID){
 								[0, 0, 0],
 								[6,6,0]
 							];
+
 		var newAnimation = new LinearAnimation(this, 4, controlPoints, this.mainTime);*/
 	
+
 		this.objectPicked.addAnimation(newAnimation);
 		this.LinearAnimation(MoveEdge, MoveRow, ballID);
 
@@ -659,9 +673,11 @@ XMLscene.prototype.LinearAnimation = function(MoveEdge, MoveRow, ballID){
 
 	var piecesToBeMoved = [];
 
+
 	var controlPoint;			
+
 	if(MoveEdge === 'left'){
-		var Line = Board[MoveRow-1];		
+		var Line = Board[MoveRow-1];
 		var i =0;
 		newBoard[MoveRow-1][i]=ballID;
 		while(Line[i] !== 0 && i<7){
@@ -672,18 +688,20 @@ XMLscene.prototype.LinearAnimation = function(MoveEdge, MoveRow, ballID){
 		}
 		if(i>0)
 			newBoard[MoveRow-1][i]=Line[i-1];
+
 		
 		controlPoint = [4.15,0,0];
 		
 
+
 	}
 	else if(MoveEdge === 'right'){
-		var Line = Board[MoveRow-1];		
+		var Line = Board[MoveRow-1];
 		var i =6;
 		newBoard[MoveRow-1][i]=ballID;
 		while(Line[i] !== 0 && i>=0){
 			piecesToBeMoved.push(Line[i]);
-			if(i !== 6)		
+			if(i !== 6)
 				newBoard[MoveRow-1][i]=Line[i+1];
 			i--;
 		}
@@ -691,7 +709,7 @@ XMLscene.prototype.LinearAnimation = function(MoveEdge, MoveRow, ballID){
 			newBoard[MoveRow-1][i]=Line[i+1];
 		controlPoint = [-4.15,0,0];
 	}
-	else if(MoveEdge === 'up'){		
+	else if(MoveEdge === 'up'){
 		var i = 0;
 		newBoard[i][MoveRow-1]=ballID;
 		while(Board[i][MoveRow-1] !== 0 && i<7){
@@ -702,10 +720,12 @@ XMLscene.prototype.LinearAnimation = function(MoveEdge, MoveRow, ballID){
 		}
 		if(i>0)
 			newBoard[i][MoveRow-1]=Board[i-1][MoveRow-1];
+
 		
 		controlPoint= [0,0,4.15];
+
 	}
-	else if(MoveEdge === 'down'){		
+	else if(MoveEdge === 'down'){
 		var i = 6;
 		newBoard[i][MoveRow-1]=ballID;
 		while(Board[i][MoveRow-1] !== 0 && i>=0){
@@ -717,8 +737,10 @@ XMLscene.prototype.LinearAnimation = function(MoveEdge, MoveRow, ballID){
 
 		if(i<6)
 			newBoard[i][MoveRow-1]=Board[i+1][MoveRow-1];
+
 		
 		controlPoint = 	[0,0,-4.15];
+
 	}
 
 	this.BoardStack.push(newBoard);
