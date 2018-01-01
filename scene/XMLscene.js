@@ -59,7 +59,7 @@ function XMLscene(interface) {
     this.currentAmbient="wood";
     this.shaderColor = [255, 215, 0];
 
-    this.pickableIDtoNode=[];
+    this.pickableIDtoNode=[]; //array that makes each indice correspond to the GraphNode ball with that indice
     this.movieOngoing = false;
     this.movieTime = 0;
     this.movieTotalTime = 0;
